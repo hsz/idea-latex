@@ -1,0 +1,71 @@
+<idea-plugin version="2">
+    <id>mobi.hsz.idea.latex</id>
+    <name>LaTeX plugin for IntelliJ IDEA</name>
+    <version>0.1</version>
+    <vendor email="jakub@hsz.mobi" url="http://www.hsz.mobi">hsz</vendor>
+
+    <description><![CDATA[
+      <h1>LaTeX plugin for IntelliJ IDEA</h1>
+      <br/>
+
+      <a href="https://github.com/hsz/idea-latex">GitHub</a> |
+      <a href="https://github.com/hsz/idea-latex/issues">Issues</a>
+      <br/>
+      <br/>
+
+      <b>Features</b>
+      <ul>
+        <li>None</li>
+      </ul>
+
+      <b><i>Feature requests:</i></b>
+      <ul>
+        <li><i>Syntax coloring</i></li>
+      </ul>
+
+      <br/>
+      <br/>
+
+      <i>Compiled with Java 1.6</i>
+      <br/>
+      <br/>
+
+    ]]></description>
+
+    <change-notes><![CDATA[
+      Version 0.1
+      <ul>
+        <li>none</li>
+      </ul>
+    ]]>
+    </change-notes>
+
+    <idea-version since-build="123.72"/>
+    <depends>com.intellij.modules.lang</depends>
+    <resource-bundle>messages.LatexBundle</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+        <additionalTextAttributes
+                file="colorSchemes/LatexDefault.xml"
+                scheme="Default"/>
+        <additionalTextAttributes
+                file="colorSchemes/LatexDarcula.xml"
+                scheme="Darcula"/>
+
+        <fileTypeFactory
+                implementation="mobi.hsz.idea.latex.file.LatexFileTypeFactory"/>
+
+    </extensions>
+
+    <application-components>
+        <!-- Add your application components here -->
+    </application-components>
+
+    <project-components>
+        <!-- Add your project components here -->
+    </project-components>
+
+    <actions>
+    </actions>
+</idea-plugin>
