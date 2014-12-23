@@ -10,4 +10,9 @@
             <option name="FOREGROUND" value="8A4A0B" />
         </value>
     </option>
+    <option name="LATEX.BRACKET">
+        <value>
+            <option name="FOREGROUND" value="145680" />
+        </value>
+    </option>
 </list>

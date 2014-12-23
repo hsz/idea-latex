@@ -58,6 +58,13 @@ public class LatexParserDefinition implements ParserDefinition {
     /** Latex instruction started with \ */
     public static final TokenSet INSTRUCTIONS = TokenSet.create(LatexTypes.INSTRUCTION);
 
+    /** All brackets: braces, brackets, parenthesis */
+    public static final TokenSet BRACKETS = TokenSet.create(
+            LatexTypes.LBRACE, LatexTypes.RBRACE,
+            LatexTypes.LBRACKET, LatexTypes.RBRACKET,
+            LatexTypes.LPAREN, LatexTypes.RPAREN
+    );
+
     /** Element type of the node describing a file in the specified language. */
     public static final IFileElementType FILE = new IFileElementType(Language.findInstance(LatexLanguage.class));
 
@@ -129,8 +136,19 @@ public class LatexParserDefinition implements ParserDefinition {
      *
      * @return the set of instruction token types.
      */
+    @NotNull
     public TokenSet getInstructionTokens() {
         return INSTRUCTIONS;
+    }
+
+    /**
+     * Returns the set of token types which are treated as brackets by the PSI builder: [](){}
+     *
+     * @return the set of instruction token types.
+     */
+    @NotNull
+    public TokenSet getBracketTokens() {
+        return BRACKETS;
     }
 
     /**

@@ -6,7 +6,7 @@
   psiClassPrefix            = "Ignore"
   psiImplClassSuffix        = "Impl"
   psiPackage                = "mobi.hsz.idea.latex.psi"
-//  psiImplPackage            = "mobi.hsz.idea.latex.psi.impl"
+  psiImplPackage            = "mobi.hsz.idea.latex.psi.impl"
 
   elementTypeHolderClass    = "mobi.hsz.idea.latex.psi.LatexTypes"
   elementTypeClass          = "mobi.hsz.idea.latex.psi.LatexElementType"
@@ -16,6 +16,14 @@
     CRLF                    = "regexp:[\s\r\n]+"
     INSTRUCTION             = "regexp:\\[a-zA-Z]+"
     COMMENT                 = "regexp:%.*"
+
+    LBRACE                  = "{"
+    RBRACE                  = "}"
+    LBRACKET                = "["
+    RBRACKET                = "]"
+    LPAREN                  = "("
+    RPAREN                  = ")"
+
 //    SECTION                 = "regexp:##.*"
 //    BRACKET_LEFT            = "regexp:(?!\\\[)\["
 //    BRACKET_RIGHT           = "regexp:(?!\\\])\]"

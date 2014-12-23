@@ -59,6 +59,9 @@
         <fileTypeFactory
                 implementation="mobi.hsz.idea.latex.file.LatexFileTypeFactory"/>
 
+        <lang.braceMatcher
+            implementationClass="mobi.hsz.idea.latex.lang.LatexBraceMatcher"
+            language="LaTeX"/>
         <lang.commenter
             implementationClass="mobi.hsz.idea.latex.lang.LatexCommenter"
             language="LaTeX"/>

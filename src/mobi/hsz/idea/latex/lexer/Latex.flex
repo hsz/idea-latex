@@ -34,10 +34,17 @@ COMMENT         = %[^\r\n]*
 
 %%
 <YYINITIAL> {
-    {WHITE_SPACE}+      { yybegin(YYINITIAL); return CRLF; }
+    {WHITE_SPACE}+      { return WHITE_SPACE; }
 
     {INSTRUCTION}       { return INSTRUCTION; }
     {COMMENT}           { return COMMENT; }
 
-    [^]                 { return BAD_CHARACTER; }
-}
+    "("                 { return LPAREN; }
+    ")"                 { return RPAREN; }
+    "["                 { return LBRACKET; }
+    "]"                 { return RBRACKET; }
+    "{"                 { return LBRACE; }
+    "}"                 { return RBRACE; }
+
+    [^]                 { yybegin(YYINITIAL); return BAD_CHARACTER; }
+} // <YYINITIAL>

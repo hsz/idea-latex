@@ -33,6 +33,7 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.util.containers.ContainerUtil;
 import mobi.hsz.idea.latex.lang.LatexParserDefinition;
 import mobi.hsz.idea.latex.lexer.LatexLexerAdapter;
+import mobi.hsz.idea.latex.psi.LatexTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,8 +51,9 @@ public class LatexHighlighter extends SyntaxHighlighterBase {
 
     /** Binds parser definitions with highlighter colors. */
     static {
-        SyntaxHighlighterBase.fillMap(ATTRIBUTES, LatexParserDefinition.COMMENTS, LatexHighlighterColors.COMMENT_ATTR_KEY);
-        SyntaxHighlighterBase.fillMap(ATTRIBUTES, LatexParserDefinition.INSTRUCTIONS, LatexHighlighterColors.INSTRUCTION_ATTR_KEY);
+        SyntaxHighlighterBase.fillMap(ATTRIBUTES, LatexParserDefinition.COMMENTS, LatexHighlighterColors.COMMENT);
+        SyntaxHighlighterBase.fillMap(ATTRIBUTES, LatexParserDefinition.INSTRUCTIONS, LatexHighlighterColors.INSTRUCTION);
+        SyntaxHighlighterBase.fillMap(ATTRIBUTES, LatexParserDefinition.BRACKETS, LatexHighlighterColors.BRACKET);
     }
 
     /** Current project. */
