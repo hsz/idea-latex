@@ -1,0 +1,31 @@
+{
+  parserClass               = "mobi.hsz.idea.latex.parser.LatexParser"
+
+  extends                   = "mobi.hsz.idea.latex.psi.LatexElementImpl"
+
+  psiClassPrefix            = "Ignore"
+  psiImplClassSuffix        = "Impl"
+  psiPackage                = "mobi.hsz.idea.latex.psi"
+//  psiImplPackage            = "mobi.hsz.idea.latex.psi.impl"
+
+  elementTypeHolderClass    = "mobi.hsz.idea.latex.psi.LatexTypes"
+  elementTypeClass          = "mobi.hsz.idea.latex.psi.LatexElementType"
+  tokenTypeClass            = "mobi.hsz.idea.latex.psi.LatexTokenType"
+
+  tokens = [
+    CRLF                    = "regexp:[\s\r\n]+"
+    INSTRUCTION             = "regexp:\\[a-zA-Z]+"
+    COMMENT                 = "regexp:%.*"
+//    SECTION                 = "regexp:##.*"
+//    BRACKET_LEFT            = "regexp:(?!\\\[)\["
+//    BRACKET_RIGHT           = "regexp:(?!\\\])\]"
+//    SLASH                   = "/"
+//    VALUE                   = "regexp:(?![!#\s])(?![\[\]])(?:(?:\\[\[\]])|(?:\/\/)|[^\[\]\/\s])+"
+  ]
+
+//  mixin("ENTRY")            = "mobi.hsz.idea.gitignore.psi.impl.IgnoreEntryExtImpl"
+//  name("ENTRY.*")           = "entry"
+}
+
+latexFile               ::= item_ *
+private item_           ::= INSTRUCTION | COMMENT | CRLF

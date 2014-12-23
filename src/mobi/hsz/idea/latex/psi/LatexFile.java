@@ -22,27 +22,49 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.file;
+package mobi.hsz.idea.latex.psi;
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
+import com.intellij.extapi.psi.PsiFileBase;
+import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.psi.FileViewProvider;
+import mobi.hsz.idea.latex.file.LatexFileType;
 import mobi.hsz.idea.latex.lang.LatexLanguage;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Class that assigns file types with languages.
+ * Base plugin file.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class LatexFileTypeFactory extends FileTypeFactory {
+public class LatexFile extends PsiFileBase {
+    /** Current file type. */
+    private final LatexFileType fileType;
+
+    /** Builds a new instance of {@link LatexFile}. */
+    public LatexFile(@NotNull FileViewProvider viewProvider) {
+        super(viewProvider, LatexLanguage.INSTANCE);
+        fileType = LatexFileType.INSTANCE;
+    }
+
     /**
-     * Assigns file types with languages.
+     * Returns the file type for the file.
      *
-     * @param consumer file types consumer
+     * @return the file type instance.
+     */
+    @NotNull
+    @Override
+    public FileType getFileType() {
+        return fileType;
+    }
+
+    /**
+     * Returns @{link IgnoreFileType} string interpretation.
+     *
+     * @return string interpretation
      */
     @Override
-    public void createFileTypes(@NotNull FileTypeConsumer consumer) {
-        consumer.consume(LatexFileType.INSTANCE, LatexLanguage.EXTENSION);
+    public String toString() {
+        return fileType.getName();
     }
 }

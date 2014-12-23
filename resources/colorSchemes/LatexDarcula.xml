@@ -5,4 +5,9 @@
             <option name="FOREGROUND" value="808080" />
         </value>
     </option>
+    <option name="LATEX.INSTRUCTION">
+        <value>
+            <option name="FOREGROUND" value="ED7600" />
+        </value>
+    </option>
 </list>

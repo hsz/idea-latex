@@ -22,27 +22,23 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.file;
+package mobi.hsz.idea.latex.psi;
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
-import mobi.hsz.idea.latex.lang.LatexLanguage;
+import com.intellij.lang.Language;
+import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * Class that assigns file types with languages.
+ * Latex element type.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class LatexFileTypeFactory extends FileTypeFactory {
-    /**
-     * Assigns file types with languages.
-     *
-     * @param consumer file types consumer
-     */
-    @Override
-    public void createFileTypes(@NotNull FileTypeConsumer consumer) {
-        consumer.consume(LatexFileType.INSTANCE, LatexLanguage.EXTENSION);
+public class LatexElementType extends IElementType {
+    /** Build a new instance of @{link IgnoreElementType} */
+    public LatexElementType(@NotNull @NonNls String debugName, @Nullable Language language) {
+        super(debugName, language);
     }
 }

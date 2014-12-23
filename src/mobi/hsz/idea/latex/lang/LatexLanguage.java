@@ -22,27 +22,40 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.file;
+package mobi.hsz.idea.latex.lang;
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
-import mobi.hsz.idea.latex.lang.LatexLanguage;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.lang.Language;
+import org.jetbrains.annotations.NonNls;
 
 /**
- * Class that assigns file types with languages.
+ * LaTeX {@link com.intellij.lang.Language} definition.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class LatexFileTypeFactory extends FileTypeFactory {
+public class LatexLanguage extends Language {
+
     /**
-     * Assigns file types with languages.
-     *
-     * @param consumer file types consumer
+     * The {@link LatexLanguage} instance.
      */
-    @Override
-    public void createFileTypes(@NotNull FileTypeConsumer consumer) {
-        consumer.consume(LatexFileType.INSTANCE, LatexLanguage.EXTENSION);
+    public static final LatexLanguage INSTANCE = new LatexLanguage();
+
+    /**
+     * The LaTeX language name.
+     */
+    @NonNls
+    public static final String NAME = "LaTeX";
+
+    /**
+     * The LaTeX file extension suffix.
+     */
+    @NonNls
+    public static final String EXTENSION = "tex";
+
+    /**
+     * {@link LatexLanguage} is a non-instantiable static class.
+     */
+    private LatexLanguage() {
+        super(NAME);
     }
 }

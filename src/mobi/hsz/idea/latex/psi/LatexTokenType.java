@@ -22,27 +22,37 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.file;
+package mobi.hsz.idea.latex.psi;
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
+import com.intellij.psi.tree.IElementType;
+import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.lang.LatexLanguage;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Class that assigns file types with languages.
+ * Token type definition.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class LatexFileTypeFactory extends FileTypeFactory {
+public class LatexTokenType extends IElementType {
+    /** Token debug name. */
+    private final String debugName;
+
+    /** Builds a new instance of @{link IgnoreTokenType}. */
+    public LatexTokenType(@NotNull @NonNls String debugName) {
+        super(debugName, LatexLanguage.INSTANCE);
+        this.debugName = debugName;
+    }
+
     /**
-     * Assigns file types with languages.
+     * String interpretation of the token type.
      *
-     * @param consumer file types consumer
+     * @return string representation
      */
     @Override
-    public void createFileTypes(@NotNull FileTypeConsumer consumer) {
-        consumer.consume(LatexFileType.INSTANCE, LatexLanguage.EXTENSION);
+    public String toString() {
+        return LatexBundle.messageOrDefault("tokenType." + debugName, getLanguage().getDisplayName() + "TokenType." + super.toString());
     }
 }

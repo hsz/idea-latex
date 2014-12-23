@@ -53,8 +53,18 @@
                 file="colorSchemes/LatexDarcula.xml"
                 scheme="Darcula"/>
 
+        <fileEditorProvider
+                implementation="mobi.hsz.idea.latex.editor.LatexFileEditorProvider"/>
+
         <fileTypeFactory
                 implementation="mobi.hsz.idea.latex.file.LatexFileTypeFactory"/>
+
+        <lang.commenter
+            implementationClass="mobi.hsz.idea.latex.lang.LatexCommenter"
+            language="LaTeX"/>
+        <lang.syntaxHighlighterFactory
+            implementationClass="mobi.hsz.idea.latex.highlighter.LatexHighlighterFactory"
+            key="LaTeX"/>
 
     </extensions>
 

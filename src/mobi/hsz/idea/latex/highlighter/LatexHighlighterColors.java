@@ -22,27 +22,25 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.file;
+package mobi.hsz.idea.latex.highlighter;
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
-import mobi.hsz.idea.latex.lang.LatexLanguage;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
+import com.intellij.openapi.editor.colors.TextAttributesKey;
 
 /**
- * Class that assigns file types with languages.
+ * Contains highlighter attributes definitions.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.1
+ * @since 0.2.2
  */
-public class LatexFileTypeFactory extends FileTypeFactory {
-    /**
-     * Assigns file types with languages.
-     *
-     * @param consumer file types consumer
-     */
-    @Override
-    public void createFileTypes(@NotNull FileTypeConsumer consumer) {
-        consumer.consume(LatexFileType.INSTANCE, LatexLanguage.EXTENSION);
-    }
+public class LatexHighlighterColors {
+
+    /** Default style for regular comment started with # */
+    public static final TextAttributesKey COMMENT_ATTR_KEY = TextAttributesKey.createTextAttributesKey("LATEX.COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
+
+    /** Default style for Latex instruction started with \ */
+    public static final TextAttributesKey INSTRUCTION_ATTR_KEY = TextAttributesKey.createTextAttributesKey("LATEX.INSTRUCTION", DefaultLanguageHighlighterColors.FUNCTION_CALL);
+
+
+
 }

@@ -25,7 +25,7 @@
 package mobi.hsz.idea.latex.file;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import mobi.hsz.idea.latex.LatexLanguage;
+import mobi.hsz.idea.latex.lang.LatexLanguage;
 import mobi.hsz.idea.latex.util.Icons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

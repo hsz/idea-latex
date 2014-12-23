@@ -22,27 +22,27 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.file;
+package mobi.hsz.idea.latex.lexer;
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
-import mobi.hsz.idea.latex.lang.LatexLanguage;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.lexer.FlexAdapter;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * Class that assigns file types with languages.
+ * Definition of {@link FlexAdapter}.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class LatexFileTypeFactory extends FileTypeFactory {
-    /**
-     * Assigns file types with languages.
-     *
-     * @param consumer file types consumer
-     */
-    @Override
-    public void createFileTypes(@NotNull FileTypeConsumer consumer) {
-        consumer.consume(LatexFileType.INSTANCE, LatexLanguage.EXTENSION);
+public class LatexLexerAdapter extends FlexAdapter {
+    /** Builds a new instance of {@link LatexLexerAdapter}. */
+    public LatexLexerAdapter(Project project) {
+        this(project, null);
+    }
+
+    /** Builds a new instance of {@link LatexLexerAdapter}. */
+    public LatexLexerAdapter(Project project, @Nullable VirtualFile virtualFile) {
+        super(new LatexLexer());
     }
 }
