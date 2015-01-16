@@ -9,18 +9,20 @@
       <br/>
 
       <a href="https://github.com/hsz/idea-latex">GitHub</a> |
-      <a href="https://github.com/hsz/idea-latex/issues">Issues</a>
+      <a href="https://github.com/hsz/idea-latex/issues">Issues</a> | Donate (
+      <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V6QCW4DR2XWY4">PayPal</a> or
+      <a href="https://blockchain.info/address/1BUbqKrUBmGGSnMybzGCsJyAWJbh4CcwE1">BTC</a> )
       <br/>
       <br/>
 
       <b>Features</b>
       <ul>
-        <li>None</li>
+        <li>Basic syntax highlighting</li>
       </ul>
 
       <b><i>Feature requests:</i></b>
       <ul>
-        <li><i>Syntax coloring</i></li>
+        <li><i>many</i></li>
       </ul>
 
       <br/>
@@ -35,7 +37,7 @@
     <change-notes><![CDATA[
       Version 0.1
       <ul>
-        <li>none</li>
+        <li>Basic syntax highlighting</li>
       </ul>
     ]]>
     </change-notes>
