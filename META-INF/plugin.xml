@@ -60,14 +60,14 @@
                 implementation="mobi.hsz.idea.latex.file.LatexFileTypeFactory"/>
 
         <lang.braceMatcher
-            implementationClass="mobi.hsz.idea.latex.lang.LatexBraceMatcher"
-            language="LaTeX"/>
+                implementationClass="mobi.hsz.idea.latex.lang.LatexBraceMatcher"
+                language="LaTeX"/>
         <lang.commenter
-            implementationClass="mobi.hsz.idea.latex.lang.LatexCommenter"
-            language="LaTeX"/>
+                implementationClass="mobi.hsz.idea.latex.lang.LatexCommenter"
+                language="LaTeX"/>
         <lang.syntaxHighlighterFactory
-            implementationClass="mobi.hsz.idea.latex.highlighter.LatexHighlighterFactory"
-            key="LaTeX"/>
+                implementationClass="mobi.hsz.idea.latex.highlighter.LatexHighlighterFactory"
+                key="LaTeX"/>
 
     </extensions>
 
