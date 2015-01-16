@@ -42,4 +42,7 @@ public class LatexHighlighterColors {
 
     /** Default style for bracket: [](){} */
     public static final TextAttributesKey BRACKET = TextAttributesKey.createTextAttributesKey("LATEX.BRACKET", DefaultLanguageHighlighterColors.BRACKETS);
+
+    /** Default style for Latex instruction's argument */
+    public static final TextAttributesKey ARGUMENT = TextAttributesKey.createTextAttributesKey("LATEX.ARGUMENT", DefaultLanguageHighlighterColors.PARAMETER);
 }

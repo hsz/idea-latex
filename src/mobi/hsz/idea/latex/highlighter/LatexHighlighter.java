@@ -53,6 +53,7 @@ public class LatexHighlighter extends SyntaxHighlighterBase {
         SyntaxHighlighterBase.fillMap(ATTRIBUTES, LatexParserDefinition.COMMENTS, LatexHighlighterColors.COMMENT);
         SyntaxHighlighterBase.fillMap(ATTRIBUTES, LatexParserDefinition.INSTRUCTIONS, LatexHighlighterColors.INSTRUCTION);
         SyntaxHighlighterBase.fillMap(ATTRIBUTES, LatexParserDefinition.BRACKETS, LatexHighlighterColors.BRACKET);
+        SyntaxHighlighterBase.fillMap(ATTRIBUTES, LatexParserDefinition.ARGUMENTS, LatexHighlighterColors.ARGUMENT);
     }
 
     /** Current project. */

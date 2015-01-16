@@ -1,6 +1,6 @@
 <idea-plugin version="2">
     <id>mobi.hsz.idea.latex</id>
-    <name>LaTeX plugin for IntelliJ IDEA</name>
+    <name>LaTeX</name>
     <version>0.1</version>
     <vendor email="jakub@hsz.mobi" url="http://www.hsz.mobi">hsz</vendor>
 

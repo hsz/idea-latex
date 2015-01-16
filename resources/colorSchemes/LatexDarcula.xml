@@ -10,6 +10,11 @@
             <option name="FOREGROUND" value="ED7600" />
         </value>
     </option>
+    <option name="LATEX.ARGUMENT">
+        <value>
+            <option name="FOREGROUND" value="668AA1" />
+        </value>
+    </option>
     <option name="LATEX.BRACKET">
         <value>
             <option name="FOREGROUND" value="365A71" />

@@ -58,6 +58,9 @@ public class LatexParserDefinition implements ParserDefinition {
     /** Latex instruction started with \ */
     public static final TokenSet INSTRUCTIONS = TokenSet.create(LatexTypes.INSTRUCTION);
 
+    /** Latex instruction's argument */
+    public static final TokenSet ARGUMENTS = TokenSet.create(LatexTypes.ARGUMENT);
+
     /** All brackets: braces, brackets, parenthesis */
     public static final TokenSet BRACKETS = TokenSet.create(
             LatexTypes.LBRACE, LatexTypes.RBRACE,

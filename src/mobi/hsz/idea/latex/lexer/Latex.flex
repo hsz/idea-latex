@@ -23,12 +23,15 @@ import static com.intellij.psi.TokenType.*;
 %type IElementType
 %unicode
 
-CRLF            = "\r"|"\n"|"\r\n"
+EOL             = "\r"|"\n"|"\r\n"
 LINE_WS         = [\ \t\f]
-WHITE_SPACE     = ({LINE_WS}*{CRLF}+)+
+WHITE_SPACE     = ({LINE_WS}|{EOL})+
 
 INSTRUCTION     = \\[a-zA-Z]+
-COMMENT         = %[^\r\n]*
+ARGUMENT        = [\w ]+
+COMMENT         = %.*
+SPECIAL         = [\S]
+CRLF            = [\s\r\n]+
 
 %state IN_ENTRY
 
@@ -36,15 +39,22 @@ COMMENT         = %[^\r\n]*
 <YYINITIAL> {
     {WHITE_SPACE}+      { return WHITE_SPACE; }
 
-    {INSTRUCTION}       { return INSTRUCTION; }
-    {COMMENT}           { return COMMENT; }
-
-    "("                 { return LPAREN; }
-    ")"                 { return RPAREN; }
-    "["                 { return LBRACKET; }
-    "]"                 { return RBRACKET; }
     "{"                 { return LBRACE; }
     "}"                 { return RBRACE; }
+    "["                 { return LBRACKET; }
+    "]"                 { return RBRACKET; }
+    "("                 { return LPAREN; }
+    ")"                 { return RPAREN; }
+    ","                 { return COMMA; }
+    ":"                 { return COLON; }
+    "*"                 { return ASTERISK; }
+    "\\\\"              { return LINE_BREAK; }
+
+    {INSTRUCTION}       { return INSTRUCTION; }
+    {ARGUMENT}          { return ARGUMENT; }
+    {COMMENT}           { return COMMENT; }
+    {SPECIAL}           { return SPECIAL; }
+    {CRLF}              { return CRLF; }
 
     [^]                 { yybegin(YYINITIAL); return BAD_CHARACTER; }
 } // <YYINITIAL>
