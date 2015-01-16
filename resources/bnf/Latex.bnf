@@ -3,7 +3,7 @@
 
   extends                   = "mobi.hsz.idea.latex.psi.LatexElementImpl"
 
-  psiClassPrefix            = "Ignore"
+  psiClassPrefix            = "Latex"
   psiImplClassSuffix        = "Impl"
   psiPackage                = "mobi.hsz.idea.latex.psi"
   psiImplPackage            = "mobi.hsz.idea.latex.psi.impl"
@@ -13,27 +13,52 @@
   tokenTypeClass            = "mobi.hsz.idea.latex.psi.LatexTokenType"
 
   tokens = [
-    CRLF                    = "regexp:[\s\r\n]+"
-    INSTRUCTION             = "regexp:\\[a-zA-Z]+"
-    COMMENT                 = "regexp:%.*"
-
     LBRACE                  = "{"
     RBRACE                  = "}"
     LBRACKET                = "["
     RBRACKET                = "]"
     LPAREN                  = "("
     RPAREN                  = ")"
+    COMMA                   = ","
+    COLON                   = ":"
+    ASTERISK                = "*"
+    LINE_BREAK              = "\\"
 
-//    SECTION                 = "regexp:##.*"
-//    BRACKET_LEFT            = "regexp:(?!\\\[)\["
-//    BRACKET_RIGHT           = "regexp:(?!\\\])\]"
-//    SLASH                   = "/"
-//    VALUE                   = "regexp:(?![!#\s])(?![\[\]])(?:(?:\\[\[\]])|(?:\/\/)|[^\[\]\/\s])+"
+
+    INSTRUCTION             = "regexp:\\[a-zA-Z]+"
+    ARGUMENT                = "regexp:\b[\p{L}\w ]+\b"
+    COMMENT                 = "regexp:%.*"
+
+    SPECIAL                 = "regexp:[\S]"
+    CRLF                    = "regexp:[\s\r\n]+"
   ]
 
-//  mixin("ENTRY")            = "mobi.hsz.idea.gitignore.psi.impl.IgnoreEntryExtImpl"
-//  name("ENTRY.*")           = "entry"
+//  extends(".*expr")         = expr
+//  mixin("ENTRY")            = "mobi.hsz.idea.latex.psi.impl.LatexEntryExtImpl"
+//  name(".*expr")           = "entry"
 }
 
-latexFile               ::= item_ *
-private item_           ::= INSTRUCTION | COMMENT | CRLF
+
+latexFile                       ::= item_ *
+private item_                   ::= !<<eof>> expr *
+
+private expr                    ::= text_expr
+                                  | group_expr
+                                  | argument_expr
+                                  | instruction_expr
+                                  | special_expr
+private expr_inside             ::= argument_expr
+                                  | group_expr +
+                                  | instruction_expr
+                                  | special_expr
+
+private argument_expr           ::= ARGUMENT (special_expr + ( ARGUMENT | instruction_expr ) ) * { pin(".*") = 1 }
+private group_expr              ::= expr_list_bracket | expr_list_brace | expr_list_paren
+private instruction_expr        ::= INSTRUCTION ASTERISK ? group_expr *
+private text_expr               ::= ( special_expr * ARGUMENT special_expr * CRLF * ) +
+private special_expr            ::= SPECIAL | COLON | COMMA | LINE_BREAK | CRLF
+
+private meta expr_list_bracket  ::= LBRACKET <<sequence expr_inside special_expr>> ? RBRACKET { pin(".*") = 1 }
+private meta expr_list_brace    ::= LBRACE   <<sequence expr_inside special_expr>> ? RBRACE   { pin(".*") = 1 }
+private meta expr_list_paren    ::= LPAREN   <<sequence expr_inside special_expr>> ? RPAREN   { pin(".*") = 1 }
+private meta sequence           ::= <<p>> + (<<q>> <<p>>) * { pin(".*") = 1 }

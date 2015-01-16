@@ -41,7 +41,7 @@
                 <pathelement location="${grammar-kit.jar}"/>
             </classpath>
             <arg value="${project.gen}"/>
-            <arg value="${project.resources}/bnf/Gitignore.bnf"/>
+            <arg value="${project.resources}/bnf/Latex.bnf"/>
         </java>
     </target>
 
