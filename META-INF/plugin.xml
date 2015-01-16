@@ -65,6 +65,9 @@
         <lang.commenter
                 implementationClass="mobi.hsz.idea.latex.lang.LatexCommenter"
                 language="LaTeX"/>
+        <lang.parserDefinition
+                implementationClass="mobi.hsz.idea.latex.lang.LatexParserDefinition"
+                language="LaTeX"/>
         <lang.syntaxHighlighterFactory
                 implementationClass="mobi.hsz.idea.latex.highlighter.LatexHighlighterFactory"
                 key="LaTeX"/>

@@ -135,6 +135,16 @@ public class LatexParserDefinition implements ParserDefinition {
     }
 
     /**
+     * Returns the set of token types which are treated as argument by the PSI builder.
+     *
+     * @return the set of argument token types.
+     */
+    @NotNull
+    public TokenSet getArgumentTokens() {
+        return ARGUMENTS;
+    }
+
+    /**
      * Returns the set of token types which are treated as instructions by the PSI builder.
      *
      * @return the set of instruction token types.

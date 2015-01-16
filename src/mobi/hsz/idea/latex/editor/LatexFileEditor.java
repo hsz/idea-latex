@@ -27,13 +27,12 @@ package mobi.hsz.idea.latex.editor;
 import com.intellij.codeHighlighting.BackgroundEditorHighlighter;
 import com.intellij.ide.structureView.StructureViewBuilder;
 import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.FileEditorLocation;
-import com.intellij.openapi.fileEditor.FileEditorState;
-import com.intellij.openapi.fileEditor.FileEditorStateLevel;
+import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.fileEditor.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.Key;
+import com.intellij.pom.Navigatable;
 import mobi.hsz.idea.latex.lang.LatexLanguage;
 import mobi.hsz.idea.latex.ui.LatexFileEditorForm;
 import org.jetbrains.annotations.NotNull;
@@ -48,10 +47,7 @@ import java.beans.PropertyChangeListener;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class LatexFileEditor implements FileEditor {
-
-//    private final JBPanel panel = new JBPanel();
-//    private final Editor editor;
+public class LatexFileEditor implements TextEditor {
 
     /** UI form that holds all editor's components. */
     private final LatexFileEditorForm form;
@@ -201,9 +197,7 @@ public class LatexFileEditor implements FileEditor {
     @Override
     public void dispose() {
         Disposer.dispose(this);
-//        if (!editor.isDisposed()) {
-//            EditorFactory.getInstance().releaseEditor(editor);
-//        }
+        form.dispose();
     }
 
     @Nullable
@@ -215,5 +209,22 @@ public class LatexFileEditor implements FileEditor {
     @Override
     public <T> void putUserData(@NotNull Key<T> key, @Nullable T value) {
 
+    }
+
+    @NotNull
+    @Override
+    public Editor getEditor() {
+        return form.getEditor();
+    }
+
+    @Override
+    public boolean canNavigateTo(@NotNull Navigatable navigatable) {
+        return navigatable instanceof OpenFileDescriptor && (((OpenFileDescriptor)navigatable).getOffset() >= 0 ||
+                ((OpenFileDescriptor)navigatable).getLine() != -1);    }
+
+    @Override
+    public void navigateTo(@NotNull Navigatable navigatable) {
+        OpenFileDescriptor d = (OpenFileDescriptor)navigatable;
+        d.navigateIn(getEditor());
     }
 }

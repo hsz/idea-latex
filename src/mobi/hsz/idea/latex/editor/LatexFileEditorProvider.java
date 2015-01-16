@@ -27,9 +27,8 @@ package mobi.hsz.idea.latex.editor;
 import com.intellij.openapi.fileEditor.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.ui.components.JBLabel;
-import mobi.hsz.idea.latex.lang.LatexLanguage;
 import mobi.hsz.idea.latex.file.LatexFileType;
+import mobi.hsz.idea.latex.lang.LatexLanguage;
 import org.jdom.Element;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -68,14 +67,7 @@ public class LatexFileEditorProvider implements FileEditorProvider {
     @NotNull
     @Override
     public FileEditor createEditor(@NotNull Project project, @NotNull VirtualFile file) {
-        LatexFileEditor a = new LatexFileEditor(project, FileDocumentManager.getInstance().getDocument(file));
-
-        FileEditorManager m = FileEditorManager.getInstance(project);
-//        for (FileEditor editor : m.getEditors(file)) {
-            m.addTopComponent(a, new JBLabel("zzzzzzz"));
-//        }
-
-        return a;
+        return new LatexFileEditor(project, FileDocumentManager.getInstance().getDocument(file));
     }
 
     /**

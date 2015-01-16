@@ -28,33 +28,43 @@ LINE_WS         = [\ \t\f]
 WHITE_SPACE     = ({LINE_WS}|{EOL})+
 
 INSTRUCTION     = \\[a-zA-Z]+
-ARGUMENT        = [\w ]+
+ARGUMENT        = [^\ \n\r\t\f]+
 COMMENT         = %.*
 SPECIAL         = [\S]
 CRLF            = [\s\r\n]+
 
-%state IN_ENTRY
+%state IN_GROUP
 
 %%
 <YYINITIAL> {
     {WHITE_SPACE}+      { return WHITE_SPACE; }
 
-    "{"                 { return LBRACE; }
-    "}"                 { return RBRACE; }
-    "["                 { return LBRACKET; }
-    "]"                 { return RBRACKET; }
-    "("                 { return LPAREN; }
-    ")"                 { return RPAREN; }
+    "{"                 { yypushback(1); yybegin(IN_GROUP); }
+    "["                 { yypushback(1); yybegin(IN_GROUP); }
+    "("                 { yypushback(1); yybegin(IN_GROUP); }
+
     ","                 { return COMMA; }
     ":"                 { return COLON; }
     "*"                 { return ASTERISK; }
     "\\\\"              { return LINE_BREAK; }
 
     {INSTRUCTION}       { return INSTRUCTION; }
-    {ARGUMENT}          { return ARGUMENT; }
     {COMMENT}           { return COMMENT; }
     {SPECIAL}           { return SPECIAL; }
     {CRLF}              { return CRLF; }
 
     [^]                 { yybegin(YYINITIAL); return BAD_CHARACTER; }
 } // <YYINITIAL>
+
+<IN_GROUP> {
+    {WHITE_SPACE}+      { yybegin(YYINITIAL); return CRLF; }
+
+    "{"                 { return LBRACE; }
+    "["                 { return LBRACKET; }
+    "("                 { return LPAREN; }
+    "}"                 { return RBRACE; }
+    "]"                 { return RBRACKET; }
+    ")"                 { return RPAREN; }
+
+    {ARGUMENT}          { return ARGUMENT; }
+}
