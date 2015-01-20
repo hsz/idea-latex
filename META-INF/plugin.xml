@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>mobi.hsz.idea.latex</id>
     <name>LaTeX</name>
-    <version>0.1</version>
+    <version>0.1.1</version>
     <vendor email="jakub@hsz.mobi" url="http://www.hsz.mobi">hsz</vendor>
 
     <description><![CDATA[
@@ -17,12 +17,16 @@
 
       <b>Features</b>
       <ul>
-        <li>Basic syntax highlighting</li>
+        <li>Syntax highlighting</li>
       </ul>
 
       <b><i>Feature requests:</i></b>
       <ul>
-        <li><i>many</i></li>
+        <li><i>suggesting functions' names</i></li>
+        <li><i>obtaining installed packages</i></li>
+        <li><i>generating PDF files</i></li>
+        <li><i>preview generated PDF files</i></li>
+        <li><i>and more...</i></li>
       </ul>
 
       <br/>
@@ -35,6 +39,11 @@
     ]]></description>
 
     <change-notes><![CDATA[
+      Version 0.1.1
+      <ul>
+        <li>Fixed syntax highlighting (better BNF and Flex rules)</li>
+      </ul>
+
       Version 0.1
       <ul>
         <li>Basic syntax highlighting</li>

@@ -28,7 +28,6 @@ LINE_WS         = [\ \t\f]
 WHITE_SPACE     = ({LINE_WS}|{EOL})+
 
 INSTRUCTION     = \\[a-zA-Z]+
-//ARGUMENT        = [^\ \n\r\t\f]+
 COMMENT         = %.*
 ARGUMENT        = [^\(\)\{\}\[\]\\,]
 TEXT            = [^\(\)\{\}\[\]\\\%\ \t\f\r\n]|"\\\%"|("\\"{SPECIAL})
