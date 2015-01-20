@@ -28,43 +28,37 @@ LINE_WS         = [\ \t\f]
 WHITE_SPACE     = ({LINE_WS}|{EOL})+
 
 INSTRUCTION     = \\[a-zA-Z]+
-ARGUMENT        = [^\ \n\r\t\f]+
+//ARGUMENT        = [^\ \n\r\t\f]+
 COMMENT         = %.*
-SPECIAL         = [\S]
-CRLF            = [\s\r\n]+
+ARGUMENT        = [^\(\)\{\}\[\]\\,]
+TEXT            = [^\(\)\{\}\[\]\\\%\ \t\f\r\n]|"\\\%"|("\\"{SPECIAL})
+SPECIAL         = "$"|"&"|"#"|"_"|"~"|"^"|"\\"
 
-%state IN_GROUP
+%state IN_ARGUMENT
 
 %%
-<YYINITIAL> {
-    {WHITE_SPACE}+      { return WHITE_SPACE; }
 
-    "{"                 { yypushback(1); yybegin(IN_GROUP); }
-    "["                 { yypushback(1); yybegin(IN_GROUP); }
-    "("                 { yypushback(1); yybegin(IN_GROUP); }
+// brackets
+<YYINITIAL> "("             { yybegin(IN_ARGUMENT); return LPAREN; }
+<YYINITIAL> ")"             { return RPAREN; }
+<YYINITIAL> "["             { yybegin(IN_ARGUMENT); return LBRACKET; }
+<YYINITIAL> "]"             { return RBRACKET; }
+<YYINITIAL> "{"             { yybegin(IN_ARGUMENT); return LBRACE; }
+<YYINITIAL> "}"             { return RBRACE; }
 
-    ","                 { return COMMA; }
-    ":"                 { return COLON; }
-    "*"                 { return ASTERISK; }
-    "\\\\"              { return LINE_BREAK; }
-
-    {INSTRUCTION}       { return INSTRUCTION; }
-    {COMMENT}           { return COMMENT; }
-    {SPECIAL}           { return SPECIAL; }
-    {CRLF}              { return CRLF; }
-
-    [^]                 { yybegin(YYINITIAL); return BAD_CHARACTER; }
-} // <YYINITIAL>
-
-<IN_GROUP> {
-    {WHITE_SPACE}+      { yybegin(YYINITIAL); return CRLF; }
-
-    "{"                 { return LBRACE; }
-    "["                 { return LBRACKET; }
-    "("                 { return LPAREN; }
-    "}"                 { return RBRACE; }
-    "]"                 { return RBRACKET; }
-    ")"                 { return RPAREN; }
-
-    {ARGUMENT}          { return ARGUMENT; }
+<IN_ARGUMENT> {
+    {ARGUMENT}+             { return ARGUMENT; }
+    ","                     { return COMMA; }
+    .                       { yypushback(1); yybegin(YYINITIAL); }
 }
+
+// special characters
+<YYINITIAL> ":"             { return COLON; }
+<YYINITIAL> "*"             { return ASTERISK; }
+<YYINITIAL> "\\\\"          { return LINE_BREAK; }
+<YYINITIAL> {SPECIAL}       { return SPECIAL; }
+
+<YYINITIAL> {WHITE_SPACE}+  { return WHITE_SPACE; }
+<YYINITIAL> {INSTRUCTION}   { return INSTRUCTION; }
+<YYINITIAL> {COMMENT}       { return COMMENT; }
+<YYINITIAL> {TEXT}+         { return TEXT; }

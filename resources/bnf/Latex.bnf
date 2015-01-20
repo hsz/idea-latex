@@ -43,10 +43,11 @@ latexFile                       ::= item_ *
 private item_                   ::= !<<eof>> expr *
 
 private expr                    ::= text_expr
-                                  | group_expr
+                                  | group_expr +
                                   | argument_expr
                                   | instruction_expr
                                   | special_expr
+                                  | TEXT
 private expr_inside             ::= argument_expr
                                   | group_expr +
                                   | instruction_expr
