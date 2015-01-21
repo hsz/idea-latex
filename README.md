@@ -43,6 +43,18 @@ Installation
 Restart IDE.
 
 
+Usage
+-----
+
+Available shortcuts:
+
+| Action name      | Output                                             | Shortcut               |
+| ---------------- | -------------------------------------------------- | ---------------------- |
+| *Bold*           | <pre lang="latex">\textbf(SELECTION)</pre>         | <kbd>Ctrl + L, B</kbd> |
+| *Italic*         | <pre lang="latex">\textit(SELECTION)</pre>         | <kbd>Ctrl + L, I</kbd> |
+| *Underline*      | <pre lang="latex">\underline(SELECTION)</pre>      | <kbd>Ctrl + L, U</kbd> |
+
+
 Changelog
 ---------
 

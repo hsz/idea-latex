@@ -22,24 +22,43 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.util;
+package mobi.hsz.idea.latex.actions.editor;
 
-import com.intellij.openapi.util.IconLoader;
-
-import javax.swing.*;
+import com.intellij.openapi.editor.Editor;
 
 /**
- * {@link Icons} class that holds icon resources.
+ * Factory for creating LaTeX editor's actions.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.1
+ * @since 0.2
  */
-public class Icons {
-    public static final Icon FILE = IconLoader.getIcon("/icons/tex.png");
+public class EditorActionsFactory {
 
-    public static class Editor {
-        public static final Icon BOLD = IconLoader.getIcon("/icons/editor/bold.png");
-        public static final Icon ITALIC = IconLoader.getIcon("/icons/editor/italic.png");
-        public static final Icon UNDERLINE = IconLoader.getIcon("/icons/editor/underline.png");
+    /** LaTeX editor. */
+    private final Editor editor;
+
+    /** Builds a new instance of {@link EditorActionsFactory}. */
+    public EditorActionsFactory(Editor editor) {
+        this.editor = editor;
     }
+
+    /** Creates proper {@link EditorAction} instance basing on given {@link EditorAction.Type}. */
+    public EditorAction create(EditorAction.Type type) {
+        EditorAction action = null;
+
+        switch (type) {
+            case BOLD:
+                action = new BoldAction();
+                break;
+            case ITALIC:
+                action = new ItalicAction();
+                break;
+            case UNDERLINE:
+                action = new UnderlineAction();
+                break;
+        }
+
+        return action;
+    }
+
 }

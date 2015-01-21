@@ -22,24 +22,35 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.util;
+package mobi.hsz.idea.latex.actions.editor;
 
-import com.intellij.openapi.util.IconLoader;
-
-import javax.swing.*;
+import mobi.hsz.idea.latex.LatexBundle;
+import mobi.hsz.idea.latex.util.Icons;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * {@link Icons} class that holds icon resources.
+ * Editor action - underline text.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.1
+ * @since 0.2
  */
-public class Icons {
-    public static final Icon FILE = IconLoader.getIcon("/icons/tex.png");
+public class UnderlineAction extends EditorAction {
 
-    public static class Editor {
-        public static final Icon BOLD = IconLoader.getIcon("/icons/editor/bold.png");
-        public static final Icon ITALIC = IconLoader.getIcon("/icons/editor/italic.png");
-        public static final Icon UNDERLINE = IconLoader.getIcon("/icons/editor/underline.png");
+    /** Builds a new instance of {@link UnderlineAction}. */
+    public UnderlineAction() {
+        super(Type.UNDERLINE, LatexBundle.message("editor.underline"), Icons.Editor.UNDERLINE);
     }
+
+    /**
+     * Underlines currently selected text or places underline instruction in cursor's position.
+     *
+     * @param selection selected text
+     * @return selected text with underline instruction
+     */
+    @NotNull
+    @Override
+    public String replaceAction(@NotNull String selection) {
+        return "\\underline{" + selection + "}";
+    }
+
 }

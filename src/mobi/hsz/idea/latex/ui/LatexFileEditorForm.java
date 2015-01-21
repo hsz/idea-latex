@@ -24,7 +24,6 @@
 
 package mobi.hsz.idea.latex.ui;
 
-import com.intellij.ide.CommonActionsManager;
 import com.intellij.ide.ui.customization.CustomActionsSchema;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.*;
@@ -38,12 +37,17 @@ import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.JBSplitter;
 import com.intellij.util.EditorPopupHandler;
+import mobi.hsz.idea.latex.actions.editor.*;
 import mobi.hsz.idea.latex.file.LatexFileType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+
+import static mobi.hsz.idea.latex.actions.editor.EditorAction.Type.BOLD;
+import static mobi.hsz.idea.latex.actions.editor.EditorAction.Type.ITALIC;
+import static mobi.hsz.idea.latex.actions.editor.EditorAction.Type.UNDERLINE;
 
 /**
  * {@link LatexFileEditorForm} holds whole LaTeX editor UI elements.
@@ -57,6 +61,8 @@ public class LatexFileEditorForm implements Disposable {
 
     /** Current document. */
     private final Document document;
+
+    /** File editor. */
     private final FileEditor fileEditor;
 
     /** Root form element. */
@@ -71,6 +77,7 @@ public class LatexFileEditorForm implements Disposable {
     /** Editor's mouse listener. */
     private EditorMouseListener mouseListener;
 
+    /** Builds a new instance of {@link LatexFileEditorForm}. */
     public LatexFileEditorForm(Project project, Document document, FileEditor fileEditor) {
         this.project = project;
         this.document = document;
@@ -102,12 +109,15 @@ public class LatexFileEditorForm implements Disposable {
      * @return action toolbar
      */
     private ActionToolbar createActionsToolbar() {
-        final CommonActionsManager actionManager = CommonActionsManager.getInstance();
-
         DefaultActionGroup actions = new DefaultActionGroup();
-        actions.add(actionManager.createHelpAction("Be patient - work in progress"));
 
-        final ActionToolbar actionToolbar = ActionManager.getInstance().createActionToolbar(ActionPlaces.UNKNOWN, actions, true);
+        EditorActionsFactory factory = new EditorActionsFactory(editor);
+
+        actions.add(factory.create(BOLD));
+        actions.add(factory.create(ITALIC));
+        actions.add(factory.create(UNDERLINE));
+
+        final ActionToolbar actionToolbar = ActionManager.getInstance().createActionToolbar(ActionPlaces.EDITOR_TAB, actions, true);
         actionToolbar.setMinimumButtonSize(ActionToolbar.NAVBAR_MINIMUM_BUTTON_SIZE);
         return actionToolbar;
     }
@@ -129,10 +139,6 @@ public class LatexFileEditorForm implements Disposable {
         editor.setHeaderComponent(actionToolbar.getComponent());
         editor.addEditorMouseListener(mouseListener);
 
-//        editor.setHeaderComponent(new JBLabel("foo"));
-
-//        EditorColorsScheme colorsScheme = editor.getColorsScheme();
-//        colorsScheme.setColor(EditorColors.CARET_ROW_COLOR, null);
         return editor;
     }
 

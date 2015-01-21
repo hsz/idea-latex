@@ -94,5 +94,16 @@
     </project-components>
 
     <actions>
+        <group id="latex" text="LaTeX">
+            <action id="latex.bold" class="mobi.hsz.idea.latex.actions.editor.BoldAction">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="B" />
+            </action>
+            <action id="latex.italic" class="mobi.hsz.idea.latex.actions.editor.ItalicAction">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="I" />
+            </action>
+            <action id="latex.underline" class="mobi.hsz.idea.latex.actions.editor.UnderlineAction">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="U" />
+            </action>
+        </group>
     </actions>
 </idea-plugin>

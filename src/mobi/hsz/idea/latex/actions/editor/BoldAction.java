@@ -22,24 +22,35 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.util;
+package mobi.hsz.idea.latex.actions.editor;
 
-import com.intellij.openapi.util.IconLoader;
-
-import javax.swing.*;
+import mobi.hsz.idea.latex.LatexBundle;
+import mobi.hsz.idea.latex.util.Icons;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * {@link Icons} class that holds icon resources.
+ * Editor action - bold text.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.1
+ * @since 0.2
  */
-public class Icons {
-    public static final Icon FILE = IconLoader.getIcon("/icons/tex.png");
+public class BoldAction extends EditorAction {
 
-    public static class Editor {
-        public static final Icon BOLD = IconLoader.getIcon("/icons/editor/bold.png");
-        public static final Icon ITALIC = IconLoader.getIcon("/icons/editor/italic.png");
-        public static final Icon UNDERLINE = IconLoader.getIcon("/icons/editor/underline.png");
+    /** Builds a new instance of {@link BoldAction}. */
+    public BoldAction() {
+        super(Type.BOLD, LatexBundle.message("editor.bold"), Icons.Editor.BOLD);
+    }
+
+
+    /**
+     * Bolds currently selected text or places bold instruction in cursor's position.
+     *
+     * @param selection selected text
+     * @return selected text with bold instruction
+     */
+    @NotNull
+    @Override
+    public String replaceAction(@NotNull String selection) {
+        return "\\textbf{" + selection + "}";
     }
 }
