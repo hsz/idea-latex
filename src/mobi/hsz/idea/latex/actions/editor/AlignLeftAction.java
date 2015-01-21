@@ -24,40 +24,33 @@
 
 package mobi.hsz.idea.latex.actions.editor;
 
+import mobi.hsz.idea.latex.LatexBundle;
+import mobi.hsz.idea.latex.util.Icons;
+import org.jetbrains.annotations.NotNull;
+
 /**
- * Factory for creating LaTeX editor's actions.
+ * Editor action - align left.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.2
  */
-public class EditorActionsFactory {
+public class AlignLeftAction extends EditorAction {
 
-    /** Creates proper {@link EditorAction} instance basing on given {@link EditorAction.Type}. */
-    public static EditorAction create(EditorAction.Type type) {
-        EditorAction action = null;
-
-        switch (type) {
-            case BOLD:
-                action = new BoldAction();
-                break;
-            case ITALIC:
-                action = new ItalicAction();
-                break;
-            case UNDERLINE:
-                action = new UnderlineAction();
-                break;
-            case ALIGN_LEFT:
-                action = new AlignLeftAction();
-                break;
-            case ALIGN_CENTER:
-                action = new AlignCenterAction();
-                break;
-            case ALIGN_RIGHT:
-                action = new AlignRightAction();
-                break;
-        }
-
-        return action;
+    /** Builds a new instance of {@link AlignLeftAction}. */
+    public AlignLeftAction() {
+        super(Type.ALIGN_LEFT, LatexBundle.message("editor.align_left"), Icons.Editor.ALIGN_LEFT);
     }
 
+
+    /**
+     * Aligns left currently selected text or places bold instruction in cursor's position.
+     *
+     * @param selection selected text
+     * @return selected text with align left instruction
+     */
+    @NotNull
+    @Override
+    public String replaceAction(@NotNull String selection) {
+        return "\\begin{flushleft}" + selection + "\\end{flushleft}";
+    }
 }

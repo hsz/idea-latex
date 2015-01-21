@@ -52,7 +52,8 @@ public abstract class EditorAction extends AnAction implements DumbAware {
 
     /** Available editor's types. */
     public enum Type {
-        BOLD, ITALIC, UNDERLINE
+        BOLD, ITALIC, UNDERLINE,
+        ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT,
     }
 
     /** Editor action's type. */

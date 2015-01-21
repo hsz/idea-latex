@@ -41,5 +41,8 @@ public class Icons {
         public static final Icon BOLD = IconLoader.getIcon("/icons/editor/bold.png");
         public static final Icon ITALIC = IconLoader.getIcon("/icons/editor/italic.png");
         public static final Icon UNDERLINE = IconLoader.getIcon("/icons/editor/underline.png");
+        public static final Icon ALIGN_LEFT = IconLoader.getIcon("/icons/editor/align_left.png");
+        public static final Icon ALIGN_CENTER = IconLoader.getIcon("/icons/editor/align_center.png");
+        public static final Icon ALIGN_RIGHT = IconLoader.getIcon("/icons/editor/align_right.png");
     }
 }

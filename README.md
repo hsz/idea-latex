@@ -48,11 +48,14 @@ Usage
 
 Available shortcuts:
 
-| Action name      | Output                                             | Shortcut               |
-| ---------------- | -------------------------------------------------- | ---------------------- |
-| *Bold*           | <pre lang="latex">\textbf(SELECTION)</pre>         | <kbd>Ctrl + L, B</kbd> |
-| *Italic*         | <pre lang="latex">\textit(SELECTION)</pre>         | <kbd>Ctrl + L, I</kbd> |
-| *Underline*      | <pre lang="latex">\underline(SELECTION)</pre>      | <kbd>Ctrl + L, U</kbd> |
+| Action name      | Output                                                                   | Shortcut               |
+| ---------------- | ------------------------------------------------------------------------ | ---------------------- |
+| *Bold*           | <pre lang="latex">\textbf(SELECTION)</pre>                               | <kbd>Ctrl + L, B</kbd> |
+| *Italic*         | <pre lang="latex">\textit(SELECTION)</pre>                               | <kbd>Ctrl + L, I</kbd> |
+| *Underline*      | <pre lang="latex">\underline(SELECTION)</pre>                            | <kbd>Ctrl + L, U</kbd> |
+| *Align left*     | <pre lang="latex">\begin{flushleft}SELECTION\end{flushleft}</pre>        | <kbd>Ctrl + L, L</kbd> |
+| *Align center*   | <pre lang="latex">\begin{center}SELECTION\end{center}</pre>              | <kbd>Ctrl + L, C</kbd> |
+| *Align right*    | <pre lang="latex">\begin{flushright}SELECTION\end{flushright}</pre>      | <kbd>Ctrl + L, R</kbd> |
 
 
 Changelog

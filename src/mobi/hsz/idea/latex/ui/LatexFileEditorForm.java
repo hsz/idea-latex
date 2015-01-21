@@ -45,9 +45,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-import static mobi.hsz.idea.latex.actions.editor.EditorAction.Type.BOLD;
-import static mobi.hsz.idea.latex.actions.editor.EditorAction.Type.ITALIC;
-import static mobi.hsz.idea.latex.actions.editor.EditorAction.Type.UNDERLINE;
+import static mobi.hsz.idea.latex.actions.editor.EditorAction.Type.*;
 
 /**
  * {@link LatexFileEditorForm} holds whole LaTeX editor UI elements.
@@ -111,11 +109,13 @@ public class LatexFileEditorForm implements Disposable {
     private ActionToolbar createActionsToolbar() {
         DefaultActionGroup actions = new DefaultActionGroup();
 
-        EditorActionsFactory factory = new EditorActionsFactory(editor);
-
-        actions.add(factory.create(BOLD));
-        actions.add(factory.create(ITALIC));
-        actions.add(factory.create(UNDERLINE));
+        actions.add(EditorActionsFactory.create(BOLD));
+        actions.add(EditorActionsFactory.create(ITALIC));
+        actions.add(EditorActionsFactory.create(UNDERLINE));
+        actions.addSeparator();
+        actions.add(EditorActionsFactory.create(ALIGN_LEFT));
+        actions.add(EditorActionsFactory.create(ALIGN_CENTER));
+        actions.add(EditorActionsFactory.create(ALIGN_RIGHT));
 
         final ActionToolbar actionToolbar = ActionManager.getInstance().createActionToolbar(ActionPlaces.EDITOR_TAB, actions, true);
         actionToolbar.setMinimumButtonSize(ActionToolbar.NAVBAR_MINIMUM_BUTTON_SIZE);
