@@ -25,7 +25,7 @@
 package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
-import mobi.hsz.idea.latex.util.Icons;
+import mobi.hsz.idea.latex.util.LatexIcons;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -38,7 +38,7 @@ public class BoldAction extends EditorAction {
 
     /** Builds a new instance of {@link BoldAction}. */
     public BoldAction() {
-        super(Type.BOLD, LatexBundle.message("editor.bold"), Icons.Editor.BOLD);
+        super(Type.BOLD, LatexBundle.message("editor.bold"), LatexIcons.Editor.BOLD);
     }
 
 

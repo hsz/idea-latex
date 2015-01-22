@@ -29,12 +29,12 @@ import com.intellij.openapi.util.IconLoader;
 import javax.swing.*;
 
 /**
- * {@link Icons} class that holds icon resources.
+ * {@link LatexIcons} class that holds icon resources.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class Icons {
+public class LatexIcons {
     public static final Icon FILE = IconLoader.getIcon("/icons/tex.png");
 
     public static class Editor {

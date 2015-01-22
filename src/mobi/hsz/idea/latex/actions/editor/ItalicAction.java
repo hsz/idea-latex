@@ -25,7 +25,7 @@
 package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
-import mobi.hsz.idea.latex.util.Icons;
+import mobi.hsz.idea.latex.util.LatexIcons;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -38,7 +38,7 @@ public class ItalicAction extends EditorAction {
 
     /** Builds a new instance of {@link ItalicAction}. */
     public ItalicAction() {
-        super(Type.ITALIC, LatexBundle.message("editor.italic"), Icons.Editor.ITALIC);
+        super(Type.ITALIC, LatexBundle.message("editor.italic"), LatexIcons.Editor.ITALIC);
     }
 
     /**

@@ -25,7 +25,7 @@
 package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
-import mobi.hsz.idea.latex.util.Icons;
+import mobi.hsz.idea.latex.util.LatexIcons;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -38,7 +38,7 @@ public class AlignRightAction extends EditorAction {
 
     /** Builds a new instance of {@link AlignRightAction}. */
     public AlignRightAction() {
-        super(Type.ALIGN_RIGHT, LatexBundle.message("editor.align_right"), Icons.Editor.ALIGN_RIGHT);
+        super(Type.ALIGN_RIGHT, LatexBundle.message("editor.align_right"), LatexIcons.Editor.ALIGN_RIGHT);
     }
 
 

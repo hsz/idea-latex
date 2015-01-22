@@ -26,7 +26,7 @@ package mobi.hsz.idea.latex.file;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import mobi.hsz.idea.latex.lang.LatexLanguage;
-import mobi.hsz.idea.latex.util.Icons;
+import mobi.hsz.idea.latex.util.LatexIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -84,6 +84,6 @@ public class LatexFileType extends LanguageFileType {
     @Nullable
     @Override
     public Icon getIcon() {
-        return Icons.FILE;
+        return LatexIcons.FILE;
     }
 }

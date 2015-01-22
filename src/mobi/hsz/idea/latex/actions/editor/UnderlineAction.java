@@ -25,7 +25,7 @@
 package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
-import mobi.hsz.idea.latex.util.Icons;
+import mobi.hsz.idea.latex.util.LatexIcons;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -38,7 +38,7 @@ public class UnderlineAction extends EditorAction {
 
     /** Builds a new instance of {@link UnderlineAction}. */
     public UnderlineAction() {
-        super(Type.UNDERLINE, LatexBundle.message("editor.underline"), Icons.Editor.UNDERLINE);
+        super(Type.UNDERLINE, LatexBundle.message("editor.underline"), LatexIcons.Editor.UNDERLINE);
     }
 
     /**
