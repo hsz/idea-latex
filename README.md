@@ -22,6 +22,7 @@ Features
 --------
 
 - Syntax highlighting
+- Editor toolbar actions with shortcuts
 
 *Feature requests:*
 
@@ -46,20 +47,24 @@ Restart IDE.
 Usage
 -----
 
-Available shortcuts:
+### Available shortcuts:
 
-| Action name      | Output                                                                   | Shortcut               |
-| ---------------- | ------------------------------------------------------------------------ | ---------------------- |
-| *Bold*           | <pre lang="latex">\textbf(SELECTION)</pre>                               | <kbd>Ctrl + L, B</kbd> |
-| *Italic*         | <pre lang="latex">\textit(SELECTION)</pre>                               | <kbd>Ctrl + L, I</kbd> |
-| *Underline*      | <pre lang="latex">\underline(SELECTION)</pre>                            | <kbd>Ctrl + L, U</kbd> |
-| *Align left*     | <pre lang="latex">\begin{flushleft}SELECTION\end{flushleft}</pre>        | <kbd>Ctrl + L, L</kbd> |
-| *Align center*   | <pre lang="latex">\begin{center}SELECTION\end{center}</pre>              | <kbd>Ctrl + L, C</kbd> |
-| *Align right*    | <pre lang="latex">\begin{flushright}SELECTION\end{flushright}</pre>      | <kbd>Ctrl + L, R</kbd> |
+| Action name      | Output                                                                   | Shortcut                                         |
+| ---------------- | ------------------------------------------------------------------------ | ------------------------------------------------ |
+| *Bold*           | <pre lang="latex">\textbf($SELECTION$)</pre>                             | <kbd>Ctrl</kbd> + <kbd>L</kbd>, <kbd>**B**</kbd> |
+| *Italic*         | <pre lang="latex">\textit($SELECTION$)</pre>                             | <kbd>Ctrl</kbd> + <kbd>L</kbd>, <kbd>**I**</kbd> |
+| *Underline*      | <pre lang="latex">\underline($SELECTION$)</pre>                          | <kbd>Ctrl</kbd> + <kbd>L</kbd>, <kbd>**U**</kbd> |
+| *Align left*     | <pre lang="latex">\begin{flushleft}$SELECTION$\end{flushleft}</pre>      | <kbd>Ctrl</kbd> + <kbd>L</kbd>, <kbd>**L**</kbd> |
+| *Align center*   | <pre lang="latex">\begin{center}$SELECTION$\end{center}</pre>            | <kbd>Ctrl</kbd> + <kbd>L</kbd>, <kbd>**C**</kbd> |
+| *Align right*    | <pre lang="latex">\begin{flushright}$SELECTION$\end{flushright}</pre>    | <kbd>Ctrl</kbd> + <kbd>L</kbd>, <kbd>**R**</kbd> |
 
 
 Changelog
 ---------
+
+Version 0.2
+
+- Toolbar actions: bold, italic, underline, align left, align center, align right
 
 Version 0.1.1
 
