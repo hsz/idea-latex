@@ -43,6 +43,7 @@
       Version 0.2
       <ul>
         <li>Toolbar actions: bold, italic, underline, align left, align center, align right</li>
+        <li>Color settings page</li>
       </ul>
 
       Version 0.1.1
@@ -69,6 +70,9 @@
         <additionalTextAttributes
                 file="colorSchemes/LatexDarcula.xml"
                 scheme="Darcula"/>
+
+        <colorSettingsPage
+            implementation="mobi.hsz.idea.latex.highlighter.LatexColorSettingsPage"/>
 
         <fileEditorProvider
                 implementation="mobi.hsz.idea.latex.editor.LatexFileEditorProvider"/>

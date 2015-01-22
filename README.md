@@ -65,6 +65,7 @@ Changelog
 Version 0.2
 
 - Toolbar actions: bold, italic, underline, align left, align center, align right
+- Color settings page
 
 Version 0.1.1
 
