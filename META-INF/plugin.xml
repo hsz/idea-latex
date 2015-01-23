@@ -86,6 +86,9 @@
         <lang.commenter
                 implementationClass="mobi.hsz.idea.latex.lang.LatexCommenter"
                 language="LaTeX"/>
+        <lang.foldingBuilder
+                implementationClass="mobi.hsz.idea.latex.lang.LatexFoldingBuilder"
+                language="LaTeX"/>
         <lang.parserDefinition
                 implementationClass="mobi.hsz.idea.latex.lang.LatexParserDefinition"
                 language="LaTeX"/>
