@@ -24,11 +24,10 @@
 
 package mobi.hsz.idea.latex.psi;
 
-import com.intellij.lang.Language;
 import com.intellij.psi.tree.IElementType;
+import mobi.hsz.idea.latex.lang.LatexLanguage;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Latex element type.
@@ -38,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class LatexElementType extends IElementType {
     /** Build a new instance of @{link IgnoreElementType} */
-    public LatexElementType(@NotNull @NonNls String debugName, @Nullable Language language) {
-        super(debugName, language);
+    public LatexElementType(@NotNull @NonNls String debugName) {
+        super(debugName, LatexLanguage.INSTANCE);
     }
 }

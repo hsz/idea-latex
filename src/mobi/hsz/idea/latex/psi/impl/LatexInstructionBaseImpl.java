@@ -27,8 +27,8 @@ package mobi.hsz.idea.latex.psi.impl;
 import com.intellij.lang.ASTNode;
 import mobi.hsz.idea.latex.psi.LatexElementImpl;
 
-public abstract class LatexEntryExtImpl extends LatexElementImpl {
-    public LatexEntryExtImpl(ASTNode node) {
+public abstract class LatexInstructionBaseImpl extends LatexElementImpl {
+    public LatexInstructionBaseImpl(ASTNode node) {
         super(node);
     }
 }

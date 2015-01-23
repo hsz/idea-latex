@@ -23,16 +23,15 @@ import static com.intellij.psi.TokenType.*;
 %type IElementType
 %unicode
 
-EOL             = "\r"|"\n"|"\r\n"
-LINE_WS         = [\ \t\f]
-WHITE_SPACE     = ({LINE_WS}|{EOL})+
+EOL                 = "\r"|"\n"|"\r\n"
+LINE_WS             = [\ \t\f]
+WHITE_SPACE         = ({LINE_WS}|{EOL})+
 
-INSTRUCTION     = \\[a-zA-Z]+
-COMMENT         = %.*
-ARGUMENT        = [^\(\)\{\}\[\]\\,]
-TEXT            = [^\(\)\{\}\[\]\\\%\ \t\f\r\n]|"\\\%"|("\\"{SPECIAL})
-SPECIAL         = "$"|"&"|"#"|"_"|"~"|"^"|"\\"
-
+INSTRUCTION         = \\[a-zA-Z]+
+COMMENT             = %.*
+ARGUMENT            = [^\(\)\{\}\[\]\\,]
+TEXT                = [^\(\)\{\}\[\]\\\%\ \t\f\r\n]|"\\\%"|("\\"{SPECIAL})
+SPECIAL             = "$"|"&"|"#"|"_"|"~"|"^"|"\\"
 %state IN_ARGUMENT
 
 %%
@@ -56,8 +55,12 @@ SPECIAL         = "$"|"&"|"#"|"_"|"~"|"^"|"\\"
 <YYINITIAL> "*"             { return ASTERISK; }
 <YYINITIAL> "\\\\"          { return LINE_BREAK; }
 <YYINITIAL> {SPECIAL}       { return SPECIAL; }
+<YYINITIAL> "\\".           { return SPECIAL; }
+
 
 <YYINITIAL> {WHITE_SPACE}+  { return WHITE_SPACE; }
+<YYINITIAL> "\\begin"   { return INSTRUCTION_BEGIN; }
+<YYINITIAL> "\\end"   { return INSTRUCTION_END; }
 <YYINITIAL> {INSTRUCTION}   { return INSTRUCTION; }
 <YYINITIAL> {COMMENT}       { return COMMENT; }
 <YYINITIAL> {TEXT}+         { return TEXT; }

@@ -22,19 +22,21 @@
     COMMA                   = ","
     COLON                   = ":"
     ASTERISK                = "*"
-    LINE_BREAK              = "\\"
+    SLASH                   = '\'
+    LINE_BREAK              = '\\'
 
 
-    INSTRUCTION             = "regexp:\\[a-zA-Z]+"
-    ARGUMENT                = "regexp:\b[\p{L}\w ]+\b"
+    INSTRUCTION = "regexp:\\[a-zA-Z]+"
+    IDENTIFIER              = "regexp:[a-zA-Z]+"
+    ARGUMENT                = "regexp:\b[\p{L}\w ]+\b|\\\W"
     COMMENT                 = "regexp:%.*"
 
     SPECIAL                 = "regexp:[\S]"
     CRLF                    = "regexp:[\s\r\n]+"
   ]
 
-//  extends(".*expr")         = expr
-//  mixin("ENTRY")            = "mobi.hsz.idea.latex.psi.impl.LatexEntryExtImpl"
+  mixin("INSTRUCTION")      = "mobi.hsz.idea.latex.psi.impl.LatexInstructionBaseImpl"
+//  name("INSTRUCTION.*")     = "instruction"
 //  name(".*expr")           = "entry"
 }
 
@@ -48,16 +50,23 @@ private expr                    ::= text_expr
                                   | instruction_expr
                                   | special_expr
                                   | TEXT
+                                  | CRLF
 private expr_inside             ::= argument_expr
                                   | group_expr +
                                   | instruction_expr
                                   | special_expr
+private instruction_            ::= INSTRUCTION_BEGIN
+                                  | INSTRUCTION_END
+                                  | INSTRUCTION
 
-private argument_expr           ::= ARGUMENT (special_expr + ( ARGUMENT | instruction_expr ) ) * { pin(".*") = 1 }
+INSTRUCTION_BEGIN               ::= "\\begin"
+INSTRUCTION_END                 ::= "\\end"
+
+private argument_expr           ::= (ARGUMENT | IDENTIFIER) (special_expr + ( ARGUMENT | IDENTIFIER | instruction_expr | CRLF ) ) * { pin(".*") = 1 }
 private group_expr              ::= expr_list_bracket | expr_list_brace | expr_list_paren
-private instruction_expr        ::= INSTRUCTION ASTERISK ? group_expr *
+instruction_expr                ::= instruction_ ASTERISK ? group_expr *
 private text_expr               ::= ( special_expr * ARGUMENT special_expr * CRLF * ) +
-private special_expr            ::= SPECIAL | COLON | COMMA | LINE_BREAK | CRLF
+private special_expr            ::= SPECIAL | COLON | COMMA | LINE_BREAK
 
 private meta expr_list_bracket  ::= LBRACKET <<sequence expr_inside special_expr>> ? RBRACKET { pin(".*") = 1 }
 private meta expr_list_brace    ::= LBRACE   <<sequence expr_inside special_expr>> ? RBRACE   { pin(".*") = 1 }
