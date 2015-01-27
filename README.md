@@ -23,6 +23,7 @@ Features
 
 - Syntax highlighting
 - Editor toolbar actions with shortcuts
+- Code folding
 
 *Feature requests:*
 
@@ -66,6 +67,7 @@ Version 0.2
 
 - Toolbar actions: bold, italic, underline, align left, align center, align right
 - Color settings page
+- Sections folding
 
 Version 0.1.1
 

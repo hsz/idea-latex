@@ -19,6 +19,7 @@
       <ul>
         <li>Syntax highlighting</li>
         <li>Editor toolbar actions with shortcuts</li>
+        <li>Code folding</li>
       </ul>
 
       <b><i>Feature requests:</i></b>
@@ -44,6 +45,7 @@
       <ul>
         <li>Toolbar actions: bold, italic, underline, align left, align center, align right</li>
         <li>Color settings page</li>
+        <li>Sections folding</li>
       </ul>
 
       Version 0.1.1
