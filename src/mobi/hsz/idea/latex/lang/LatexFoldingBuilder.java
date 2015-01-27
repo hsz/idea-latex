@@ -28,7 +28,6 @@ import com.intellij.lang.ASTNode;
 import com.intellij.lang.folding.FoldingBuilderEx;
 import com.intellij.lang.folding.FoldingDescriptor;
 import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.search.PsiElementProcessor;
 import com.intellij.psi.tree.IElementType;
@@ -59,20 +58,13 @@ public class LatexFoldingBuilder extends FoldingBuilderEx {
 
         final List<FoldingDescriptor> result = ContainerUtil.newArrayList();
 
-        final List<PsiElement> begins = ContainerUtil.newArrayList();
-
         if (!quick) {
             PsiTreeUtil.processElements(file, new PsiElementProcessor() {
                 @Override
                 public boolean execute(@NotNull PsiElement element) {
                     IElementType type = element.getNode().getElementType();
-                    if (type.equals(LatexTypes.INSTRUCTION_BEGIN)) {
-                        begins.add(element);
-                    } else if (type.equals(LatexTypes.INSTRUCTION_END)) {
-                        PsiElement last = begins.get(begins.size() - 1);
-                        TextRange range = new TextRange(last.getTextRange().getStartOffset(), element.getTextRange().getEndOffset());
-                        result.add(new FoldingDescriptor(last, range));
-                        begins.remove(last);
+                    if (type.equals(LatexTypes.SECTION)) {
+                        result.add(new FoldingDescriptor(element.getNode(), element.getNode().getTextRange()));
                     }
                     return true;
                 }
@@ -85,7 +77,7 @@ public class LatexFoldingBuilder extends FoldingBuilderEx {
     @Nullable
     @Override
     public String getPlaceholderText(@NotNull ASTNode node) {
-        return node.getTreeParent().getText() + LatexBundle.message("folding.placeholder");
+        return node.getFirstChildNode().getText() + LatexBundle.message("folding.placeholder");
     }
 
     @Override
