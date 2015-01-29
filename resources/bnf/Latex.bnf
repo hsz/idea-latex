@@ -28,7 +28,7 @@
     IDENTIFIER_BEGIN        = '\begin'
     IDENTIFIER              = "regexp:\\\p{Alpha}+"
 
-    ARGUMENT                = "regexp:\b([^\]\}\),\\])+\b"
+    ARGUMENT                = "regexp:\b([^\[\]\{\}\(\),\\])+\b"
     COMMENT                 = "regexp:%.*"
 
     SPECIAL                 = "regexp:[\S]|\\."
@@ -45,6 +45,7 @@ latexFile                       ::= item_ *
 private item_                   ::= !<<eof>> expr * { pin = 1 }
 private expr                    ::= section
                                   | instruction
+                                  | argument_group
                                   | TEXT
                                   | SPECIAL
                                   | CRLF
