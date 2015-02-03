@@ -26,7 +26,6 @@ package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.util.LatexIcons;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Editor action - align left.
@@ -34,23 +33,21 @@ import org.jetbrains.annotations.NotNull;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.2
  */
-public class AlignLeftAction extends EditorAction {
+public class AlignLeftAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link AlignLeftAction}. */
     public AlignLeftAction() {
         super(Type.ALIGN_LEFT, LatexBundle.message("editor.align_left"), LatexIcons.Editor.ALIGN_LEFT);
     }
 
-
-    /**
-     * Aligns left currently selected text or places bold instruction in cursor's position.
-     *
-     * @param selection selected text
-     * @return selected text with align left instruction
-     */
-    @NotNull
     @Override
-    public String replaceAction(@NotNull String selection) {
-        return "\\begin{flushleft}" + selection + "\\end{flushleft}";
+    public String getLeftText() {
+        return "\\begin{flushleft}";
     }
+
+    @Override
+    public String getRightText() {
+        return "\\end{flushleft}";
+    }
+
 }

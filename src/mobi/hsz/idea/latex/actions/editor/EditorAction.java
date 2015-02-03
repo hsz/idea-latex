@@ -29,12 +29,14 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
+import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Couple;
 import com.intellij.openapi.util.text.StringUtil;
 import mobi.hsz.idea.latex.editor.LatexFileEditor;
 import org.jetbrains.annotations.NotNull;
@@ -82,9 +84,19 @@ public abstract class EditorAction extends AnAction implements DumbAware {
                         @Override
                         public void run() {
                             Document document = editor.getEditor().getDocument();
-                            SelectionModel selection = editor.getEditor().getSelectionModel();
-                            final String text = replaceAction(StringUtil.notNullize(selection.getSelectedText()));
-                            document.replaceString(selection.getSelectionStart(), selection.getSelectionEnd(), text);
+                            SelectionModel selectionModel = editor.getEditor().getSelectionModel();
+                            CaretModel caretModel = editor.getEditor().getCaretModel();
+
+                            final int start = selectionModel.getSelectionStart();
+                            final int end = selectionModel.getSelectionEnd();
+                            final String text = StringUtil.notNullize(selectionModel.getSelectedText());
+
+                            document.replaceString(start, end, updateText(text));
+
+                            Couple<Integer> selection = getSelection(start, end, StringUtil.isEmpty(text));
+                            selectionModel.setSelection(selection.getFirst(), selection.getSecond());
+
+                            caretModel.moveToOffset(selection.getSecond());
                         }
                     });
                 }
@@ -98,7 +110,16 @@ public abstract class EditorAction extends AnAction implements DumbAware {
      * @param selection selected text
      */
     @NotNull
-    public abstract String replaceAction(@NotNull String selection);
+    public abstract String updateText(@NotNull String selection);
+
+    /**
+     * Updates selection.
+     *
+     * @param start selection start position
+     * @param end selection end position
+     */
+    @NotNull
+    public abstract Couple<Integer> getSelection(final int start, final int end, final boolean empty);
 
     /**
      * Returns current active {@link LatexFileEditor} instance or null.

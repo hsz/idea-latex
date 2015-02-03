@@ -26,7 +26,6 @@ package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.util.LatexIcons;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Editor action - bold text.
@@ -34,23 +33,21 @@ import org.jetbrains.annotations.NotNull;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.2
  */
-public class BoldAction extends EditorAction {
+public class BoldAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link BoldAction}. */
     public BoldAction() {
         super(Type.BOLD, LatexBundle.message("editor.bold"), LatexIcons.Editor.BOLD);
     }
 
-
-    /**
-     * Bolds currently selected text or places bold instruction in cursor's position.
-     *
-     * @param selection selected text
-     * @return selected text with bold instruction
-     */
-    @NotNull
     @Override
-    public String replaceAction(@NotNull String selection) {
-        return "\\textbf{" + selection + "}";
+    public String getLeftText() {
+        return "\\textbf{";
     }
+
+    @Override
+    public String getRightText() {
+        return "}";
+    }
+
 }

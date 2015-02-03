@@ -26,7 +26,6 @@ package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.util.LatexIcons;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Editor action - align right.
@@ -34,23 +33,21 @@ import org.jetbrains.annotations.NotNull;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.2
  */
-public class AlignRightAction extends EditorAction {
+public class AlignRightAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link AlignRightAction}. */
     public AlignRightAction() {
         super(Type.ALIGN_RIGHT, LatexBundle.message("editor.align_right"), LatexIcons.Editor.ALIGN_RIGHT);
     }
 
-
-    /**
-     * Aligns right currently selected text or places bold instruction in cursor's position.
-     *
-     * @param selection selected text
-     * @return selected text with align right instruction
-     */
-    @NotNull
     @Override
-    public String replaceAction(@NotNull String selection) {
-        return "\\begin{flushright}" + selection + "\\end{flushright}";
+    public String getLeftText() {
+        return "\\begin{flushright}";
     }
+
+    @Override
+    public String getRightText() {
+        return "\\end{flushright}";
+    }
+
 }

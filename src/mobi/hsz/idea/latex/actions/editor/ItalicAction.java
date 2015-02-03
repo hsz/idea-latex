@@ -26,7 +26,6 @@ package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.util.LatexIcons;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Editor action - italicize text.
@@ -34,23 +33,21 @@ import org.jetbrains.annotations.NotNull;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.2
  */
-public class ItalicAction extends EditorAction {
+public class ItalicAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link ItalicAction}. */
     public ItalicAction() {
         super(Type.ITALIC, LatexBundle.message("editor.italic"), LatexIcons.Editor.ITALIC);
     }
 
-    /**
-     * Italicize currently selected text or places italic instruction in cursor's position.
-     *
-     * @param selection selected text
-     * @return selected text with italic instruction
-     */
-    @NotNull
     @Override
-    public String replaceAction(@NotNull String selection) {
-        return "\\textit{" + selection + "}";
+    public String getLeftText() {
+        return "\\textit{";
+    }
+
+    @Override
+    public String getRightText() {
+        return "}";
     }
 
 }

@@ -26,6 +26,7 @@ package mobi.hsz.idea.latex.editor;
 
 import com.intellij.openapi.fileEditor.*;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.vfs.VirtualFile;
 import mobi.hsz.idea.latex.file.LatexFileType;
 import mobi.hsz.idea.latex.lang.LatexLanguage;
@@ -78,7 +79,7 @@ public class LatexFileEditorProvider implements FileEditorProvider {
      */
     @Override
     public void disposeEditor(@NotNull FileEditor editor) {
-        editor.dispose();
+        Disposer.dispose(editor);
     }
 
     /**

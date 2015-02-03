@@ -30,7 +30,7 @@ package mobi.hsz.idea.latex.actions.editor;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.2
  */
-public class EditorActionsFactory {
+public final class EditorActionsFactory {
 
     /** Creates proper {@link EditorAction} instance basing on given {@link EditorAction.Type}. */
     public static EditorAction create(EditorAction.Type type) {

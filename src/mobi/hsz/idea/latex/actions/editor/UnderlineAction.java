@@ -26,7 +26,6 @@ package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.util.LatexIcons;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Editor action - underline text.
@@ -34,23 +33,21 @@ import org.jetbrains.annotations.NotNull;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.2
  */
-public class UnderlineAction extends EditorAction {
+public class UnderlineAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link UnderlineAction}. */
     public UnderlineAction() {
         super(Type.UNDERLINE, LatexBundle.message("editor.underline"), LatexIcons.Editor.UNDERLINE);
     }
 
-    /**
-     * Underlines currently selected text or places underline instruction in cursor's position.
-     *
-     * @param selection selected text
-     * @return selected text with underline instruction
-     */
-    @NotNull
     @Override
-    public String replaceAction(@NotNull String selection) {
-        return "\\underline{" + selection + "}";
+    public String getLeftText() {
+        return "\\underline{";
+    }
+
+    @Override
+    public String getRightText() {
+        return "}";
     }
 
 }
