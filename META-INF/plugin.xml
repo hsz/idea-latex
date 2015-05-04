@@ -76,9 +76,6 @@
         <colorSettingsPage
             implementation="mobi.hsz.idea.latex.highlighter.LatexColorSettingsPage"/>
 
-        <fileEditorProvider
-                implementation="mobi.hsz.idea.latex.editor.LatexFileEditorProvider"/>
-
         <fileTypeFactory
                 implementation="mobi.hsz.idea.latex.file.LatexFileTypeFactory"/>
 
@@ -105,7 +102,10 @@
     </application-components>
 
     <project-components>
-        <!-- Add your project components here -->
+        <component>
+            <implementation-class>mobi.hsz.idea.latex.editor.LatexEditorActionsLoaderComponent</implementation-class>
+            <skipForDefaultProject/>
+        </component>
     </project-components>
 
     <actions>

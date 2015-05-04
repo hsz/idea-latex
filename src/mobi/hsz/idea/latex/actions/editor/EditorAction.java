@@ -26,19 +26,16 @@ package mobi.hsz.idea.latex.actions.editor;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.editor.CaretModel;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.fileEditor.TextEditor;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Couple;
-import com.intellij.openapi.util.text.StringUtil;
-import mobi.hsz.idea.latex.editor.LatexFileEditor;
+import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -74,66 +71,58 @@ public abstract class EditorAction extends AnAction implements DumbAware {
     */
     @Override
     public final void actionPerformed(AnActionEvent e) {
-        final LatexFileEditor editor = getLatexEditor(e);
+        final VirtualFile virtualFile = e.getData(CommonDataKeys.VIRTUAL_FILE);
+        final Project project = e.getData(CommonDataKeys.PROJECT);
+        final TextEditor editor = getEditor(e);
 
-        if (editor != null) {
-            ApplicationManager.getApplication().runWriteAction(new Runnable() {
-                @Override
-                public void run() {
-                    CommandProcessor.getInstance().runUndoTransparentAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            Document document = editor.getEditor().getDocument();
-                            SelectionModel selectionModel = editor.getEditor().getSelectionModel();
-                            CaretModel caretModel = editor.getEditor().getCaretModel();
-
-                            final int start = selectionModel.getSelectionStart();
-                            final int end = selectionModel.getSelectionEnd();
-                            final String text = StringUtil.notNullize(selectionModel.getSelectedText());
-
-                            document.replaceString(start, end, updateText(text));
-
-                            Couple<Integer> selection = getSelection(start, end, StringUtil.isEmpty(text));
-                            selectionModel.setSelection(selection.getFirst(), selection.getSecond());
-
-                            caretModel.moveToOffset(selection.getSecond());
-                        }
-                    });
-                }
-            });
+        if (virtualFile == null || project == null || editor == null) {
+            return;
         }
+
+        ApplicationManager.getApplication().runWriteAction(new Runnable() {
+            @Override
+            public void run() {
+                CommandProcessor.getInstance().runUndoTransparentAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        writeActionPerformed(editor, project, virtualFile);
+                    }
+                });
+            }
+        });
     }
 
-    /**
-     * Replaces selected text with returned string.
-     *
-     * @param selection selected text
-     */
-    @NotNull
-    public abstract String updateText(@NotNull String selection);
+    @Override
+    public void update(AnActionEvent e) {
+        final VirtualFile virtualFile = e.getData(CommonDataKeys.VIRTUAL_FILE);
+        final Project project = e.getData(CommonDataKeys.PROJECT);
+        final TextEditor editor = getEditor(e);
+
+        if (virtualFile == null || project == null || editor == null) {
+            return;
+        }
+
+        update(e, editor, project, virtualFile);
+    }
+
+
+    protected abstract void writeActionPerformed(@NotNull TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile);
+
+    protected abstract void update(AnActionEvent e, @NotNull TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile);
 
     /**
-     * Updates selection.
-     *
-     * @param start selection start position
-     * @param end selection end position
-     */
-    @NotNull
-    public abstract Couple<Integer> getSelection(final int start, final int end, final boolean empty);
-
-    /**
-     * Returns current active {@link LatexFileEditor} instance or null.
+     * Returns current active {@link TextEditor} instance or null.
      *
      * @param project current project
-     * @return active {@link LatexFileEditor}
+     * @return active {@link TextEditor}
      */
     @Nullable
-    public static LatexFileEditor getActiveLatexEditor(Project project) {
+    public static TextEditor getActiveEditor(Project project) {
         if (project != null) {
             FileEditor[] fileEditors = FileEditorManager.getInstance(project).getSelectedEditors();
             for (FileEditor fileEditor : fileEditors) {
-                if (fileEditor instanceof LatexFileEditor) {
-                    return (LatexFileEditor) fileEditor;
+                if (fileEditor instanceof TextEditor) {
+                    return (TextEditor) fileEditor;
                 }
             }
         }
@@ -141,18 +130,18 @@ public abstract class EditorAction extends AnAction implements DumbAware {
     }
 
     /**
-     * Returns {@link LatexFileEditor} from witch action was called or null.
+     * Returns {@link TextEditor} from witch action was called or null.
      *
      * @param e action event
-     * @return active {@link LatexFileEditor}
+     * @return active {@link TextEditor}
      */
     @Nullable
-    public static LatexFileEditor getLatexEditor(AnActionEvent e) {
+    public static TextEditor getEditor(AnActionEvent e) {
         FileEditor fileEditor = e.getData(PlatformDataKeys.FILE_EDITOR);
-        if (fileEditor instanceof LatexFileEditor) {
-            return (LatexFileEditor) fileEditor;
+        if (fileEditor instanceof TextEditor) {
+            return (TextEditor) fileEditor;
         } else {
-            return getActiveLatexEditor(e.getProject());
+            return getActiveEditor(e.getProject());
         }
     }
 

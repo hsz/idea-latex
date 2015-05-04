@@ -24,20 +24,112 @@
 
 package mobi.hsz.idea.latex.actions.editor;
 
-import com.intellij.openapi.util.Couple;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.Toggleable;
+import com.intellij.openapi.editor.CaretModel;
+import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.editor.SelectionModel;
+import com.intellij.openapi.fileEditor.TextEditor;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiManager;
+import mobi.hsz.idea.latex.psi.LatexFile;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
 /**
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.2.1
+ * @since 0.3
  */
-public abstract class WrapEditorAction extends EditorAction {
+public abstract class WrapEditorAction extends EditorAction implements Toggleable {
 
     /** Builds a new instance of {@link WrapEditorAction}. */
     public WrapEditorAction(@NotNull Type type, @NotNull String name, @NotNull Icon icon) {
         super(type, name, icon);
+    }
+
+    public void wrap(@NotNull TextEditor editor) {
+        final Document document = editor.getEditor().getDocument();
+        final SelectionModel selectionModel = editor.getEditor().getSelectionModel();
+        final CaretModel caretModel = editor.getEditor().getCaretModel();
+
+        final int start = selectionModel.getSelectionStart();
+        final int end = selectionModel.getSelectionEnd();
+        final String text = StringUtil.notNullize(selectionModel.getSelectedText());
+
+        String newText = getLeftText() + text + getRightText();
+        int newStart = start + getLeftText().length();
+        int newEnd = StringUtil.isEmpty(text) ? newStart : end + getLeftText().length();
+
+        document.replaceString(start, end, newText);
+        selectionModel.setSelection(newStart, newEnd);
+        caretModel.moveToOffset(newEnd);
+    }
+
+    public void unwrap(@NotNull final TextEditor editor, @NotNull final PsiElement matched) {
+        final Document document = editor.getEditor().getDocument();
+        final SelectionModel selectionModel = editor.getEditor().getSelectionModel();
+        final CaretModel caretModel = editor.getEditor().getCaretModel();
+
+        final int start = matched.getTextRange().getStartOffset();
+        final int end = matched.getTextRange().getEndOffset();
+        final String text = StringUtil.notNullize(matched.getText());
+
+        String newText = StringUtil.trimEnd(StringUtil.trimStart(text, getLeftText()), getRightText());
+        int newStart = selectionModel.getSelectionStart() - getLeftText().length();
+        int newEnd = selectionModel.getSelectionEnd() - getLeftText().length();
+
+        document.replaceString(start, end, newText);
+
+        selectionModel.setSelection(newStart, newEnd);
+        caretModel.moveToOffset(newEnd);
+    }
+
+
+    @Override
+    public void writeActionPerformed(@NotNull TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile) {
+        PsiElement element = getCurrentElement(virtualFile, project, editor);
+        final PsiElement matched = getMatchedElement(element);
+
+        if (matched == null) {
+            wrap(editor);
+        } else {
+            unwrap(editor, matched);
+        }
+    }
+
+    /**
+     * Updates the state of the action.
+     *
+     * @param e Carries information on the invocation place and data available
+     */
+    @Override
+    public void update(AnActionEvent e, @NotNull TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile) {
+        PsiElement element = getCurrentElement(virtualFile, project, editor);
+        PsiElement matched = getMatchedElement(element);
+
+        e.getPresentation().putClientProperty(SELECTED_PROPERTY, matched != null);
+    }
+
+    /**
+     * Checks if action related type matched to the given element in document.
+     *
+     * @param element to check
+     * @return element matches to the action related type
+     */
+    protected PsiElement getMatchedElement(@Nullable PsiElement element) {
+        while (element != null && !(element instanceof LatexFile)) {
+            if (isMatching(element)) {
+                return element;
+            }
+            element = element.getParent();
+        }
+        return null;
     }
 
     /**
@@ -55,29 +147,27 @@ public abstract class WrapEditorAction extends EditorAction {
     public abstract String getRightText();
 
     /**
-     * Wraps text with the {@link #getLeftText()} and {@link #getRightText()} parts.
+     * Checks if element matches to the related one.
      *
-     * @param selection selected text
-     * @return wrapped selected text
+     * @param element to check
+     * @return action's element type
      */
-    @NotNull
-    @Override
-    public String updateText(@NotNull String selection) {
-        return getLeftText() + selection + getRightText();
+    public boolean isMatching(@NotNull PsiElement element) {
+        return false;
     }
 
-    /**
-     * Updates selection.
-     *
-     * @param start selection start position
-     * @param end selection end position
-     */
-    @Override
-    @NotNull
-    public Couple<Integer> getSelection(final int start, final int end, final boolean empty) {
-        int newStart = start + getLeftText().length();
-        int newEnd = empty ? newStart : end + getLeftText().length();
+    @Nullable
+    public PsiElement getCurrentElement(@Nullable final VirtualFile virtualFile, @Nullable final Project project, @Nullable TextEditor editor) {
+        if (virtualFile == null || project == null || editor == null) {
+            return null;
+        }
 
-        return new Couple<Integer>(newStart, newEnd);
+        PsiFile file = PsiManager.getInstance(project).findFile(virtualFile);
+        if (file == null || !(file instanceof LatexFile)) {
+            return null;
+        }
+
+        int offset = editor.getEditor().getCaretModel().getOffset();
+        return file.findElementAt(offset);
     }
 }

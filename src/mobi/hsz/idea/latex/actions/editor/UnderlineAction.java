@@ -24,8 +24,11 @@
 
 package mobi.hsz.idea.latex.actions.editor;
 
+import com.intellij.psi.PsiElement;
 import mobi.hsz.idea.latex.LatexBundle;
+import mobi.hsz.idea.latex.psi.LatexInstruction;
 import mobi.hsz.idea.latex.util.LatexIcons;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Editor action - underline text.
@@ -35,14 +38,21 @@ import mobi.hsz.idea.latex.util.LatexIcons;
  */
 public class UnderlineAction extends WrapEditorAction {
 
+    private static final String IDENTIFIER = "\\underline";
+
     /** Builds a new instance of {@link UnderlineAction}. */
     public UnderlineAction() {
         super(Type.UNDERLINE, LatexBundle.message("editor.underline"), LatexIcons.Editor.UNDERLINE);
     }
 
     @Override
+    public boolean isMatching(@NotNull PsiElement element) {
+        return element instanceof LatexInstruction && ((LatexInstruction) element).getIdentifier().getText().equals(IDENTIFIER);
+    }
+
+    @Override
     public String getLeftText() {
-        return "\\underline{";
+        return IDENTIFIER + "{";
     }
 
     @Override

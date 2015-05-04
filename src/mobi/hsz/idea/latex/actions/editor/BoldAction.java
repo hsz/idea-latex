@@ -24,8 +24,11 @@
 
 package mobi.hsz.idea.latex.actions.editor;
 
+import com.intellij.psi.PsiElement;
 import mobi.hsz.idea.latex.LatexBundle;
+import mobi.hsz.idea.latex.psi.LatexInstruction;
 import mobi.hsz.idea.latex.util.LatexIcons;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Editor action - bold text.
@@ -35,14 +38,21 @@ import mobi.hsz.idea.latex.util.LatexIcons;
  */
 public class BoldAction extends WrapEditorAction {
 
+    private static final String IDENTIFIER = "\\textbf";
+
     /** Builds a new instance of {@link BoldAction}. */
     public BoldAction() {
         super(Type.BOLD, LatexBundle.message("editor.bold"), LatexIcons.Editor.BOLD);
     }
 
     @Override
+    public boolean isMatching(@NotNull PsiElement element) {
+        return element instanceof LatexInstruction && ((LatexInstruction) element).getIdentifier().getText().equals(IDENTIFIER);
+    }
+
+    @Override
     public String getLeftText() {
-        return "\\textbf{";
+        return IDENTIFIER + "{";
     }
 
     @Override
