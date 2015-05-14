@@ -26,6 +26,7 @@ package mobi.hsz.idea.latex.actions.editor;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Toggleable;
+import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.SelectionModel;
@@ -36,6 +37,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
+import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.psi.LatexFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -92,15 +94,20 @@ public abstract class WrapEditorAction extends EditorAction implements Toggleabl
 
 
     @Override
-    public void writeActionPerformed(@NotNull TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile) {
+    public void writeActionPerformed(@NotNull final TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile) {
         PsiElement element = getCurrentElement(virtualFile, project, editor);
         final PsiElement matched = getMatchedElement(element);
 
-        if (matched == null) {
-            wrap(editor);
-        } else {
-            unwrap(editor, matched);
-        }
+        CommandProcessor.getInstance().executeCommand(project, new Runnable() {
+            @Override
+            public void run() {
+                if (matched == null) {
+                    wrap(editor);
+                } else {
+                    unwrap(editor, matched);
+                }
+            }
+        }, getName(), LatexBundle.NAME);
     }
 
     /**

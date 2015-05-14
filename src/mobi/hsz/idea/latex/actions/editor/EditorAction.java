@@ -29,7 +29,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.TextEditor;
@@ -57,11 +56,15 @@ public abstract class EditorAction extends AnAction implements DumbAware {
 
     /** Editor action's type. */
     private final Type type;
-    
+
+    /** Editor action's name. */
+    private final String name;
+
     /** Builds a new instance of {@link EditorAction}. */
     public EditorAction(@NotNull Type type, @NotNull String name, @NotNull Icon icon) {
         super(name, null, icon);
         this.type = type;
+        this.name = name;
     }
 
    /**
@@ -82,12 +85,7 @@ public abstract class EditorAction extends AnAction implements DumbAware {
         ApplicationManager.getApplication().runWriteAction(new Runnable() {
             @Override
             public void run() {
-                CommandProcessor.getInstance().runUndoTransparentAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        writeActionPerformed(editor, project, virtualFile);
-                    }
-                });
+                writeActionPerformed(editor, project, virtualFile);
             }
         });
     }
@@ -148,6 +146,11 @@ public abstract class EditorAction extends AnAction implements DumbAware {
     /** Returns current editor action's type. */
     public Type getType() {
         return type;
+    }
+
+    /** Returns current editor action's name.  */
+    public String getName() {
+        return name;
     }
 
 }

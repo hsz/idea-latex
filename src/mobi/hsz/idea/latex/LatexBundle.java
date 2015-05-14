@@ -44,6 +44,10 @@ public class LatexBundle {
     /** The {@link java.util.ResourceBundle} instance. */
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
+    /** Plugin name. */
+    @NonNls
+    public static final String NAME = "LaTeX";
+
     /** {@link LatexBundle} is a non-instantiable static class. */
     private LatexBundle() {
     }
