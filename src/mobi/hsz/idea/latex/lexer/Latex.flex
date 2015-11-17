@@ -27,7 +27,7 @@ EOL                 = "\r"|"\n"|"\r\n"
 LINE_WS             = [\ \t\f]
 WHITE_SPACE         = ({LINE_WS}|{EOL})+
 
-IDENTIFIER          = \\[a-zA-Z]+
+IDENTIFIER          = \\[:letter:]+
 COMMENT             = %.*
 ARGUMENT            = [^\(\)\{\}\[\]\\,]
 TEXT                = [^\(\)\{\}\[\]\\\%\ \t\f\r\n]|"\\\%"|("\\"{SPECIAL})
@@ -57,10 +57,9 @@ SPECIAL             = "$"|"&"|"#"|"_"|"~"|"^"|"\\"
 <YYINITIAL> {SPECIAL}       { return SPECIAL; }
 <YYINITIAL> "\\".           { return SPECIAL; }
 
-
 <YYINITIAL> {WHITE_SPACE}+  { return WHITE_SPACE; }
-<YYINITIAL> "\\begin"       { return IDENTIFIER_BEGIN; }
-<YYINITIAL> "\\end"         { return IDENTIFIER_END; }
+<YYINITIAL> "\\begin"        { return IDENTIFIER_BEGIN; }
+<YYINITIAL> "\\end"          { return IDENTIFIER_END; }
 <YYINITIAL> {IDENTIFIER}    { return IDENTIFIER; }
 <YYINITIAL> {COMMENT}       { return COMMENT; }
 <YYINITIAL> {TEXT}+         { return ARGUMENT; }

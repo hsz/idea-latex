@@ -25,10 +25,35 @@
 package mobi.hsz.idea.latex.psi.impl;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.TokenSet;
 import mobi.hsz.idea.latex.psi.LatexElementImpl;
+import mobi.hsz.idea.latex.psi.LatexInstruction;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class LatexInstructionBaseImpl extends LatexElementImpl {
-    public LatexInstructionBaseImpl(ASTNode node) {
+import static mobi.hsz.idea.latex.psi.LatexTypes.IDENTIFIER;
+import static mobi.hsz.idea.latex.psi.LatexTypes.IDENTIFIER_BEGIN;
+import static mobi.hsz.idea.latex.psi.LatexTypes.IDENTIFIER_END;
+
+/**
+ * Abstract {@link LatexInstruction} implementation to handle {@link #getIdentifier()} in instruction subtypes.
+ *
+ * @author Jakub Chrzanowski <jakub@hsz.mobi>
+ * @since 0.3
+ */
+public abstract class LatexInstructionExtImpl extends LatexElementImpl implements LatexInstruction {
+    /** {@link TokenSet} containing all identifier types. */
+    private static final TokenSet IDENTIFIERS = TokenSet.create(IDENTIFIER, IDENTIFIER_BEGIN, IDENTIFIER_END);
+
+    /** Default constructor. */
+    public LatexInstructionExtImpl(ASTNode node) {
         super(node);
+    }
+
+    /** Returns list of identifiers and identifiers subtypes. */
+    @NotNull
+    @Override
+    public PsiElement getIdentifier() {
+        return findNotNullChildByType(IDENTIFIERS);
     }
 }

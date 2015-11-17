@@ -74,7 +74,7 @@
                 scheme="Darcula"/>
 
         <colorSettingsPage
-            implementation="mobi.hsz.idea.latex.highlighter.LatexColorSettingsPage"/>
+                implementation="mobi.hsz.idea.latex.highlighter.LatexColorSettingsPage"/>
 
         <fileTypeFactory
                 implementation="mobi.hsz.idea.latex.file.LatexFileTypeFactory"/>
@@ -111,22 +111,22 @@
     <actions>
         <group id="latex" text="LaTeX">
             <action id="latex.bold" class="mobi.hsz.idea.latex.actions.editor.BoldAction">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="B" />
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="B"/>
             </action>
             <action id="latex.italic" class="mobi.hsz.idea.latex.actions.editor.ItalicAction">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="I" />
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="I"/>
             </action>
             <action id="latex.underline" class="mobi.hsz.idea.latex.actions.editor.UnderlineAction">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="U" />
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="U"/>
             </action>
             <action id="latex.align_left" class="mobi.hsz.idea.latex.actions.editor.AlignLeftAction">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="L" />
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="L"/>
             </action>
             <action id="latex.align_center" class="mobi.hsz.idea.latex.actions.editor.AlignCenterAction">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="C" />
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="C"/>
             </action>
             <action id="latex.align_right" class="mobi.hsz.idea.latex.actions.editor.AlignRightAction">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="R" />
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="R"/>
             </action>
         </group>
     </actions>

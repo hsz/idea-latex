@@ -56,7 +56,7 @@ public class LatexParserDefinition implements ParserDefinition {
     public static final TokenSet COMMENTS = TokenSet.create(LatexTypes.COMMENT);
 
     /** Latex instruction started with \ */
-    public static final TokenSet INSTRUCTIONS = TokenSet.create(LatexTypes.IDENTIFIER);
+    public static final TokenSet INSTRUCTIONS = TokenSet.create(LatexTypes.IDENTIFIER, LatexTypes.IDENTIFIER_BEGIN, LatexTypes.IDENTIFIER_END);
 
     /** Latex instruction's argument */
     public static final TokenSet ARGUMENTS = TokenSet.create(LatexTypes.ARGUMENT);

@@ -25,61 +25,85 @@
 package mobi.hsz.idea.latex.lang;
 
 import com.intellij.lang.ASTNode;
-import com.intellij.lang.folding.FoldingBuilderEx;
+import com.intellij.lang.folding.FoldingBuilder;
 import com.intellij.lang.folding.FoldingDescriptor;
 import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.search.PsiElementProcessor;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.containers.ContainerUtil;
+import com.intellij.psi.PsiElementVisitor;
 import mobi.hsz.idea.latex.LatexBundle;
-import mobi.hsz.idea.latex.psi.LatexFile;
-import mobi.hsz.idea.latex.psi.LatexTypes;
+import mobi.hsz.idea.latex.psi.*;
+import mobi.hsz.idea.latex.psi.impl.LatexSectionExtImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * LaTeX folding builder
+ * LaTeX folding builder. Handles {@link LatexTypes#SECTION} folding.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.2
  */
-public class LatexFoldingBuilder extends FoldingBuilderEx {
+public class LatexFoldingBuilder implements FoldingBuilder {
+
+    /** Desctiptors collection. */
+    private final List<FoldingDescriptor> descriptors = new ArrayList<FoldingDescriptor>();
+
+    /** {@link LatexVisitor} instance to walk over all sections in the {@link PsiElement}. */
+    private final PsiElementVisitor visitor = new LatexVisitor(){
+        @Override
+        public void visitSection(@NotNull LatexSection section) {
+            LatexInstructionBegin begin = ((LatexSectionExtImpl) section).getBeginInstruction();
+            LatexInstructionEnd end = ((LatexSectionExtImpl) section).getEndInstruction();
+
+            int startOffset = begin.getTextOffset();
+            int endOffset = end.getTextOffset() + end.getTextLength();
+            if (endOffset - startOffset > 0) {
+                descriptors.add(new FoldingDescriptor(section, new TextRange(startOffset, endOffset)));
+            }
+
+            section.acceptChildren(visitor);
+        }
+    };
+
+    /**
+     * Builds the folding regions for the specified node in the AST tree and its children.
+     * Note that you can have several folding regions for one AST node, i.e. several {@link FoldingDescriptor} with similar AST node.
+     *
+     * @param node     the node for which folding is requested.
+     * @param document the document for which folding is built. Can be used to retrieve line
+     *                 numbers for folding regions.
+     * @return the array of folding descriptors.
+     */
     @NotNull
-    @Override
-    public FoldingDescriptor[] buildFoldRegions(@NotNull PsiElement root, @NotNull Document document, boolean quick) {
-        if (!(root instanceof LatexFile)) {
-            return FoldingDescriptor.EMPTY;
-        }
-        LatexFile file = (LatexFile) root;
+    public FoldingDescriptor[] buildFoldRegions(@NotNull final ASTNode node, @NotNull final Document document) {
+        descriptors.clear();
+        node.getPsi().acceptChildren(visitor);
 
-        final List<FoldingDescriptor> result = ContainerUtil.newArrayList();
-
-        if (!quick) {
-            PsiTreeUtil.processElements(file, new PsiElementProcessor() {
-                @Override
-                public boolean execute(@NotNull PsiElement element) {
-                    IElementType type = element.getNode().getElementType();
-                    if (type.equals(LatexTypes.SECTION)) {
-                        result.add(new FoldingDescriptor(element.getNode(), element.getNode().getTextRange()));
-                    }
-                    return true;
-                }
-            });
-        }
-
-        return result.toArray(new FoldingDescriptor[result.size()]);
+        return descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
     }
 
+    /**
+     * Returns the text which is displayed in the editor for the folding region related to the
+     * specified node when the folding region is collapsed.
+     *
+     * @param node the node for which the placeholder text is requested.
+     * @return the placeholder text.
+     */
     @Nullable
     @Override
     public String getPlaceholderText(@NotNull ASTNode node) {
         return node.getFirstChildNode().getText() + LatexBundle.message("folding.placeholder");
     }
 
+    /**
+     * Returns the default collapsed state for the folding region related to the specified node.
+     *
+     * @param node the node for which the collapsed state is requested.
+     * @return true if the region is collapsed by default, false otherwise.
+     */
     @Override
     public boolean isCollapsedByDefault(@NotNull ASTNode node) {
         return true;
