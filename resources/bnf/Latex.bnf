@@ -62,10 +62,10 @@ instruction                     ::= IDENTIFIER       instruction_extra { pin = 1
 text                            ::= ( ARGUMENT special_expr ? ) +
 
 
-private argument_group          ::= expr_list_bracket | expr_list_brace | expr_list_paren
-private argument_expr           ::= ( special_expr * ( ARGUMENT | instruction ) special_expr * ) * { pin(".*") = 2 }
-private special_expr            ::= SPECIAL | COLON | COMMA | LINE_BREAK | CRLF
 private instruction_extra       ::= ASTERISK ? argument_group *
+private argument_group          ::= expr_list_bracket | expr_list_brace | expr_list_paren
+private argument_expr           ::= ( special_expr * ( ARGUMENT | section | instruction ) special_expr * ) * { pin(".*") = 2 }
+private special_expr            ::= SPECIAL | COLON | COMMA | LINE_BREAK | CRLF
 
 private meta expr_list_bracket  ::= LBRACKET <<sequence argument_expr special_expr>> ? RBRACKET { pin(".*") = 1 }
 private meta expr_list_brace    ::= LBRACE   <<sequence argument_expr special_expr>> ? RBRACE   { pin(".*") = 1 }
