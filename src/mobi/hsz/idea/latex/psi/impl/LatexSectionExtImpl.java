@@ -37,7 +37,8 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.3
  */
 public abstract class LatexSectionExtImpl extends LatexElementImpl implements LatexSection {
-    public LatexSectionExtImpl(ASTNode node) {
+
+    LatexSectionExtImpl(ASTNode node) {
         super(node);
     }
 
@@ -64,4 +65,5 @@ public abstract class LatexSectionExtImpl extends LatexElementImpl implements La
         assert instruction != null;
         return instruction;
     }
+
 }

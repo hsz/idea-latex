@@ -37,6 +37,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.1
  */
 public class LatexElementImpl extends ASTWrapperPsiElement {
+
     public LatexElementImpl(ASTNode node) {
         super(node);
     }
@@ -51,4 +52,5 @@ public class LatexElementImpl extends ASTWrapperPsiElement {
     public PsiReference[] getReferences() {
         return ReferenceProvidersRegistry.getReferencesFromProviders(this);
     }
+
 }

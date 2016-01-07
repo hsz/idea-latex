@@ -36,6 +36,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.1
  */
 public class LatexFileTypeFactory extends FileTypeFactory {
+
     /**
      * Assigns file types with languages.
      *
@@ -45,4 +46,5 @@ public class LatexFileTypeFactory extends FileTypeFactory {
     public void createFileTypes(@NotNull FileTypeConsumer consumer) {
         consumer.consume(LatexFileType.INSTANCE, LatexLanguage.EXTENSION);
     }
+
 }

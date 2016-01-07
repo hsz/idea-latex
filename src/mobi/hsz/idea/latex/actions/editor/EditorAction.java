@@ -61,17 +61,17 @@ public abstract class EditorAction extends AnAction implements DumbAware {
     private final String name;
 
     /** Builds a new instance of {@link EditorAction}. */
-    public EditorAction(@NotNull Type type, @NotNull String name, @NotNull Icon icon) {
+    EditorAction(@NotNull Type type, @NotNull String name, @NotNull Icon icon) {
         super(name, null, icon);
         this.type = type;
         this.name = name;
     }
 
-   /**
-    * Action handler.
-    *
-    * @param e Carries information on the invocation place
-    */
+    /**
+     * Action handler.
+     *
+     * @param e Carries information on the invocation place
+     */
     @Override
     public final void actionPerformed(AnActionEvent e) {
         final VirtualFile virtualFile = e.getData(CommonDataKeys.VIRTUAL_FILE);
@@ -103,7 +103,6 @@ public abstract class EditorAction extends AnAction implements DumbAware {
         update(e, editor, project, virtualFile);
     }
 
-
     protected abstract void writeActionPerformed(@NotNull TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile);
 
     protected abstract void update(AnActionEvent e, @NotNull TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile);
@@ -115,7 +114,7 @@ public abstract class EditorAction extends AnAction implements DumbAware {
      * @return active {@link TextEditor}
      */
     @Nullable
-    public static TextEditor getActiveEditor(Project project) {
+    private static TextEditor getActiveEditor(Project project) {
         if (project != null) {
             FileEditor[] fileEditors = FileEditorManager.getInstance(project).getSelectedEditors();
             for (FileEditor fileEditor : fileEditors) {
@@ -134,7 +133,7 @@ public abstract class EditorAction extends AnAction implements DumbAware {
      * @return active {@link TextEditor}
      */
     @Nullable
-    public static TextEditor getEditor(AnActionEvent e) {
+    private static TextEditor getEditor(AnActionEvent e) {
         FileEditor fileEditor = e.getData(PlatformDataKeys.FILE_EDITOR);
         if (fileEditor instanceof TextEditor) {
             return (TextEditor) fileEditor;
@@ -144,11 +143,13 @@ public abstract class EditorAction extends AnAction implements DumbAware {
     }
 
     /** Returns current editor action's type. */
+    @NotNull
     public Type getType() {
         return type;
     }
 
-    /** Returns current editor action's name.  */
+    /** Returns current editor action's name. */
+    @NotNull
     public String getName() {
         return name;
     }

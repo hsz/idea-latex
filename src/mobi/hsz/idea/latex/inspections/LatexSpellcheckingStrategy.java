@@ -38,6 +38,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.3
  */
 public class LatexSpellcheckingStrategy extends SpellcheckingStrategy {
+
     /**
      * Checks if elements is supported.
      *
@@ -63,4 +64,5 @@ public class LatexSpellcheckingStrategy extends SpellcheckingStrategy {
         }
         return EMPTY_TOKENIZER;
     }
+
 }

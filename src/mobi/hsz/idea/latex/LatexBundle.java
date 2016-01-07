@@ -37,6 +37,7 @@ import java.util.ResourceBundle;
  * @since 0.1
  */
 public class LatexBundle {
+
     /** The {@link java.util.ResourceBundle} path. */
     @NonNls
     private static final String BUNDLE_NAME = "messages.LatexBundle";
@@ -71,8 +72,8 @@ public class LatexBundle {
      * @param params       the optional parameters for the specific resource
      * @return the {@link String} value or {@code null} if no resource found for the key
      */
-
     public static String messageOrDefault(@PropertyKey(resourceBundle = BUNDLE_NAME) String key, String defaultValue, Object... params) {
         return CommonBundle.messageOrDefault(BUNDLE, key, defaultValue, params);
     }
+
 }

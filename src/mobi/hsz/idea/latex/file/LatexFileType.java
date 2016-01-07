@@ -39,6 +39,7 @@ import javax.swing.*;
  * @since 0.1
  */
 public class LatexFileType extends LanguageFileType {
+
     /** Contains {@link LatexFileType} singleton. */
     public static final LatexFileType INSTANCE = new LatexFileType();
 
@@ -49,6 +50,7 @@ public class LatexFileType extends LanguageFileType {
 
     /**
      * Returns the name of the file type. The name must be unique among all file types registered in the system.
+     *
      * @return The file type name.
      */
     @NotNull
@@ -59,6 +61,7 @@ public class LatexFileType extends LanguageFileType {
 
     /**
      * Returns the user-readable description of the file type.
+     *
      * @return The file type description.
      */
     @NotNull
@@ -69,6 +72,7 @@ public class LatexFileType extends LanguageFileType {
 
     /**
      * Returns the default extension for files of the type.
+     *
      * @return The extension, not including the leading '.'.
      */
     @NotNull
@@ -79,6 +83,7 @@ public class LatexFileType extends LanguageFileType {
 
     /**
      * Returns the icon used for showing files of the type.
+     *
      * @return The icon instance, or null if no icon should be shown.
      */
     @Nullable
@@ -86,4 +91,5 @@ public class LatexFileType extends LanguageFileType {
     public Icon getIcon() {
         return Icons.FILE;
     }
+
 }

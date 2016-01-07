@@ -36,7 +36,7 @@ import mobi.hsz.idea.latex.util.Icons;
 public class AlignCenterAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link AlignCenterAction}. */
-    public AlignCenterAction() {
+    AlignCenterAction() {
         super(Type.ALIGN_CENTER, LatexBundle.message("editor.align_center"), Icons.Editor.ALIGN_CENTER);
     }
 

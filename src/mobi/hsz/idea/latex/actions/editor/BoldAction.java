@@ -41,7 +41,7 @@ public class BoldAction extends WrapEditorAction {
     private static final String IDENTIFIER = "\\textbf";
 
     /** Builds a new instance of {@link BoldAction}. */
-    public BoldAction() {
+    BoldAction() {
         super(Type.BOLD, LatexBundle.message("editor.bold"), Icons.Editor.BOLD);
     }
 

@@ -48,11 +48,11 @@ import java.util.List;
  */
 public class LatexFoldingBuilder implements FoldingBuilder {
 
-    /** Desctiptors collection. */
+    /** Descriptors collection. */
     private final List<FoldingDescriptor> descriptors = new ArrayList<FoldingDescriptor>();
 
     /** {@link LatexVisitor} instance to walk over all sections in the {@link PsiElement}. */
-    private final PsiElementVisitor visitor = new LatexVisitor(){
+    private final PsiElementVisitor visitor = new LatexVisitor() {
         @Override
         public void visitSection(@NotNull LatexSection section) {
             LatexInstructionBegin begin = ((LatexSectionExtImpl) section).getBeginInstruction();
@@ -108,4 +108,5 @@ public class LatexFoldingBuilder implements FoldingBuilder {
     public boolean isCollapsedByDefault(@NotNull ASTNode node) {
         return true;
     }
+
 }

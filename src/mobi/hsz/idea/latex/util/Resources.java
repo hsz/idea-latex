@@ -24,6 +24,9 @@
 
 package mobi.hsz.idea.latex.util;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -36,6 +39,7 @@ import java.util.Scanner;
  * @since 0.2
  */
 public class Resources {
+
     /** Private constructor to prevent creating {@link Resources} instance. */
     private Resources() {
     }
@@ -45,7 +49,8 @@ public class Resources {
      *
      * @return Resources directory
      */
-    public static File getResource(String path) {
+    @NotNull
+    public static File getResource(@Nullable String path) {
         URL resource = Resources.class.getResource(path);
         assert resource != null;
         return new File(resource.getPath());
@@ -57,7 +62,8 @@ public class Resources {
      * @param path Resource path
      * @return Content
      */
-    public static String getResourceContent(String path) {
+    @NotNull
+    public static String getResourceContent(@Nullable String path) {
         return convertStreamToString(Resources.class.getResourceAsStream(path));
     }
 
@@ -67,8 +73,10 @@ public class Resources {
      * @param inputStream Input stream
      * @return Content
      */
-    protected static String convertStreamToString(InputStream inputStream) {
+    @NotNull
+    private static String convertStreamToString(InputStream inputStream) {
         Scanner s = new Scanner(inputStream).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
     }
+
 }

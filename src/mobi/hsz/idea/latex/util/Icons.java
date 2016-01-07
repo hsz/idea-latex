@@ -35,9 +35,11 @@ import javax.swing.*;
  * @since 0.1
  */
 public class Icons {
+
     public static final Icon FILE = IconLoader.getIcon("/icons/tex.png");
 
     public static class Editor {
+
         public static final Icon BOLD = IconLoader.getIcon("/icons/editor/bold.png");
         public static final Icon ITALIC = IconLoader.getIcon("/icons/editor/italic.png");
         public static final Icon UNDERLINE = IconLoader.getIcon("/icons/editor/underline.png");
@@ -45,5 +47,7 @@ public class Icons {
         public static final Icon ALIGN_CENTER = IconLoader.getIcon("/icons/editor/align_center.png");
         public static final Icon ALIGN_RIGHT = IconLoader.getIcon("/icons/editor/align_right.png");
         public static final Icon IMAGE = IconLoader.getIcon("/icons/editor/image.png");
+
     }
+
 }

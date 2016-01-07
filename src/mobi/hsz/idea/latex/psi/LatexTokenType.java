@@ -37,11 +37,12 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.1
  */
 public class LatexTokenType extends IElementType {
+
     /** Token debug name. */
     private final String debugName;
 
     /** Builds a new instance of @{link IgnoreTokenType}. */
-    public LatexTokenType(@NotNull @NonNls String debugName) {
+    LatexTokenType(@NotNull @NonNls String debugName) {
         super(debugName, LatexLanguage.INSTANCE);
         this.debugName = debugName;
     }
@@ -55,4 +56,5 @@ public class LatexTokenType extends IElementType {
     public String toString() {
         return LatexBundle.messageOrDefault("tokenType." + debugName, getLanguage().getDisplayName() + "TokenType." + super.toString());
     }
+
 }

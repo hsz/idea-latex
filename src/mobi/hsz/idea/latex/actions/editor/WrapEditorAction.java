@@ -48,14 +48,19 @@ import javax.swing.*;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.3
  */
-public abstract class WrapEditorAction extends EditorAction implements Toggleable {
+abstract class WrapEditorAction extends EditorAction implements Toggleable {
 
     /** Builds a new instance of {@link WrapEditorAction}. */
-    public WrapEditorAction(@NotNull Type type, @NotNull String name, @NotNull Icon icon) {
+    WrapEditorAction(@NotNull Type type, @NotNull String name, @NotNull Icon icon) {
         super(type, name, icon);
     }
 
-    public void wrap(@NotNull TextEditor editor) {
+    /**
+     * Wraps selection.
+     *
+     * @param editor Current editor.
+     */
+    private void wrap(@NotNull TextEditor editor) {
         final Document document = editor.getEditor().getDocument();
         final SelectionModel selectionModel = editor.getEditor().getSelectionModel();
         final CaretModel caretModel = editor.getEditor().getCaretModel();
@@ -73,7 +78,13 @@ public abstract class WrapEditorAction extends EditorAction implements Toggleabl
         caretModel.moveToOffset(newEnd);
     }
 
-    public void unwrap(@NotNull final TextEditor editor, @NotNull final PsiElement matched) {
+    /**
+     * Unwraps selection.
+     *
+     * @param editor Current editor.
+     * @param matched Matched PSI element.
+     */
+    private void unwrap(@NotNull final TextEditor editor, @NotNull final PsiElement matched) {
         final Document document = editor.getEditor().getDocument();
         final SelectionModel selectionModel = editor.getEditor().getSelectionModel();
         final CaretModel caretModel = editor.getEditor().getCaretModel();
@@ -91,7 +102,6 @@ public abstract class WrapEditorAction extends EditorAction implements Toggleabl
         selectionModel.setSelection(newStart, newEnd);
         caretModel.moveToOffset(newEnd);
     }
-
 
     @Override
     public void writeActionPerformed(@NotNull final TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile) {
@@ -129,7 +139,7 @@ public abstract class WrapEditorAction extends EditorAction implements Toggleabl
      * @param element to check
      * @return element matches to the action related type
      */
-    protected PsiElement getMatchedElement(@Nullable PsiElement element) {
+    private PsiElement getMatchedElement(@Nullable PsiElement element) {
         while (element != null && !(element instanceof LatexFile)) {
             if (isMatching(element)) {
                 return element;
@@ -164,7 +174,7 @@ public abstract class WrapEditorAction extends EditorAction implements Toggleabl
     }
 
     @Nullable
-    public PsiElement getCurrentElement(@Nullable final VirtualFile virtualFile, @Nullable final Project project, @Nullable TextEditor editor) {
+    private PsiElement getCurrentElement(@Nullable final VirtualFile virtualFile, @Nullable final Project project, @Nullable TextEditor editor) {
         if (virtualFile == null || project == null || editor == null) {
             return null;
         }
@@ -177,4 +187,5 @@ public abstract class WrapEditorAction extends EditorAction implements Toggleabl
         int offset = editor.getEditor().getCaretModel().getOffset();
         return file.findElementAt(offset);
     }
+
 }

@@ -37,10 +37,16 @@ import mobi.hsz.idea.latex.psi.LatexElementImpl;
  * @since 0.3
  */
 public abstract class LatexArgumentExtImpl extends LatexElementImpl implements LatexArgumentElement {
+
     LatexArgumentExtImpl(ASTNode node) {
         super(node);
     }
 
+    /**
+     * Returns the Argument element value ignoring the parentheses.
+     *
+     * @return Argument value.
+     */
     @Override
     public String getValue() {
         for (PsiElement child : getChildren()) {
@@ -50,4 +56,5 @@ public abstract class LatexArgumentExtImpl extends LatexElementImpl implements L
         }
         return getText();
     }
+
 }

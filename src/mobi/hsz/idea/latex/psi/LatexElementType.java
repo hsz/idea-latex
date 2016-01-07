@@ -36,8 +36,10 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.1
  */
 public class LatexElementType extends IElementType {
+
     /** Build a new instance of @{link IgnoreElementType} */
     public LatexElementType(@NotNull @NonNls String debugName) {
         super(debugName, LatexLanguage.INSTANCE);
     }
+
 }

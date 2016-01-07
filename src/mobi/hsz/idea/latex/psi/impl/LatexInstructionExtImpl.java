@@ -47,6 +47,7 @@ import static mobi.hsz.idea.latex.psi.LatexTypes.IDENTIFIER_END;
  * @since 0.3
  */
 public abstract class LatexInstructionExtImpl extends LatexElementImpl implements LatexInstruction {
+
     /** {@link TokenSet} containing all identifier types. */
     private static final TokenSet IDENTIFIERS = TokenSet.create(IDENTIFIER, IDENTIFIER_BEGIN, IDENTIFIER_END);
 
@@ -61,14 +62,25 @@ public abstract class LatexInstructionExtImpl extends LatexElementImpl implement
         return findNotNullChildByType(IDENTIFIERS);
     }
 
+    /**
+     * Returns the {@link LatexInstruction} arguments list.
+     *
+     * @return {@link LatexArgument} instances list.
+     */
     @Override
     @NotNull
     public List<LatexArgument> getArgumentList() {
         return PsiTreeUtil.getChildrenOfTypeAsList(this, LatexArgument.class);
     }
 
+    /**
+     * Returns the {@link LatexInstruction} argument.
+     *
+     * @return {@link LatexArgument} instance.
+     */
     @Nullable
     public LatexArgument getArgument() {
         return findChildByClass(LatexArgument.class);
     }
+
 }

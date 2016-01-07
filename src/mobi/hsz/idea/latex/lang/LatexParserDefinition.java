@@ -44,11 +44,12 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines the implementation of a parser for a custom language.
- * 
+ *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
 public class LatexParserDefinition implements ParserDefinition {
+
     /** Whitespaces. */
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
 
@@ -214,4 +215,5 @@ public class LatexParserDefinition implements ParserDefinition {
     public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
         return SpaceRequirements.MAY;
     }
+
 }

@@ -44,7 +44,8 @@ import java.util.Map;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class LatexHighlighter extends SyntaxHighlighterBase {
+class LatexHighlighter extends SyntaxHighlighterBase {
+
     /** Attributes map. */
     private static final Map<IElementType, TextAttributesKey> ATTRIBUTES = ContainerUtil.newHashMap();
 
@@ -63,7 +64,7 @@ public class LatexHighlighter extends SyntaxHighlighterBase {
     private final VirtualFile virtualFile;
 
     /** Builds a new instance of {@link LatexHighlighter}. */
-    public LatexHighlighter(@Nullable Project project, @Nullable VirtualFile virtualFile) {
+    LatexHighlighter(@Nullable Project project, @Nullable VirtualFile virtualFile) {
         this.project = project;
         this.virtualFile = virtualFile;
     }
@@ -90,4 +91,5 @@ public class LatexHighlighter extends SyntaxHighlighterBase {
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
         return pack(ATTRIBUTES.get(tokenType));
     }
+
 }

@@ -62,7 +62,7 @@ public class LatexColorSettingsPage implements ColorSettingsPage {
      */
     private static final String SAMPLE_LATEX = loadSampleLatex();
 
-    /**  Attributes descriptor list. */
+    /** Attributes descriptor list. */
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
             new AttributesDescriptor(LatexBundle.message("highlighter.instruction"), LatexHighlighterColors.INSTRUCTION),
             new AttributesDescriptor(LatexBundle.message("highlighter.argument"), LatexHighlighterColors.ARGUMENT),
@@ -165,4 +165,5 @@ public class LatexColorSettingsPage implements ColorSettingsPage {
     private static String loadSampleLatex() {
         return Resources.getResourceContent(SAMPLE_LATEX_PATH);
     }
+
 }

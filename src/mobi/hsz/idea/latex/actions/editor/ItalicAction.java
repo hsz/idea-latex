@@ -41,7 +41,7 @@ public class ItalicAction extends WrapEditorAction {
     private static final String IDENTIFIER = "\\textit";
 
     /** Builds a new instance of {@link ItalicAction}. */
-    public ItalicAction() {
+    ItalicAction() {
         super(Type.ITALIC, LatexBundle.message("editor.italic"), Icons.Editor.ITALIC);
     }
 

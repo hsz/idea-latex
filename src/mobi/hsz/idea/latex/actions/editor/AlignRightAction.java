@@ -36,7 +36,7 @@ import mobi.hsz.idea.latex.util.Icons;
 public class AlignRightAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link AlignRightAction}. */
-    public AlignRightAction() {
+    AlignRightAction() {
         super(Type.ALIGN_RIGHT, LatexBundle.message("editor.align_right"), Icons.Editor.ALIGN_RIGHT);
     }
 

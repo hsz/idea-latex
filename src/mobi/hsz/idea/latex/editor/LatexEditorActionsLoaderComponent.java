@@ -44,9 +44,8 @@ import javax.swing.*;
  * @since 0.3
  */
 public class LatexEditorActionsLoaderComponent extends AbstractProjectComponent {
-    /**
-     * Constructor.
-     */
+
+    /** Constructor. */
     public LatexEditorActionsLoaderComponent(@NotNull final Project project) {
         super(project);
     }
@@ -63,17 +62,13 @@ public class LatexEditorActionsLoaderComponent extends AbstractProjectComponent 
         return "LatexEditorActionsLoaderComponent";
     }
 
-    /**
-     * Initializes component.
-     */
+    /** Initializes component. */
     @Override
     public void initComponent() {
         myProject.getMessageBus().connect().subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new LatexEditorManagerListener());
     }
 
-    /**
-     * Listener for LaTeX editor manager.
-     */
+    /** Listener for LaTeX editor manager. */
     private static class LatexEditorManagerListener extends FileEditorManagerAdapter {
         /**
          * Handles file opening event and attaches LaTeX editor component.
@@ -105,4 +100,5 @@ public class LatexEditorActionsLoaderComponent extends AbstractProjectComponent 
             }
         }
     }
+
 }

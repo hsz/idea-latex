@@ -38,6 +38,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.1
  */
 public class LatexFile extends PsiFileBase {
+
     /** Current file type. */
     private final LatexFileType fileType;
 
@@ -67,4 +68,5 @@ public class LatexFile extends PsiFileBase {
     public String toString() {
         return fileType.getName();
     }
+
 }

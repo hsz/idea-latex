@@ -45,6 +45,7 @@ import static com.intellij.patterns.PlatformPatterns.psiFile;
  * @since 0.3
  */
 public class LatexReferenceContributor extends PsiReferenceContributor {
+
     /**
      * Registers new references provider for PSI element.
      *
@@ -82,4 +83,5 @@ public class LatexReferenceContributor extends PsiReferenceContributor {
             return PsiReference.EMPTY_ARRAY;
         }
     }
+
 }

@@ -36,6 +36,7 @@ import org.jetbrains.annotations.Nullable;
  * @since 0.1
  */
 public class LatexLexerAdapter extends FlexAdapter {
+
     /** Builds a new instance of {@link LatexLexerAdapter}. */
     public LatexLexerAdapter(Project project) {
         this(project, null);
@@ -45,4 +46,5 @@ public class LatexLexerAdapter extends FlexAdapter {
     public LatexLexerAdapter(Project project, @Nullable VirtualFile virtualFile) {
         super(new LatexLexer());
     }
+
 }

@@ -33,16 +33,18 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class LatexHighlighterColors {
+class LatexHighlighterColors {
+
     /** Default style for regular comment started with # */
     public static final TextAttributesKey COMMENT = TextAttributesKey.createTextAttributesKey("LATEX.COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
 
     /** Default style for Latex instruction started with \ */
-    public static final TextAttributesKey INSTRUCTION = TextAttributesKey.createTextAttributesKey("LATEX.INSTRUCTION", DefaultLanguageHighlighterColors.FUNCTION_CALL);
+    static final TextAttributesKey INSTRUCTION = TextAttributesKey.createTextAttributesKey("LATEX.INSTRUCTION", DefaultLanguageHighlighterColors.FUNCTION_CALL);
 
     /** Default style for bracket: [](){} */
-    public static final TextAttributesKey BRACKET = TextAttributesKey.createTextAttributesKey("LATEX.BRACKET", DefaultLanguageHighlighterColors.BRACKETS);
+    static final TextAttributesKey BRACKET = TextAttributesKey.createTextAttributesKey("LATEX.BRACKET", DefaultLanguageHighlighterColors.BRACKETS);
 
     /** Default style for Latex instruction's argument */
-    public static final TextAttributesKey ARGUMENT = TextAttributesKey.createTextAttributesKey("LATEX.ARGUMENT", DefaultLanguageHighlighterColors.PARAMETER);
+    static final TextAttributesKey ARGUMENT = TextAttributesKey.createTextAttributesKey("LATEX.ARGUMENT", DefaultLanguageHighlighterColors.PARAMETER);
+
 }

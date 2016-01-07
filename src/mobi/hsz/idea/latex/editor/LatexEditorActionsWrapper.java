@@ -40,11 +40,11 @@ import static mobi.hsz.idea.latex.actions.editor.EditorAction.Type.*;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.3
  */
-public class LatexEditorActionsWrapper implements Disposable {
+class LatexEditorActionsWrapper implements Disposable {
 
     private final ActionToolbar actionToolbar;
 
-    public LatexEditorActionsWrapper(@NotNull FileEditor fileEditor) {
+    LatexEditorActionsWrapper(@NotNull FileEditor fileEditor) {
         DefaultActionGroup actions = new DefaultActionGroup();
 
         actions.addAll(
@@ -67,7 +67,8 @@ public class LatexEditorActionsWrapper implements Disposable {
      * 
      * @return outer panel
      */
-    public JComponent getComponent() {
+    @NotNull
+    JComponent getComponent() {
         return actionToolbar.getComponent();
     }
 

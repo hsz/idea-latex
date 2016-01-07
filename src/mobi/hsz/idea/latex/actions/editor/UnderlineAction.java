@@ -41,7 +41,7 @@ public class UnderlineAction extends WrapEditorAction {
     private static final String IDENTIFIER = "\\underline";
 
     /** Builds a new instance of {@link UnderlineAction}. */
-    public UnderlineAction() {
+    UnderlineAction() {
         super(Type.UNDERLINE, LatexBundle.message("editor.underline"), Icons.Editor.UNDERLINE);
     }
 
