@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 hsz Jakub Chrzanowski <jakub@hsz.mobi>
+ * Copyright (c) 2016 hsz Jakub Chrzanowski <jakub@hsz.mobi>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ package mobi.hsz.idea.latex.actions.editor;
 import com.intellij.psi.PsiElement;
 import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.psi.LatexInstruction;
-import mobi.hsz.idea.latex.util.LatexIcons;
+import mobi.hsz.idea.latex.util.Icons;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -42,7 +42,7 @@ public class ItalicAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link ItalicAction}. */
     public ItalicAction() {
-        super(Type.ITALIC, LatexBundle.message("editor.italic"), LatexIcons.Editor.ITALIC);
+        super(Type.ITALIC, LatexBundle.message("editor.italic"), Icons.Editor.ITALIC);
     }
 
     @Override

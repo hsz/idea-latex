@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 hsz Jakub Chrzanowski <jakub@hsz.mobi>
+ * Copyright (c) 2016 hsz Jakub Chrzanowski <jakub@hsz.mobi>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@
 package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
-import mobi.hsz.idea.latex.util.LatexIcons;
+import mobi.hsz.idea.latex.util.Icons;
 
 /**
  * Editor action - align left.
@@ -37,7 +37,7 @@ public class AlignLeftAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link AlignLeftAction}. */
     public AlignLeftAction() {
-        super(Type.ALIGN_LEFT, LatexBundle.message("editor.align_left"), LatexIcons.Editor.ALIGN_LEFT);
+        super(Type.ALIGN_LEFT, LatexBundle.message("editor.align_left"), Icons.Editor.ALIGN_LEFT);
     }
 
     @Override

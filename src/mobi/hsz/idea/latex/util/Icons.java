@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 hsz Jakub Chrzanowski <jakub@hsz.mobi>
+ * Copyright (c) 2016 hsz Jakub Chrzanowski <jakub@hsz.mobi>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,12 +29,12 @@ import com.intellij.openapi.util.IconLoader;
 import javax.swing.*;
 
 /**
- * {@link LatexIcons} class that holds icon resources.
+ * {@link Icons} class that holds icon resources.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.1
  */
-public class LatexIcons {
+public class Icons {
     public static final Icon FILE = IconLoader.getIcon("/icons/tex.png");
 
     public static class Editor {
@@ -44,5 +44,6 @@ public class LatexIcons {
         public static final Icon ALIGN_LEFT = IconLoader.getIcon("/icons/editor/align_left.png");
         public static final Icon ALIGN_CENTER = IconLoader.getIcon("/icons/editor/align_center.png");
         public static final Icon ALIGN_RIGHT = IconLoader.getIcon("/icons/editor/align_right.png");
+        public static final Icon IMAGE = IconLoader.getIcon("/icons/editor/image.png");
     }
 }
