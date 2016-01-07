@@ -95,6 +95,10 @@
                 implementationClass="mobi.hsz.idea.latex.highlighter.LatexHighlighterFactory"
                 key="LaTeX"/>
 
+        <psi.referenceContributor
+                implementation="mobi.hsz.idea.latex.reference.LatexReferenceContributor"
+                language="LaTeX"/>
+
         <spellchecker.support
                 implementationClass="mobi.hsz.idea.latex.inspections.LatexSpellcheckingStrategy"
                 language="LaTeX"/>

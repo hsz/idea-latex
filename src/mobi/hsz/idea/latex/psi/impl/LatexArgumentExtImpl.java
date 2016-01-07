@@ -26,49 +26,28 @@ package mobi.hsz.idea.latex.psi.impl;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.TokenSet;
-import com.intellij.psi.util.PsiTreeUtil;
 import mobi.hsz.idea.latex.psi.LatexArgument;
+import mobi.hsz.idea.latex.psi.LatexArgumentElement;
 import mobi.hsz.idea.latex.psi.LatexElementImpl;
-import mobi.hsz.idea.latex.psi.LatexInstruction;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
-import static mobi.hsz.idea.latex.psi.LatexTypes.IDENTIFIER;
-import static mobi.hsz.idea.latex.psi.LatexTypes.IDENTIFIER_BEGIN;
-import static mobi.hsz.idea.latex.psi.LatexTypes.IDENTIFIER_END;
 
 /**
- * Abstract {@link LatexInstruction} implementation to handle {@link #getIdentifier()} in instruction subtypes.
+ * Abstract LatexArgument implementation.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.3
  */
-public abstract class LatexInstructionExtImpl extends LatexElementImpl implements LatexInstruction {
-    /** {@link TokenSet} containing all identifier types. */
-    private static final TokenSet IDENTIFIERS = TokenSet.create(IDENTIFIER, IDENTIFIER_BEGIN, IDENTIFIER_END);
-
-    /** Default constructor. */
-    LatexInstructionExtImpl(ASTNode node) {
+public abstract class LatexArgumentExtImpl extends LatexElementImpl implements LatexArgumentElement {
+    LatexArgumentExtImpl(ASTNode node) {
         super(node);
     }
 
-    /** Returns list of identifiers and identifiers subtypes. */
-    @NotNull
-    public PsiElement getIdentifier() {
-        return findNotNullChildByType(IDENTIFIERS);
-    }
-
     @Override
-    @NotNull
-    public List<LatexArgument> getArgumentList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, LatexArgument.class);
-    }
-
-    @Nullable
-    public LatexArgument getArgument() {
-        return findChildByClass(LatexArgument.class);
+    public String getValue() {
+        for (PsiElement child : getChildren()) {
+            if (child instanceof LatexArgument) {
+                return ((LatexArgument) child).getValue();
+            }
+        }
+        return getText();
     }
 }

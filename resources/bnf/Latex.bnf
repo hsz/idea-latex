@@ -29,7 +29,7 @@
     IDENTIFIER_END          = '\end'
     IDENTIFIER              = "regexp:\\\p{Alpha}+"
 
-    ARGUMENT                = "regexp:\b([^\[\]\{\}\(\),\\])+\b"
+    ARG                     = "regexp:\b([^\[\]\{\}\(\),\\])+\b"
     COMMENT                 = "regexp:%.*"
 
     SPECIAL                 = "regexp:[\S]|\\."
@@ -40,6 +40,9 @@
   name("instruction.*")     = instruction
   mixin("instruction.*")    = "mobi.hsz.idea.latex.psi.impl.LatexInstructionExtImpl"
   mixin("section")          = "mobi.hsz.idea.latex.psi.impl.LatexSectionExtImpl"
+
+  mixin("argument")         = "mobi.hsz.idea.latex.psi.impl.LatexArgumentExtImpl"
+  implements("argument")    = "mobi.hsz.idea.latex.psi.LatexArgumentElement"
 }
 
 
@@ -55,19 +58,19 @@ private expr                    ::= section
 
 section                         ::= instruction_begin expr * instruction_end { pin = 1 }
 
-instruction_begin               ::= IDENTIFIER_BEGIN instruction_extra { pin = 1 }
-instruction_end                 ::= IDENTIFIER_END   instruction_extra { pin = 1 }
-instruction                     ::= IDENTIFIER       instruction_extra { pin = 1 }
+instruction_begin               ::= IDENTIFIER_BEGIN argument_brace argument_brace * { pin = 1 }
+instruction_end                 ::= IDENTIFIER_END   argument_brace { pin = 1 }
+instruction                     ::= IDENTIFIER       ASTERISK ? argument_group * { pin = 1 }
 
-text                            ::= ( ARGUMENT special_expr ? ) +
+text                            ::= ( ARG special_expr ? ) +
 
-
-private instruction_extra       ::= ASTERISK ? argument_group *
-private argument_group          ::= expr_list_bracket | expr_list_brace | expr_list_paren
-private argument_expr           ::= ( special_expr * ( ARGUMENT | section | instruction ) special_expr * ) * { pin(".*") = 2 }
+private argument_group          ::= argument_bracket | argument_brace | argument_paren
+private argument_expr           ::= ( special_expr * ( ARG | section | instruction ) special_expr * ) * { pin(".*") = 2 }
 private special_expr            ::= SPECIAL | COLON | COMMA | LINE_BREAK | CRLF
 
-private meta expr_list_bracket  ::= LBRACKET <<sequence argument_expr special_expr>> ? RBRACKET { pin(".*") = 1 }
-private meta expr_list_brace    ::= LBRACE   <<sequence argument_expr special_expr>> ? RBRACE   { pin(".*") = 1 }
-private meta expr_list_paren    ::= LPAREN   <<sequence argument_expr special_expr>> ? RPAREN   { pin(".*") = 1 }
+meta argument_bracket           ::= LBRACKET argument ? RBRACKET { pin(".*") = 1 elementType = argument }
+meta argument_brace             ::= LBRACE   argument ? RBRACE   { pin(".*") = 1 elementType = argument }
+meta argument_paren             ::= LPAREN   argument ? RPAREN   { pin(".*") = 1 elementType = argument }
+meta argument                   ::= <<sequence argument_expr special_expr>>
+
 private meta sequence           ::= <<p>> (<<q>> <<p>>) * { pin(".*") = 1 }

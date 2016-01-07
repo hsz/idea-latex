@@ -29,7 +29,7 @@ WHITE_SPACE         = ({LINE_WS}|{EOL})+
 
 IDENTIFIER          = \\[:letter:]+
 COMMENT             = %.*
-ARGUMENT            = [^\(\)\{\}\[\]\\,]
+ARG                 = [^\(\)\{\}\[\]\\,]
 TEXT                = [^\(\)\{\}\[\]\\\%\ \t\f\r\n]|"\\\%"|("\\"{SPECIAL})
 SPECIAL             = "$"|"&"|"#"|"_"|"~"|"^"|"\\"
 %state IN_ARGUMENT
@@ -45,7 +45,7 @@ SPECIAL             = "$"|"&"|"#"|"_"|"~"|"^"|"\\"
 <YYINITIAL> "}"             { return RBRACE; }
 
 <IN_ARGUMENT> {
-    {ARGUMENT}+             { return ARGUMENT; }
+    {ARG}+                  { return ARG; }
     ","                     { return COMMA; }
     .                       { yypushback(1); yybegin(YYINITIAL); }
 }
@@ -58,8 +58,8 @@ SPECIAL             = "$"|"&"|"#"|"_"|"~"|"^"|"\\"
 <YYINITIAL> "\\".           { return SPECIAL; }
 
 <YYINITIAL> {WHITE_SPACE}+  { return WHITE_SPACE; }
-<YYINITIAL> "\\begin"        { return IDENTIFIER_BEGIN; }
-<YYINITIAL> "\\end"          { return IDENTIFIER_END; }
+<YYINITIAL> "\\begin"       { return IDENTIFIER_BEGIN; }
+<YYINITIAL> "\\end"         { return IDENTIFIER_END; }
 <YYINITIAL> {IDENTIFIER}    { return IDENTIFIER; }
 <YYINITIAL> {COMMENT}       { return COMMENT; }
-<YYINITIAL> {TEXT}+         { return ARGUMENT; }
+<YYINITIAL> {TEXT}+         { return ARG; }
