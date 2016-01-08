@@ -25,7 +25,9 @@
 package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
+import mobi.hsz.idea.latex.actions.editor.base.WrapEditorAction;
 import mobi.hsz.idea.latex.util.Icons;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Editor action - align right.
@@ -36,15 +38,17 @@ import mobi.hsz.idea.latex.util.Icons;
 public class AlignRightAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link AlignRightAction}. */
-    AlignRightAction() {
+    public AlignRightAction() {
         super(Type.ALIGN_RIGHT, LatexBundle.message("editor.align_right"), Icons.Editor.ALIGN_RIGHT);
     }
 
+    @NotNull
     @Override
     public String getLeftText() {
         return "\\begin{flushright}";
     }
 
+    @NotNull
     @Override
     public String getRightText() {
         return "\\end{flushright}";

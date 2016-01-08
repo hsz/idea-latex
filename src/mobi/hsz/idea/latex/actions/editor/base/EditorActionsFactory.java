@@ -22,7 +22,11 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.actions.editor;
+package mobi.hsz.idea.latex.actions.editor.base;
+
+import mobi.hsz.idea.latex.actions.editor.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Factory for creating LaTeX editor's actions.
@@ -32,32 +36,33 @@ package mobi.hsz.idea.latex.actions.editor;
  */
 public final class EditorActionsFactory {
 
-    /** Creates proper {@link EditorAction} instance basing on given {@link EditorAction.Type}. */
-    public static EditorAction create(EditorAction.Type type) {
-        EditorAction action = null;
-
+    /**
+     * Creates proper {@link EditorAction} instance basing on given {@link EditorAction.Type}.
+     *
+     * @return LaTeX editor toolbar action.
+     */
+    @Nullable
+    public static EditorAction create(@NotNull EditorAction.Type type) {
         switch (type) {
             case BOLD:
-                action = new BoldAction();
-                break;
+                return new BoldAction();
             case ITALIC:
-                action = new ItalicAction();
-                break;
+                return new ItalicAction();
             case UNDERLINE:
-                action = new UnderlineAction();
-                break;
+                return new UnderlineAction();
             case ALIGN_LEFT:
-                action = new AlignLeftAction();
-                break;
+                return new AlignLeftAction();
             case ALIGN_CENTER:
-                action = new AlignCenterAction();
-                break;
+                return new AlignCenterAction();
             case ALIGN_RIGHT:
-                action = new AlignRightAction();
-                break;
-        }
+                return new AlignRightAction();
+            case IMAGE:
+                return new ImageAction();
+            case TABLE:
+                return new TableAction();
 
-        return action;
+        }
+        return null;
     }
 
 }

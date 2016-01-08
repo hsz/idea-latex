@@ -26,6 +26,7 @@ package mobi.hsz.idea.latex.actions.editor;
 
 import com.intellij.psi.PsiElement;
 import mobi.hsz.idea.latex.LatexBundle;
+import mobi.hsz.idea.latex.actions.editor.base.WrapEditorAction;
 import mobi.hsz.idea.latex.psi.LatexInstruction;
 import mobi.hsz.idea.latex.util.Icons;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +42,7 @@ public class BoldAction extends WrapEditorAction {
     private static final String IDENTIFIER = "\\textbf";
 
     /** Builds a new instance of {@link BoldAction}. */
-    BoldAction() {
+    public BoldAction() {
         super(Type.BOLD, LatexBundle.message("editor.bold"), Icons.Editor.BOLD);
     }
 
@@ -50,11 +51,13 @@ public class BoldAction extends WrapEditorAction {
         return element instanceof LatexInstruction && ((LatexInstruction) element).getIdentifier().getText().equals(IDENTIFIER);
     }
 
+    @NotNull
     @Override
     public String getLeftText() {
         return IDENTIFIER + "{";
     }
 
+    @NotNull
     @Override
     public String getRightText() {
         return "}";

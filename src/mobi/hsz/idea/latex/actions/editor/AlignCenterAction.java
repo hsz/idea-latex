@@ -25,7 +25,9 @@
 package mobi.hsz.idea.latex.actions.editor;
 
 import mobi.hsz.idea.latex.LatexBundle;
+import mobi.hsz.idea.latex.actions.editor.base.WrapEditorAction;
 import mobi.hsz.idea.latex.util.Icons;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Editor action - align center.
@@ -36,15 +38,17 @@ import mobi.hsz.idea.latex.util.Icons;
 public class AlignCenterAction extends WrapEditorAction {
 
     /** Builds a new instance of {@link AlignCenterAction}. */
-    AlignCenterAction() {
+    public AlignCenterAction() {
         super(Type.ALIGN_CENTER, LatexBundle.message("editor.align_center"), Icons.Editor.ALIGN_CENTER);
     }
 
+    @NotNull
     @Override
     public String getLeftText() {
         return "\\begin{center}";
     }
 
+    @NotNull
     @Override
     public String getRightText() {
         return "\\end{center}";

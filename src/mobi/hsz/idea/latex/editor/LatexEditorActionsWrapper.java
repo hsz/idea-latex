@@ -27,12 +27,12 @@ package mobi.hsz.idea.latex.editor;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.fileEditor.FileEditor;
-import mobi.hsz.idea.latex.actions.editor.EditorActionsFactory;
+import mobi.hsz.idea.latex.actions.editor.base.EditorActionsFactory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-import static mobi.hsz.idea.latex.actions.editor.EditorAction.Type.*;
+import static mobi.hsz.idea.latex.actions.editor.base.EditorAction.Type.*;
 
 /**
  * Wrapper that creates bottom editor component for displaying outer ignore rules.
@@ -54,7 +54,9 @@ class LatexEditorActionsWrapper implements Disposable {
                 Separator.getInstance(),
                 EditorActionsFactory.create(ALIGN_LEFT),
                 EditorActionsFactory.create(ALIGN_CENTER),
-                EditorActionsFactory.create(ALIGN_RIGHT)
+                EditorActionsFactory.create(ALIGN_RIGHT),
+                Separator.getInstance(),
+                EditorActionsFactory.create(IMAGE)
         );
 
         actionToolbar = ActionManager.getInstance().createActionToolbar(ActionPlaces.EDITOR_TAB, actions, true);

@@ -22,11 +22,10 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.actions.editor;
+package mobi.hsz.idea.latex.actions.editor.base;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Toggleable;
-import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.SelectionModel;
@@ -35,12 +34,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import mobi.hsz.idea.latex.LatexBundle;
-import mobi.hsz.idea.latex.psi.LatexFile;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
@@ -48,11 +42,50 @@ import javax.swing.*;
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.3
  */
-abstract class WrapEditorAction extends EditorAction implements Toggleable {
+public abstract class WrapEditorAction extends EditorAction implements Toggleable {
 
-    /** Builds a new instance of {@link WrapEditorAction}. */
-    WrapEditorAction(@NotNull Type type, @NotNull String name, @NotNull Icon icon) {
+    /**
+     * Builds a new instance of {@link WrapEditorAction}.
+     */
+    public WrapEditorAction(@NotNull Type type, @NotNull String name, @NotNull Icon icon) {
         super(type, name, icon);
+    }
+
+    /**
+     * Writes content to the current document.
+     *
+     * @param event       action event
+     * @param project     current project
+     * @param virtualFile current file
+     * @param editor      current editor
+     */
+    @Override
+    protected void actionPerformed(@NotNull AnActionEvent event, @NotNull Project project, @NotNull VirtualFile virtualFile, @NotNull final TextEditor editor) {
+        PsiElement element = getCurrentElement(virtualFile, project, editor);
+        final PsiElement matched = getMatchedElement(element);
+        runWriteAction(project, new Runnable() {
+            @Override
+            public void run() {
+                if (matched == null) {
+                    wrap(editor);
+                } else {
+                    unwrap(editor, matched);
+                }
+            }
+        });
+    }
+
+    /**
+     * Updates the state of the action.
+     *
+     * @param event Carries information on the invocation place and data available
+     */
+    @Override
+    protected void update(AnActionEvent event, @NotNull Project project, @NotNull VirtualFile virtualFile, @NotNull TextEditor editor) {
+        PsiElement element = getCurrentElement(virtualFile, project, editor);
+        PsiElement matched = getMatchedElement(element);
+
+        event.getPresentation().putClientProperty(SELECTED_PROPERTY, matched != null);
     }
 
     /**
@@ -81,7 +114,7 @@ abstract class WrapEditorAction extends EditorAction implements Toggleable {
     /**
      * Unwraps selection.
      *
-     * @param editor Current editor.
+     * @param editor  Current editor.
      * @param matched Matched PSI element.
      */
     private void unwrap(@NotNull final TextEditor editor, @NotNull final PsiElement matched) {
@@ -103,57 +136,12 @@ abstract class WrapEditorAction extends EditorAction implements Toggleable {
         caretModel.moveToOffset(newEnd);
     }
 
-    @Override
-    public void writeActionPerformed(@NotNull final TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile) {
-        PsiElement element = getCurrentElement(virtualFile, project, editor);
-        final PsiElement matched = getMatchedElement(element);
-
-        CommandProcessor.getInstance().executeCommand(project, new Runnable() {
-            @Override
-            public void run() {
-                if (matched == null) {
-                    wrap(editor);
-                } else {
-                    unwrap(editor, matched);
-                }
-            }
-        }, getName(), LatexBundle.NAME);
-    }
-
-    /**
-     * Updates the state of the action.
-     *
-     * @param e Carries information on the invocation place and data available
-     */
-    @Override
-    public void update(AnActionEvent e, @NotNull TextEditor editor, @NotNull Project project, @NotNull VirtualFile virtualFile) {
-        PsiElement element = getCurrentElement(virtualFile, project, editor);
-        PsiElement matched = getMatchedElement(element);
-
-        e.getPresentation().putClientProperty(SELECTED_PROPERTY, matched != null);
-    }
-
-    /**
-     * Checks if action related type matched to the given element in document.
-     *
-     * @param element to check
-     * @return element matches to the action related type
-     */
-    private PsiElement getMatchedElement(@Nullable PsiElement element) {
-        while (element != null && !(element instanceof LatexFile)) {
-            if (isMatching(element)) {
-                return element;
-            }
-            element = element.getParent();
-        }
-        return null;
-    }
-
     /**
      * Returns left part of the wrapping text.
      *
      * @return left part
      */
+    @NotNull
     public abstract String getLeftText();
 
     /**
@@ -161,31 +149,7 @@ abstract class WrapEditorAction extends EditorAction implements Toggleable {
      *
      * @return right part
      */
+    @NotNull
     public abstract String getRightText();
-
-    /**
-     * Checks if element matches to the related one.
-     *
-     * @param element to check
-     * @return action's element type
-     */
-    public boolean isMatching(@NotNull PsiElement element) {
-        return false;
-    }
-
-    @Nullable
-    private PsiElement getCurrentElement(@Nullable final VirtualFile virtualFile, @Nullable final Project project, @Nullable TextEditor editor) {
-        if (virtualFile == null || project == null || editor == null) {
-            return null;
-        }
-
-        PsiFile file = PsiManager.getInstance(project).findFile(virtualFile);
-        if (file == null || !(file instanceof LatexFile)) {
-            return null;
-        }
-
-        int offset = editor.getEditor().getCaretModel().getOffset();
-        return file.findElementAt(offset);
-    }
 
 }

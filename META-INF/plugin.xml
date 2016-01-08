@@ -136,6 +136,7 @@
             <action id="latex.align_right" class="mobi.hsz.idea.latex.actions.editor.AlignRightAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="R"/>
             </action>
+            <action id="latex.image" class="mobi.hsz.idea.latex.actions.editor.ImageAction" />
         </group>
     </actions>
 </idea-plugin>

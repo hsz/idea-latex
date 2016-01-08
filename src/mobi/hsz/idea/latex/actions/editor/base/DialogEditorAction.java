@@ -22,36 +22,39 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.actions.editor;
+package mobi.hsz.idea.latex.actions.editor.base;
 
-import mobi.hsz.idea.latex.LatexBundle;
-import mobi.hsz.idea.latex.actions.editor.base.WrapEditorAction;
-import mobi.hsz.idea.latex.util.Icons;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.Toggleable;
+import com.intellij.openapi.fileEditor.TextEditor;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
+
 /**
- * Editor action - align left.
- *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.2
+ * @since 0.3
  */
-public class AlignLeftAction extends WrapEditorAction {
+public abstract class DialogEditorAction<T extends DialogWrapper> extends EditorAction implements Toggleable {
 
-    /** Builds a new instance of {@link AlignLeftAction}. */
-    public AlignLeftAction() {
-        super(Type.ALIGN_LEFT, LatexBundle.message("editor.align_left"), Icons.Editor.ALIGN_LEFT);
+    /** Builds a new instance of {@link DialogEditorAction}. */
+    public DialogEditorAction(@NotNull Type type, @NotNull String name, @NotNull Icon icon) {
+        super(type, name, icon);
     }
 
-    @NotNull
     @Override
-    public String getLeftText() {
-        return "\\begin{flushleft}";
+    protected void actionPerformed(@NotNull AnActionEvent event, @NotNull final Project project, @NotNull VirtualFile virtualFile, @NotNull final TextEditor editor) {
+        final T dialog = getDialog(project);
+        if (dialog.showAndGet()) {
+            runWriteAction(project, getDialogAction(dialog, editor));
+        }
     }
 
-    @NotNull
-    @Override
-    public String getRightText() {
-        return "\\end{flushleft}";
-    }
+    protected abstract T getDialog(@NotNull Project project);
+
+    protected abstract Runnable getDialogAction(@NotNull T dialog, @NotNull final TextEditor editor);
 
 }

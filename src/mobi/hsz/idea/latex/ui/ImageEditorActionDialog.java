@@ -22,36 +22,52 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.actions.editor;
+package mobi.hsz.idea.latex.ui;
 
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import mobi.hsz.idea.latex.LatexBundle;
-import mobi.hsz.idea.latex.actions.editor.base.WrapEditorAction;
-import mobi.hsz.idea.latex.util.Icons;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-/**
- * Editor action - align left.
- *
- * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.2
- */
-public class AlignLeftAction extends WrapEditorAction {
+import javax.swing.*;
 
-    /** Builds a new instance of {@link AlignLeftAction}. */
-    public AlignLeftAction() {
-        super(Type.ALIGN_LEFT, LatexBundle.message("editor.align_left"), Icons.Editor.ALIGN_LEFT);
+public class ImageEditorActionDialog extends DialogWrapper {
+
+    private JPanel panel;
+    private TextFieldWithBrowseButton path;
+    private JTextField caption;
+    private JTextField label;
+
+    public ImageEditorActionDialog(@NotNull Project project) {
+        super(project);
+
+        path.addBrowseFolderListener(LatexBundle.message("editor.image.dialog.browse"), null, project, FileChooserDescriptorFactory.createSingleFileDescriptor());
+        setTitle(LatexBundle.message("editor.image.dialog.title"));
+        init();
+    }
+
+    @Nullable
+    @Override
+    protected JComponent createCenterPanel() {
+        return panel;
     }
 
     @NotNull
-    @Override
-    public String getLeftText() {
-        return "\\begin{flushleft}";
+    public String getPath() {
+        return path.getText().trim();
     }
 
     @NotNull
-    @Override
-    public String getRightText() {
-        return "\\end{flushleft}";
+    public String getCaption() {
+        return caption.getText().trim();
+    }
+
+    @NotNull
+    public String getLabel() {
+        return label.getText().trim();
     }
 
 }
