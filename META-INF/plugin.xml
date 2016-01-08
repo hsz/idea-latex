@@ -137,6 +137,7 @@
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="R"/>
             </action>
             <action id="latex.image" class="mobi.hsz.idea.latex.actions.editor.ImageAction" />
+            <action id="latex.table" class="mobi.hsz.idea.latex.actions.editor.TableAction" />
         </group>
     </actions>
 </idea-plugin>

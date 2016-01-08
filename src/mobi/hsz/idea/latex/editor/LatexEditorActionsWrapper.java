@@ -56,7 +56,8 @@ class LatexEditorActionsWrapper implements Disposable {
                 EditorActionsFactory.create(ALIGN_CENTER),
                 EditorActionsFactory.create(ALIGN_RIGHT),
                 Separator.getInstance(),
-                EditorActionsFactory.create(IMAGE)
+                EditorActionsFactory.create(IMAGE),
+                EditorActionsFactory.create(TABLE)
         );
 
         actionToolbar = ActionManager.getInstance().createActionToolbar(ActionPlaces.EDITOR_TAB, actions, true);
@@ -77,4 +78,5 @@ class LatexEditorActionsWrapper implements Disposable {
     @Override
     public void dispose() {
     }
+
 }

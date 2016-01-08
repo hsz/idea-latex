@@ -22,33 +22,41 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.util;
+package mobi.hsz.idea.latex.ui;
 
-import com.intellij.openapi.util.IconLoader;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.DialogWrapper;
+import mobi.hsz.idea.latex.LatexBundle;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-/**
- * {@link Icons} class that holds icon resources.
- *
- * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.1
- */
-public class Icons {
+public class TableEditorActionDialog extends DialogWrapper {
 
-    public static final Icon FILE = IconLoader.getIcon("/icons/tex.png");
+    private JPanel panel;
+    private JTextField rows;
+    private JTextField columns;
 
-    public static class Editor {
+    public TableEditorActionDialog(@NotNull Project project) {
+        super(project);
 
-        public static final Icon ALIGN_LEFT = IconLoader.getIcon("/icons/editor/align_left.png");
-        public static final Icon ALIGN_CENTER = IconLoader.getIcon("/icons/editor/align_center.png");
-        public static final Icon ALIGN_RIGHT = IconLoader.getIcon("/icons/editor/align_right.png");
-        public static final Icon BOLD = IconLoader.getIcon("/icons/editor/bold.png");
-        public static final Icon IMAGE = IconLoader.getIcon("/icons/editor/image.png");
-        public static final Icon ITALIC = IconLoader.getIcon("/icons/editor/italic.png");
-        public static final Icon TABLE = IconLoader.getIcon("/icons/editor/table.png");
-        public static final Icon UNDERLINE = IconLoader.getIcon("/icons/editor/underline.png");
+        setTitle(LatexBundle.message("editor.table.dialog.title"));
+        init();
+    }
 
+    @Nullable
+    @Override
+    protected JComponent createCenterPanel() {
+        return panel;
+    }
+
+    public int getRows() {
+        return Integer.valueOf(rows.getText());
+    }
+
+    public int getColumns() {
+        return Integer.valueOf(columns.getText());
     }
 
 }
