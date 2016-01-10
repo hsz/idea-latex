@@ -60,7 +60,7 @@ public abstract class EditorAction extends AnAction implements DumbAware {
     public enum Type {
         BOLD, ITALIC, UNDERLINE,
         ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT,
-        IMAGE, TABLE,
+        IMAGE, MATRIX, TABLE,
     }
 
     /**

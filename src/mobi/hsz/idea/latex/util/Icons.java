@@ -46,6 +46,7 @@ public class Icons {
         public static final Icon BOLD = IconLoader.getIcon("/icons/editor/bold.png");
         public static final Icon IMAGE = IconLoader.getIcon("/icons/editor/image.png");
         public static final Icon ITALIC = IconLoader.getIcon("/icons/editor/italic.png");
+        public static final Icon MATRIX = IconLoader.getIcon("/icons/editor/matrix.png");
         public static final Icon TABLE = IconLoader.getIcon("/icons/editor/table.png");
         public static final Icon UNDERLINE = IconLoader.getIcon("/icons/editor/underline.png");
 

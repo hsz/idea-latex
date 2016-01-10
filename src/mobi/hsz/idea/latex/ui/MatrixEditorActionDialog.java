@@ -22,39 +22,41 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.actions.editor.base;
+package mobi.hsz.idea.latex.ui;
 
-import mobi.hsz.idea.latex.actions.editor.*;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.DialogWrapper;
+import mobi.hsz.idea.latex.LatexBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Factory for creating LaTeX editor's actions.
- *
- * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.2
- */
-public final class EditorActionsFactory {
+import javax.swing.*;
 
-    /**
-     * Creates proper {@link EditorAction} instance basing on given {@link EditorAction.Type}.
-     *
-     * @return LaTeX editor toolbar action.
-     */
+public class MatrixEditorActionDialog extends DialogWrapper {
+
+    private JPanel panel;
+    private JTextField rows;
+    private JTextField columns;
+
+    public MatrixEditorActionDialog(@NotNull Project project) {
+        super(project);
+
+        setTitle(LatexBundle.message("editor.matrix.dialog.title"));
+        init();
+    }
+
     @Nullable
-    public static EditorAction create(@NotNull EditorAction.Type type) {
-        switch (type) {
-            case BOLD:          return new BoldAction();
-            case ITALIC:        return new ItalicAction();
-            case UNDERLINE:     return new UnderlineAction();
-            case ALIGN_LEFT:    return new AlignLeftAction();
-            case ALIGN_CENTER:  return new AlignCenterAction();
-            case ALIGN_RIGHT:   return new AlignRightAction();
-            case IMAGE:         return new ImageAction();
-            case MATRIX:        return new MatrixAction();
-            case TABLE:         return new TableAction();
-        }
-        return null;
+    @Override
+    protected JComponent createCenterPanel() {
+        return panel;
+    }
+
+    public int getRows() {
+        return Integer.valueOf(rows.getText());
+    }
+
+    public int getColumns() {
+        return Integer.valueOf(columns.getText());
     }
 
 }
