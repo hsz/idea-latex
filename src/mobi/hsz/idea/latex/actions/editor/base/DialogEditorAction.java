@@ -26,6 +26,8 @@ package mobi.hsz.idea.latex.actions.editor.base;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.Toggleable;
+import com.intellij.openapi.editor.CaretModel;
+import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.TextEditor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -53,8 +55,27 @@ public abstract class DialogEditorAction<T extends DialogWrapper> extends Editor
         }
     }
 
+    @NotNull
     protected abstract T getDialog(@NotNull Project project);
 
-    protected abstract Runnable getDialogAction(@NotNull T dialog, @NotNull final TextEditor editor);
+    @NotNull
+    protected abstract String getContent(@NotNull T dialog);
+
+    @NotNull
+    protected Runnable getDialogAction(@NotNull final T dialog, @NotNull final TextEditor editor) {
+        return new Runnable() {
+            @Override
+            public void run() {
+                final Document document = editor.getEditor().getDocument();
+                final CaretModel caretModel = editor.getEditor().getCaretModel();
+                final String content = getContent(dialog);
+
+                int offset = caretModel.getOffset();
+
+                document.insertString(offset, content);
+                caretModel.moveToOffset(offset + content.length());
+            }
+        };
+    }
 
 }

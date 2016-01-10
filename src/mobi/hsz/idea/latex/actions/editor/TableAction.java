@@ -24,9 +24,6 @@
 
 package mobi.hsz.idea.latex.actions.editor;
 
-import com.intellij.openapi.editor.CaretModel;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.TextEditor;
 import com.intellij.openapi.project.Project;
 import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.actions.editor.base.DialogEditorAction;
@@ -49,31 +46,18 @@ public class TableAction extends DialogEditorAction<TableEditorActionDialog> {
         super(Type.TABLE, LatexBundle.message("editor.table"), Icons.Editor.TABLE);
     }
 
+    @NotNull
     @Override
     protected TableEditorActionDialog getDialog(@NotNull Project project) {
         return new TableEditorActionDialog(project);
     }
 
-    @Override
-    protected Runnable getDialogAction(@NotNull final TableEditorActionDialog dialog, @NotNull final TextEditor editor) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                final Document document = editor.getEditor().getDocument();
-                final CaretModel caretModel = editor.getEditor().getCaretModel();
-
-                int offset = caretModel.getOffset();
-                String content = getContent(dialog.getRows(), dialog.getColumns());
-
-                document.insertString(offset, content);
-                caretModel.moveToOffset(offset + content.length());
-            }
-        };
-    }
-
     @NotNull
-    private String getContent(int rows, int columns) {
+    @Override
+    protected String getContent(@NotNull TableEditorActionDialog dialog) {
         StringBuilder sb = new StringBuilder();
+        int rows = dialog.getRows();
+        int columns = dialog.getColumns();
 
         sb.append("\\begin{tabular}{lll}\n");
         for (int i = 1; i <= rows; i++) {

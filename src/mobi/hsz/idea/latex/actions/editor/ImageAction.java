@@ -24,9 +24,6 @@
 
 package mobi.hsz.idea.latex.actions.editor;
 
-import com.intellij.openapi.editor.CaretModel;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.TextEditor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
 import mobi.hsz.idea.latex.LatexBundle;
@@ -34,7 +31,6 @@ import mobi.hsz.idea.latex.actions.editor.base.DialogEditorAction;
 import mobi.hsz.idea.latex.ui.ImageEditorActionDialog;
 import mobi.hsz.idea.latex.util.Icons;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Editor action - insert image.
@@ -49,31 +45,19 @@ public class ImageAction extends DialogEditorAction<ImageEditorActionDialog> {
         super(Type.IMAGE, LatexBundle.message("editor.image"), Icons.Editor.IMAGE);
     }
 
+    @NotNull
     @Override
     protected ImageEditorActionDialog getDialog(@NotNull Project project) {
         return new ImageEditorActionDialog(project);
     }
 
-    @Override
-    protected Runnable getDialogAction(@NotNull final ImageEditorActionDialog dialog, @NotNull final TextEditor editor) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                final Document document = editor.getEditor().getDocument();
-                final CaretModel caretModel = editor.getEditor().getCaretModel();
-
-                int offset = caretModel.getOffset();
-                String content = getContent(dialog.getPath(), dialog.getCaption(), dialog.getLabel());
-
-                document.insertString(offset, content);
-                caretModel.moveToOffset(offset + content.length());
-            }
-        };
-    }
-
     @NotNull
-    private String getContent(@NotNull String path, @Nullable String caption, @Nullable String label) {
+    @Override
+    protected String getContent(@NotNull ImageEditorActionDialog dialog) {
         StringBuilder sb = new StringBuilder();
+        String path = dialog.getPath();
+        String caption = dialog.getCaption();
+        String label = dialog.getLabel();
 
         sb.append("\\begin{figure}\n");
         sb.append("\\centering\n");
