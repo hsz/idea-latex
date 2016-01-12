@@ -34,14 +34,38 @@ import javax.swing.*;
 
 public class MatrixEditorActionDialog extends DialogWrapper {
 
+    public enum Bracket {
+        NONE('\0'), PARENTHESES('p'), BRACKETS('b'), BRACES('B'), SINGLE_LINE('v'), DOUBLE_LINE('V');
+
+        private final char value;
+
+        Bracket(char value) {
+            this.value = value;
+        }
+
+        public char getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return LatexBundle.message("form.bracket." + name().toLowerCase());
+        }
+    }
+
     private JPanel panel;
-    private JTextField rows;
-    private JTextField columns;
+    private JSpinner rows;
+    private JSpinner columns;
+    private JComboBox<Bracket> bracket;
 
     public MatrixEditorActionDialog(@NotNull Project project) {
         super(project);
-
         setTitle(LatexBundle.message("editor.matrix.dialog.title"));
+
+        rows.setModel(new SpinnerNumberModel(2, 1, null, 1));
+        columns.setModel(new SpinnerNumberModel(2, 1, null, 1));
+        bracket.setModel(new DefaultComboBoxModel<Bracket>(Bracket.values()));
+
         init();
     }
 
@@ -52,11 +76,16 @@ public class MatrixEditorActionDialog extends DialogWrapper {
     }
 
     public int getRows() {
-        return Integer.valueOf(rows.getText());
+        return (Integer) rows.getValue();
     }
 
     public int getColumns() {
-        return Integer.valueOf(columns.getText());
+        return (Integer) columns.getValue();
+    }
+
+    @NotNull
+    public Bracket getBracket() {
+        return (Bracket) bracket.getSelectedItem();
     }
 
 }

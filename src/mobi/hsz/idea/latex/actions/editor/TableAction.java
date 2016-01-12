@@ -25,6 +25,7 @@
 package mobi.hsz.idea.latex.actions.editor;
 
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.text.StringUtil;
 import mobi.hsz.idea.latex.LatexBundle;
 import mobi.hsz.idea.latex.actions.editor.base.DialogEditorAction;
 import mobi.hsz.idea.latex.ui.TableEditorActionDialog;
@@ -58,14 +59,17 @@ public class TableAction extends DialogEditorAction<TableEditorActionDialog> {
         StringBuilder sb = new StringBuilder();
         int rows = dialog.getRows();
         int columns = dialog.getColumns();
+        String alignmentValue = StringUtil.repeatSymbol(dialog.getAlignment().getValue(), columns);
+        String tableBorder = dialog.getBorder().isNone() ? "" : "|";
+        String cellBorder = dialog.getBorder().isCell() ? "\\hline\n" : "";
 
-        sb.append("\\begin{tabular}{lll}\n");
+        sb.append(String.format("\\begin{tabular}{%s%s%s}\n", tableBorder, alignmentValue, tableBorder));
+        sb.append(cellBorder);
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= columns; j++) {
-                sb.append(i);
-                sb.append(j);
-                sb.append(j == columns ? "\\\\\n" : " & ");
+                sb.append(String.format("%d%d%s", i, j, j == columns ? "\\\\\n" : " & "));
             }
+            sb.append(cellBorder);
         }
         sb.append("\\end{tabular}");
 

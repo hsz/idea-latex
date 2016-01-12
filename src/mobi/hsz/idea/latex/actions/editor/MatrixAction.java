@@ -56,16 +56,15 @@ public class MatrixAction extends DialogEditorAction<MatrixEditorActionDialog> {
         StringBuilder sb = new StringBuilder();
         int rows = dialog.getRows();
         int columns = dialog.getColumns();
+        char bracket = dialog.getBracket().getValue();
 
-        sb.append("$\\begin{matrix}\n");
+        sb.append(String.format("$\\begin{%cmatrix}\n", bracket));
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= columns; j++) {
-                sb.append(i);
-                sb.append(j);
-                sb.append(j == columns ? "\\\\\n" : " & ");
+                sb.append(String.format("%d%d%s", i, j, j == columns ? "\\\\\n" : " & "));
             }
         }
-        sb.append("\\end{matrix}");
+        sb.append(String.format("\\end{%cmatrix}", bracket));
 
         return sb.toString();
     }

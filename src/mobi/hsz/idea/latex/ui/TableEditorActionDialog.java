@@ -34,14 +34,61 @@ import javax.swing.*;
 
 public class TableEditorActionDialog extends DialogWrapper {
 
+    public enum Alignment {
+        LEFT('l'), CENTER('c'), RIGHT('r');
+
+        private final char value;
+
+        Alignment(char value) {
+            this.value = value;
+        }
+
+        public char getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return LatexBundle.message("form.alignment." + name().toLowerCase());
+        }
+    }
+
+    public enum Border {
+        NONE, TABLE, CELL;
+
+        public boolean isNone() {
+            return this.equals(NONE);
+        }
+
+        public boolean isTable() {
+            return this.equals(TABLE);
+        }
+
+        public boolean isCell() {
+            return this.equals(CELL);
+        }
+
+        @Override
+        public String toString() {
+            return LatexBundle.message("form.border." + name().toLowerCase());
+        }
+    }
+
     private JPanel panel;
-    private JTextField rows;
-    private JTextField columns;
+    private JSpinner rows;
+    private JSpinner columns;
+    private JComboBox<Alignment> alignment;
+    private JComboBox<Border> border;
 
     public TableEditorActionDialog(@NotNull Project project) {
         super(project);
-
         setTitle(LatexBundle.message("editor.table.dialog.title"));
+
+        rows.setModel(new SpinnerNumberModel(2, 1, null, 1));
+        columns.setModel(new SpinnerNumberModel(2, 1, null, 1));
+        alignment.setModel(new DefaultComboBoxModel<Alignment>(Alignment.values()));
+        border.setModel(new DefaultComboBoxModel<Border>(Border.values()));
+
         init();
     }
 
@@ -52,11 +99,21 @@ public class TableEditorActionDialog extends DialogWrapper {
     }
 
     public int getRows() {
-        return Integer.valueOf(rows.getText());
+        return (Integer) rows.getValue();
     }
 
     public int getColumns() {
-        return Integer.valueOf(columns.getText());
+        return (Integer) columns.getValue();
+    }
+
+    @NotNull
+    public Alignment getAlignment() {
+        return (Alignment) alignment.getSelectedItem();
+    }
+
+    @NotNull
+    public Border getBorder() {
+        return (Border) border.getSelectedItem();
     }
 
 }
