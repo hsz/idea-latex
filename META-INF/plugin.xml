@@ -73,6 +73,9 @@
                 file="colorSchemes/LatexDarcula.xml"
                 scheme="Darcula"/>
 
+        <codeStyleSettingsProvider
+                implementation="mobi.hsz.idea.latex.codeStyle.LatexCodeStyleSettingsProvider"/>
+
         <colorSettingsPage
                 implementation="mobi.hsz.idea.latex.highlighter.LatexColorSettingsPage"/>
 
@@ -96,6 +99,9 @@
         <lang.syntaxHighlighterFactory
                 implementationClass="mobi.hsz.idea.latex.highlighter.LatexHighlighterFactory"
                 key="LaTeX"/>
+
+        <langCodeStyleSettingsProvider
+                implementation="mobi.hsz.idea.latex.codeStyle.LatexLanguageCodeStyleSettingsProvider"/>
 
         <psi.referenceContributor
                 implementation="mobi.hsz.idea.latex.reference.LatexReferenceContributor"
