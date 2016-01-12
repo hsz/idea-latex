@@ -1,0 +1,24 @@
+\documentclass[a4paper,11pt]{letter}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+\address{Your name\\Your address\\Your phone number}
+\signature{Your name}
+
+\begin{document}
+
+\begin{letter}{Destination\\Address of the destination\\Phone number of the destination}
+
+\opening{Dear Sir,}
+
+% corps of the letter
+
+\closing{Yours sincerely,}
+
+%\cc{Other destination}
+%\ps{PS: PostScriptum}
+%\encl{Enclosures}
+
+\end{letter}
+\end{document}

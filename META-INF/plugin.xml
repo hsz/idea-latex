@@ -76,6 +76,8 @@
         <colorSettingsPage
                 implementation="mobi.hsz.idea.latex.highlighter.LatexColorSettingsPage"/>
 
+        <fileTemplateGroup
+                implementation="mobi.hsz.idea.latex.actions.LatexTemplatesFactory"/>
         <fileTypeFactory
                 implementation="mobi.hsz.idea.latex.file.LatexFileTypeFactory"/>
 
@@ -117,28 +119,33 @@
     </project-components>
 
     <actions>
-        <group id="latex" text="LaTeX">
-            <action id="latex.bold" class="mobi.hsz.idea.latex.actions.editor.BoldAction">
+        <group id="latex.new" text="LaTeX">
+            <action id="latex.new.file" class="mobi.hsz.idea.latex.actions.CreateLatexFileAction"/>
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+        </group>
+
+        <group id="latex.editor" text="LaTeX">
+            <action id="latex.editor.bold" class="mobi.hsz.idea.latex.actions.editor.BoldAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="B"/>
             </action>
-            <action id="latex.italic" class="mobi.hsz.idea.latex.actions.editor.ItalicAction">
+            <action id="latex.editor.italic" class="mobi.hsz.idea.latex.actions.editor.ItalicAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="I"/>
             </action>
-            <action id="latex.underline" class="mobi.hsz.idea.latex.actions.editor.UnderlineAction">
+            <action id="latex.editor.underline" class="mobi.hsz.idea.latex.actions.editor.UnderlineAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="U"/>
             </action>
-            <action id="latex.align_left" class="mobi.hsz.idea.latex.actions.editor.AlignLeftAction">
+            <action id="latex.editor.align_left" class="mobi.hsz.idea.latex.actions.editor.AlignLeftAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="L"/>
             </action>
-            <action id="latex.align_center" class="mobi.hsz.idea.latex.actions.editor.AlignCenterAction">
+            <action id="latex.editor.align_center" class="mobi.hsz.idea.latex.actions.editor.AlignCenterAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="C"/>
             </action>
-            <action id="latex.align_right" class="mobi.hsz.idea.latex.actions.editor.AlignRightAction">
+            <action id="latex.editor.align_right" class="mobi.hsz.idea.latex.actions.editor.AlignRightAction">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="R"/>
             </action>
-            <action id="latex.image" class="mobi.hsz.idea.latex.actions.editor.ImageAction" />
-            <action id="latex.matrix" class="mobi.hsz.idea.latex.actions.editor.MatrixAction" />
-            <action id="latex.table" class="mobi.hsz.idea.latex.actions.editor.TableAction" />
+            <action id="latex.editor.image" class="mobi.hsz.idea.latex.actions.editor.ImageAction"/>
+            <action id="latex.editor.matrix" class="mobi.hsz.idea.latex.actions.editor.MatrixAction"/>
+            <action id="latex.editor.table" class="mobi.hsz.idea.latex.actions.editor.TableAction"/>
         </group>
     </actions>
 </idea-plugin>
