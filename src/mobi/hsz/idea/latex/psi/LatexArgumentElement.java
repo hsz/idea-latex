@@ -25,7 +25,7 @@
 package mobi.hsz.idea.latex.psi;
 
 import com.intellij.psi.PsiElement;
-import com.sun.istack.internal.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public interface LatexArgumentElement extends PsiElement {
 
