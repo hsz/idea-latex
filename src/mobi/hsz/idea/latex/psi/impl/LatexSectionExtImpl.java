@@ -27,7 +27,7 @@ package mobi.hsz.idea.latex.psi.impl;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.util.PsiTreeUtil;
 import mobi.hsz.idea.latex.psi.*;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Abstract {@link LatexSection} implementation to provide shorthands for accessing {@link LatexInstructionBegin}
@@ -47,11 +47,9 @@ public abstract class LatexSectionExtImpl extends LatexElementImpl implements La
      *
      * @return begin instruction
      */
-    @NotNull
+    @Nullable
     public LatexInstructionBegin getBeginInstruction() {
-        LatexInstructionBegin instruction = PsiTreeUtil.getChildOfType(this, LatexInstructionBegin.class);
-        assert instruction != null;
-        return instruction;
+        return PsiTreeUtil.getChildOfType(this, LatexInstructionBegin.class);
     }
 
     /**
@@ -59,11 +57,9 @@ public abstract class LatexSectionExtImpl extends LatexElementImpl implements La
      *
      * @return end instruction
      */
-    @NotNull
+    @Nullable
     public LatexInstructionEnd getEndInstruction() {
-        LatexInstructionEnd instruction = PsiTreeUtil.getChildOfType(this, LatexInstructionEnd.class);
-        assert instruction != null;
-        return instruction;
+        return PsiTreeUtil.getChildOfType(this, LatexInstructionEnd.class);
     }
 
 }

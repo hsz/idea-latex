@@ -58,6 +58,10 @@ public class LatexFoldingBuilder implements FoldingBuilder {
             LatexInstructionBegin begin = ((LatexSectionExtImpl) section).getBeginInstruction();
             LatexInstructionEnd end = ((LatexSectionExtImpl) section).getEndInstruction();
 
+            if (begin == null || end == null) {
+                return;
+            }
+
             int startOffset = begin.getTextOffset();
             int endOffset = end.getTextOffset() + end.getTextLength();
             if (endOffset - startOffset > 0) {
@@ -106,7 +110,7 @@ public class LatexFoldingBuilder implements FoldingBuilder {
      */
     @Override
     public boolean isCollapsedByDefault(@NotNull ASTNode node) {
-        return true;
+        return false;
     }
 
 }
