@@ -24,6 +24,7 @@ sourceSets {
 
 intellij {
     version ideaVersion
+    type ideaType
     pluginName pluginName
     downloadSources Boolean.valueOf(sources)
     sameSinceUntilBuild Boolean.valueOf(isEAP)
@@ -69,6 +70,7 @@ test {
 
 dependencies {
     bnf files("$buildDir/tools/GrammarKit/lib/grammar-kit.jar")
+    bnf files("$buildDir/tools/light-psi-all.jar")
     jflex files("$buildDir/tools/JFlex.jar")
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
@@ -82,7 +84,7 @@ import de.undercouch.gradle.tasks.download.Download
 task downloadJFlexJar(type: Download) {
     description 'Downloads JFlex.'
 
-    src 'https://github.com/JetBrains/intellij-community/raw/master/tools/lexer/jflex-1.4/lib/JFlex.jar'
+    src 'https://github.com/JetBrains/intellij-community/raw/master/tools/lexer/jflex-1.7.0-SNAPSHOT.jar'
     dest "$buildDir/tools/JFlex.jar"
     onlyIf { !file("$buildDir/tools/JFlex.jar").exists() }
 }
@@ -99,9 +101,8 @@ task generateLexer(type: JavaExec) {
     description 'Generates lexer sources with JFlex.'
     dependsOn downloadJFlexJar, downloadJFlexSkeleton
 
-    main = 'JFlex.Main'
+    main = 'jflex.Main'
     args = [
-            '-sliceandcharat',
             '-skel',
             "$buildDir/tools/idea-flex.skeleton",
             '-d',
@@ -115,8 +116,16 @@ task generateLexer(type: JavaExec) {
 task downloadGrammarKit(type: Download) {
     description 'Downloads GrammarKit.'
 
-    src 'https://github.com/JetBrains/Grammar-Kit/files/172143/GrammarKit.zip'
+    src 'https://github.com/JetBrains/Grammar-Kit/releases/download/1.2.0.1/GrammarKit.zip'
     dest "$buildDir/tools/GrammarKit.zip"
+    onlyIfNewer true
+}
+
+task downloadGrammarLightPsi(type: Download) {
+    description 'Downloads GrammarKit Light Psi.'
+
+    src 'https://github.com/JetBrains/Grammar-Kit/releases/download/1.2.0.1/light-psi-all.jar'
+    dest "$buildDir/tools/light-psi-all.jar"
     onlyIfNewer true
 }
 
@@ -131,7 +140,7 @@ task unzipGrammarKit(type: Copy) {
 
 task generateParser(type: JavaExec) {
     description 'Generates parser sources with GrammarKit.'
-    dependsOn unzipGrammarKit
+    dependsOn unzipGrammarKit, downloadGrammarLightPsi
 
     main = 'org.intellij.grammar.Main'
     args = [ 'gen', 'resources/bnf/Latex.bnf' ]
