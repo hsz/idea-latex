@@ -89,14 +89,26 @@ Developed By
 - *you can be first on this list*
 
 
+JxDocument
+----------
+
+LaTeX plugin uses [JxDocument][jxdocument], which is a proprietary software. The use of JxDocument is governed by
+[JxDocument Product Licence Agreement][jxdocument-licence]. If you would like to use JxDocument in your development,
+please contact [TeamDev][jxdocument-teamdev].
+
+
 License
 -------
 
-Copyright (c) 2015 hsz Jakub Chrzanowski. See the [LICENSE](./LICENSE) file for license rights and limitations (MIT).
+Copyright (c) 2016 hsz Jakub Chrzanowski. See the [LICENSE](./LICENSE) file for license rights and limitations (MIT).
 
     
 [hsz]:                    http://hsz.mobi
 [latest-release]:         https://github.com/hsz/idea-latex/releases/latest
+
+[jxdocument]:             https://www.teamdev.com/jxdocument
+[jxdocument-licence]:     https://www.teamdev.com/jxdocument-licence-agreement
+[jxdocument-teamdev]:     https://www.teamdev.com/
 
 [badge-gitter-img]:       https://badges.gitter.im/hsz/idea-latex.svg
 [badge-gitter]:           https://gitter.im/hsz/idea-latex
