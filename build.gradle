@@ -73,6 +73,7 @@ dependencies {
     bnf files("$buildDir/tools/light-psi-all.jar")
     jflex files("$buildDir/tools/JFlex.jar")
 
+    compile fileTree(dir: 'libs', include: '*.jar')
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 

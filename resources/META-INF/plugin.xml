@@ -107,9 +107,22 @@
                 implementation="mobi.hsz.idea.latex.reference.LatexReferenceContributor"
                 language="LaTeX"/>
 
+        <runConfigurationProducer
+                implementation="mobi.hsz.idea.latex.execution.LatexRunConfigurationProducer"/>
+        <configurationType
+                implementation="mobi.hsz.idea.latex.execution.configuration.LatexConfigurationType"/>
+        <programRunner
+                implementation="mobi.hsz.idea.latex.execution.runners.LatexRunner"/>
+
         <spellchecker.support
                 implementationClass="mobi.hsz.idea.latex.inspections.LatexSpellcheckingStrategy"
                 language="LaTeX"/>
+
+        <toolWindow
+                id="LaTeX"
+                anchor="right"
+                icon="AllIcons.Toolwindows.ToolWindowAnt"
+                factoryClass="mobi.hsz.idea.latex.wm.LatexToolWindowFactory"/>
 
     </extensions>
 
