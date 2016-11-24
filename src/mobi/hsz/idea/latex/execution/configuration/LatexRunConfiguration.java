@@ -26,39 +26,38 @@ package mobi.hsz.idea.latex.execution.configuration;
 
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
-import com.intellij.execution.configuration.AbstractRunConfiguration;
 import com.intellij.execution.configurations.*;
 import com.intellij.execution.impl.CheckableRunConfigurationEditor;
 import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.options.SettingsEditorGroup;
-import mobi.hsz.idea.latex.execution.LatexRunConfigurationParameters;
+import com.intellij.openapi.project.Project;
+import com.intellij.psi.PsiElement;
+import com.intellij.refactoring.listeners.RefactoringElementListener;
 import mobi.hsz.idea.latex.options.LatexRunConfigurationEditor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Collection;
 
 /**
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
  * @since 0.3
  */
-public class LatexRunConfiguration extends AbstractRunConfiguration
-        implements LatexRunConfigurationParameters, RunConfigurationWithSuppressedDefaultDebugAction {
-    @Nullable
-    private String programsParameters;
-
-    @Nullable
-    private String workingDirectory;
-
-    public LatexRunConfiguration(String name, RunConfigurationModule configurationModule, ConfigurationFactory factory) {
-        super(name, configurationModule, factory);
+public class LatexRunConfiguration extends LocatableConfigurationBase implements RefactoringListenerProvider /*,
+        /* LatexRunConfigurationParameters, RunConfigurationWithSuppressedDefaultDebugAction */ {
+    protected LatexRunConfiguration(Project project, @NotNull ConfigurationFactory factory, String name) {
+        super(project, factory, name);
     }
 
+    /**
+     * Returns a listener to handle a rename or move refactoring of the specified PSI element.
+     *
+     * @param element the element on which a refactoring was invoked.
+     * @return the listener to handle the refactoring, or null if the run configuration doesn't care about refactoring of this element.
+     */
+    @Nullable
     @Override
-    public Collection<Module> getValidModules() {
-        return null;
+    public RefactoringElementListener getRefactoringElementListener(PsiElement element) {
+        return LatexRunConfigurationRefactoringHandler.getRefactoringElementListener(this, element);
     }
 
     /**
@@ -72,7 +71,7 @@ public class LatexRunConfiguration extends AbstractRunConfiguration
     @NotNull
     @Override
     public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
-        return new LatexRunConfigurationEditor(getConfigurationModule().getModule());
+        return new LatexRunConfigurationEditor(getProject());
     }
 
     /**
@@ -86,27 +85,5 @@ public class LatexRunConfiguration extends AbstractRunConfiguration
     @Override
     public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment environment) throws ExecutionException {
         return null;
-    }
-
-    @Override
-    public void setProgramParameters(@Nullable String parameters) {
-        this.programsParameters = parameters;
-    }
-
-    @Nullable
-    @Override
-    public String getProgramParameters() {
-        return programsParameters;
-    }
-
-    @Override
-    public void setWorkingDirectory(@Nullable String workingDirectory) {
-        this.workingDirectory = workingDirectory;
-    }
-
-    @Nullable
-    @Override
-    public String getWorkingDirectory() {
-        return workingDirectory;
     }
 }

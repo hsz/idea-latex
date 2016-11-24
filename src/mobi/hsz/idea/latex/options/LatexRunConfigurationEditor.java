@@ -24,13 +24,15 @@
 
 package mobi.hsz.idea.latex.options;
 
-import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.util.ui.FormBuilder;
+import mobi.hsz.idea.latex.execution.LatexRunSettings;
 import mobi.hsz.idea.latex.execution.configuration.LatexRunConfiguration;
 import mobi.hsz.idea.latex.execution.ui.LatexParametersPanel;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
@@ -39,33 +41,56 @@ import javax.swing.*;
  * @since 0.3
  */
 public class LatexRunConfigurationEditor extends SettingsEditor<LatexRunConfiguration> {
+    @NotNull
+    private final Project project;
+
+    @NotNull
+    private final JPanel rootComponent;
+
     private LatexParametersPanel form;
 
-    public LatexRunConfigurationEditor(@Nullable final Module module) {
-        form = new LatexParametersPanel();
-        form.setModuleContext(module);
+    public LatexRunConfigurationEditor(@NotNull final Project project) {
+        this.project = project;
+
+//
+//        myNodeInterpreterField = new NodeJsInterpreterField(project, false);
+//        myKarmaPackageDirPathTextFieldWithBrowseButton = createKarmaPackageDirPathTextField(project);
+//        myConfigPathTextFieldWithBrowseButton = createConfigurationFileTextField(project);
+//        myEnvVarsComponent = new EnvironmentVariablesTextFieldWithBrowseButton();
+//        myBrowsers = createBrowsersTextField();
+//        JComponent browsersDescription = createBrowsersDescription();
+        rootComponent = new FormBuilder()
+                .setAlignLabelOnRight(false)
+//                .addLabeledComponent(KarmaBundle.message("runConfiguration.config_file.label"), myConfigPathTextFieldWithBrowseButton)
+//                .addLabeledComponent(KarmaBundle.message("runConfiguration.browsers.label"), myBrowsers)
+//                .addLabeledComponent("", browsersDescription, 0, false)
+                .addComponent(new JSeparator(), 8)
+//                .addLabeledComponent(KarmaBundle.message("runConfiguration.node_interpreter.label"), myNodeInterpreterField, 8)
+//                .addLabeledComponent(KarmaBundle.message("runConfiguration.karma_package_dir.label"), myKarmaPackageDirPathTextFieldWithBrowseButton)
+//                .addLabeledComponent(KarmaBundle.message("runConfiguration.environment.label"), myEnvVarsComponent)
+                .getPanel();
     }
 
     @Override
     protected void resetEditorFrom(LatexRunConfiguration configuration) {
-        form.reset(configuration);
-        form.resetLatex(configuration);
+        LatexRunSettings settings = configuration.getRunSettings();
+
     }
 
     @Override
     protected void applyEditorTo(LatexRunConfiguration configuration) throws ConfigurationException {
-        form.applyTo(configuration);
-        form.applyLatexTo(configuration);
+        LatexRunSettings.Builder builder = new LatexRunSettings.Builder();
+//        builder.setConfigPath(myConfigPathTextFieldWithBrowseButton.getChildComponent().getText());
+//        builder.setBrowsers(StringUtil.notNullize(myBrowsers.getText()));
+//        builder.setInterpreterRef(myNodeInterpreterField.getInterpreterRef());
+//        builder.setEnvData(myEnvVarsComponent.getData());
+//        builder.setKarmaPackageDir(myKarmaPackageDirPathTextFieldWithBrowseButton.getChildComponent().getText());
+        configuration.setRunSettings(builder.build());
     }
 
     @NotNull
     @Override
     protected JComponent createEditor() {
-        return form;
-    }
-
-    @Override
-    protected void disposeEditor() {
-        form = null;
+        return rootComponent;
     }
 }

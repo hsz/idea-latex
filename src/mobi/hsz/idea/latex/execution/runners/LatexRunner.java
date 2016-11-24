@@ -24,6 +24,7 @@
 
 package mobi.hsz.idea.latex.execution.runners;
 
+import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.RunProfile;
 import com.intellij.execution.executors.DefaultRunExecutor;
 import com.intellij.execution.runners.DefaultProgramRunner;
