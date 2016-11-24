@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.lang;
+package mobi.hsz.idea.latex.folding;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.folding.FoldingBuilder;
