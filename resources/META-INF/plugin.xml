@@ -91,7 +91,7 @@
                 implementationClass="mobi.hsz.idea.latex.lang.LatexCommenter"
                 language="LaTeX"/>
         <lang.foldingBuilder
-                implementationClass="mobi.hsz.idea.latex.lang.LatexFoldingBuilder"
+                implementationClass="mobi.hsz.idea.latex.folding.LatexFoldingBuilder"
                 language="LaTeX"/>
         <lang.formatter
                 implementationClass="mobi.hsz.idea.latex.formatting.templateLanguages.LatexFormattingModelBuilder"
