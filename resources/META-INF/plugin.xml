@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>mobi.hsz.idea.latex</id>
     <name>LaTeX</name>
-    <version>0.2</version>
+    <version>0.3.0</version>
     <vendor email="jakub@hsz.mobi" url="http://www.hsz.mobi">hsz</vendor>
 
     <description><![CDATA[
@@ -73,6 +73,10 @@
                 file="colorSchemes/LatexDarcula.xml"
                 scheme="Darcula"/>
 
+        <applicationService
+                serviceInterface="mobi.hsz.idea.latex.settings.LatexSettings"
+                serviceImplementation="mobi.hsz.idea.latex.settings.LatexSettings"/>
+
         <codeStyleSettingsProvider
                 implementation="mobi.hsz.idea.latex.codeStyle.LatexCodeStyleSettingsProvider"/>
 
@@ -114,13 +118,18 @@
     </extensions>
 
     <application-components>
-        <!-- Add your application components here -->
+        <component>
+            <implementation-class>mobi.hsz.idea.latex.LatexApplicationComponent</implementation-class>
+        </component>
     </application-components>
 
     <project-components>
         <component>
             <implementation-class>mobi.hsz.idea.latex.editor.LatexEditorActionsLoaderComponent</implementation-class>
             <skipForDefaultProject/>
+        </component>
+        <component>
+            <implementation-class>mobi.hsz.idea.latex.LatexUpdateComponent</implementation-class>
         </component>
     </project-components>
 

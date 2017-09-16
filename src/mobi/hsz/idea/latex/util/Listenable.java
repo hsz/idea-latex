@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 hsz Jakub Chrzanowski <jakub@hsz.mobi>
+ * Copyright (c) 2017 hsz Jakub Chrzanowski <jakub@hsz.mobi>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,37 +22,28 @@
  * SOFTWARE.
  */
 
-package mobi.hsz.idea.latex.lang;
+package mobi.hsz.idea.latex.util;
 
-import com.intellij.lang.Language;
-import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * LaTeX {@link Language} definition.
+ * Abstracts a listenable object.
  *
  * @author Jakub Chrzanowski <jakub@hsz.mobi>
- * @since 0.1
+ * @since 0.3.0
  */
-public class LatexLanguage extends Language {
+public interface Listenable<T> {
+    /**
+     * Add the given listener. The listener will be executed in the containing instance's thread.
+     *
+     * @param listener listener to add
+     */
+    void addListener(@NotNull T listener);
 
-    /** The {@link LatexLanguage} instance. */
-    public static final LatexLanguage INSTANCE = new LatexLanguage();
-
-    /** The LaTeX language name. */
-    @NonNls
-    public static final String NAME = "LaTeX";
-
-    /** The LaTeX file extension suffix. */
-    @NonNls
-    public static final String EXTENSION = "tex";
-
-    /** LaTeX languages group name. */
-    @NonNls
-    public static final String GROUP = "LATEX_GROUP";
-
-    /** {@link LatexLanguage} is a non-instantiable static class. */
-    private LatexLanguage() {
-        super(NAME);
-    }
-
+    /**
+     * Remove the given listener.
+     *
+     * @param listener listener to remove
+     */
+    void removeListener(@NotNull T listener);
 }

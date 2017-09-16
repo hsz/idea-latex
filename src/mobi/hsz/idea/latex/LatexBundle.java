@@ -38,6 +38,10 @@ import java.util.ResourceBundle;
  */
 public class LatexBundle {
 
+    /** Gitignore plugin ID. */
+    @NonNls
+    public static final String PLUGIN_ID = "mobi.hsz.idea.latex";
+    
     /** The {@link java.util.ResourceBundle} path. */
     @NonNls
     private static final String BUNDLE_NAME = "messages.LatexBundle";

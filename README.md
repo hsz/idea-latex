@@ -1,5 +1,11 @@
-idea-latex [![Gitter][badge-gitter-img]][badge-gitter] [![Build Status][badge-travis-img]][badge-travis] [![Donate][badge-paypal-img]][badge-paypal] [![Donate][badge-bitcoin-img]][badge-bitcoin]
-==========
+idea-latex v0.3.0
+=================
+
+[![Gitter][badge-gitter-img]][badge-gitter] [![Build Status][badge-travis-img]][badge-travis] [![Donate][badge-paypal-img]][badge-paypal]
+
+[![Version](http://phpstorm.espend.de/badge/7660/version)][plugin-website]
+[![Downloads](http://phpstorm.espend.de/badge/7660/downloads)][plugin-website]
+[![Downloads last month](http://phpstorm.espend.de/badge/7660/last-month)][plugin-website]
 
 Introduction
 ------------
@@ -92,10 +98,11 @@ Developed By
 License
 -------
 
-Copyright (c) 2015 hsz Jakub Chrzanowski. See the [LICENSE](./LICENSE) file for license rights and limitations (MIT).
+Copyright (c) 2017 hsz Jakub Chrzanowski. See the [LICENSE](./LICENSE) file for license rights and limitations (MIT).
 
     
 [hsz]:                    http://hsz.mobi
+[plugin-website]:         https://plugins.jetbrains.com/plugin/7660
 [latest-release]:         https://github.com/hsz/idea-latex/releases/latest
 
 [badge-gitter-img]:       https://badges.gitter.im/hsz/idea-latex.svg
@@ -103,6 +110,4 @@ Copyright (c) 2015 hsz Jakub Chrzanowski. See the [LICENSE](./LICENSE) file for 
 [badge-travis-img]:       https://travis-ci.org/hsz/idea-latex.svg
 [badge-travis]:           https://travis-ci.org/hsz/idea-latex
 [badge-paypal-img]:       https://img.shields.io/badge/donate-paypal-yellow.svg
-[badge-paypal]:           https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V6QCW4DR2XWY4
-[badge-bitcoin-img]:      https://img.shields.io/badge/donate-bitcoin-yellow.svg
-[badge-bitcoin]:          https://blockchain.info/address/1BUbqKrUBmGGSnMybzGCsJyAWJbh4CcwE1
+[badge-paypal]:           https://www.paypal.me/hsz
