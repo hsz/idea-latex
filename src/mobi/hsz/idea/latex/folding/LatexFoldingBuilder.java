@@ -48,6 +48,8 @@ import java.util.List;
  */
 public class LatexFoldingBuilder implements FoldingBuilder {
 
+    private final LatexFoldingSettings foldingSettings = LatexFoldingSettings.getInstance();
+
     /** Descriptors collection. */
     private final List<FoldingDescriptor> descriptors = new ArrayList<FoldingDescriptor>();
 
@@ -84,8 +86,9 @@ public class LatexFoldingBuilder implements FoldingBuilder {
     @NotNull
     public FoldingDescriptor[] buildFoldRegions(@NotNull final ASTNode node, @NotNull final Document document) {
         descriptors.clear();
-        node.getPsi().acceptChildren(visitor);
-
+        if(foldingSettings.isFoldingForAllBlocks()){
+          node.getPsi().acceptChildren(visitor);
+        }
         return descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
     }
 

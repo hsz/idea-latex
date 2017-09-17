@@ -94,9 +94,14 @@
         <lang.commenter
                 implementationClass="mobi.hsz.idea.latex.lang.LatexCommenter"
                 language="LaTeX"/>
+
+        <codeFoldingOptionsProvider instance="mobi.hsz.idea.latex.folding.LatexFoldingOptionsProvider" />
+        <applicationService serviceInterface="mobi.hsz.idea.latex.folding.LatexFoldingSettings"
+                            serviceImplementation="mobi.hsz.idea.latex.folding.LatexFoldingSettings" />
         <lang.foldingBuilder
                 implementationClass="mobi.hsz.idea.latex.folding.LatexFoldingBuilder"
                 language="LaTeX"/>
+
         <lang.parserDefinition
                 implementationClass="mobi.hsz.idea.latex.lang.LatexParserDefinition"
                 language="LaTeX"/>
