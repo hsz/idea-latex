@@ -37,6 +37,7 @@ Features
 - *obtaining installed packages*
 - *generating PDF files*
 - *preview generated PDF files*
+- *spell checking*
 - *and more...*
 
 
@@ -49,6 +50,13 @@ Installation
   - Download the [latest release][latest-release] and install it manually using <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Install plugin from disk...</kbd>
   
 Restart IDE.
+
+Build from source:
+
+1. [Check out the source of IntelliJ IDEA Community Edition](http://www.jetbrains.org/intellij/sdk/docs/basics/checkout_and_build_community.html), no need to build it.
+1. [Configure IntelliJ Platform SDK for this project](http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/setting_up_environment.html#configuring-intellij-platform-sdk);
+1. Deploy the plugin: under project root, run `./gradlew build`;
+1. Plugin release is under `build/distributions`, which can be installed via IntelliJ;
 
 
 Usage
